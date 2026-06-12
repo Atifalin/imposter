@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id        String   @id @default(uuid())
+  name      String
+  token     String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+  lastSeen  DateTime @default(now())
+
+  hostedRooms  Room[]       @relation("HostedRooms")
+  roomMembers  RoomMember[]
+  assignments  Assignment[]
+  votesCast    Vote[]       @relation("VotesCast")
+  votesReceived Vote[]      @relation("VotesReceived")
+}
+
+model Room {
+  id           String   @id @default(uuid())
+  code         String   @unique
+  hostPlayerId String
+  status       String   @default("lobby") // lobby, playing, finished
+  settings     String   // stores categories[], difficulty, imposterCount, timerSeconds (as stringified JSON)
+  createdAt    DateTime @default(now())
+
+  hostPlayer   Player       @relation("HostedRooms", fields: [hostPlayerId], references: [id])
+  members      RoomMember[]
+  rounds       Round[]
+  words        Word[]
+
+  @@index([code])
+}
+
+model RoomMember {
+  id        String   @id @default(uuid())
+  roomId    String
+  playerId  String
+  connected Boolean  @default(true)
+  joinedAt  DateTime @default(now())
+
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  player    Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, playerId])
+}
+
+model Round {
+  id          String   @id @default(uuid())
+  roomId      String
+  roundNumber Int
+  wordId      String?
+  secretWord  String
+  hint        String
+  difficulty  String
+  status      String   @default("revealing") // revealing, discussion, voting, results
+  createdAt   DateTime @default(now())
+
+  room        Room         @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  assignments Assignment[]
+  votes       Vote[]
+}
+
+model Assignment {
+  id           String   @id @default(uuid())
+  roundId      String
+  playerId     String
+  assignedWord String
+  isImposter   Boolean  @default(false)
+  viewed       Boolean  @default(false)
+
+  round        Round    @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  player       Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+}
+
+model Word {
+  id         String   @id @default(uuid())
+  category   String
+  word       String
+  easyHint   String
+  mediumHint String
+  hardHint   String
+  isCustom   Boolean  @default(false)
+  roomId     String?
+
+  room       Room?    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@index([category])
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  roundId   String
+  voterId   String
+  targetId  String
+  createdAt DateTime @default(now())
+
+  round     Round    @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  voter     Player   @relation("VotesCast", fields: [voterId], references: [id], onDelete: Cascade)
+  target    Player   @relation("VotesReceived", fields: [targetId], references: [id], onDelete: Cascade)
+}

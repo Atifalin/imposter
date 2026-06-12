@@ -11,6 +11,7 @@ import DiscussionPhase from '../../../components/game/DiscussionPhase';
 import VotingPhase from '../../../components/game/VotingPhase';
 import ResultsPhase from '../../../components/game/ResultsPhase';
 import { MadeBy } from '../../../components/ui/MadeBy';
+import { useSocket } from '../../../hooks/useSocket';
 
 export default function RoomPage() {
   const params = useParams();
@@ -59,18 +60,41 @@ export default function RoomPage() {
     return <Lobby roomState={roomState} players={players} currentPlayerId={player.id} />;
   }
 
+  const { socket } = useSocket();
   const phase = roomState.currentRound?.status;
 
-  switch (phase) {
-    case 'revealing':
-      return <RevealingPhase roomState={roomState} players={players} assignment={assignment} currentPlayerId={player.id} />;
-    case 'discussion':
-      return <DiscussionPhase roomState={roomState} players={players} timer={timer} currentPlayerId={player.id} />;
-    case 'voting':
-      return <VotingPhase roomState={roomState} players={players} votes={votes} timer={timer} currentPlayerId={player.id} />;
-    case 'results':
-      return <ResultsPhase roomState={roomState} players={players} results={results} currentPlayerId={player.id} />;
-    default:
-      return <div>Unknown game phase</div>;
-  }
+  const handleLeaveRoom = () => {
+    if (socket) {
+      socket.emit('leave-room');
+    }
+    router.push('/');
+  };
+
+  const renderPhase = () => {
+    switch (phase) {
+      case 'revealing':
+        return <RevealingPhase roomState={roomState} players={players} assignment={assignment} currentPlayerId={player.id} />;
+      case 'discussion':
+        return <DiscussionPhase roomState={roomState} players={players} timer={timer} currentPlayerId={player.id} />;
+      case 'voting':
+        return <VotingPhase roomState={roomState} players={players} votes={votes} timer={timer} currentPlayerId={player.id} />;
+      case 'results':
+        return <ResultsPhase roomState={roomState} players={players} results={results} currentPlayerId={player.id} />;
+      default:
+        return <div>Unknown game phase</div>;
+    }
+  };
+
+  return (
+    <>
+      <button 
+        onClick={handleLeaveRoom}
+        className="fixed top-4 right-4 z-50 bg-surface/80 hover:bg-danger/20 border border-white/5 hover:border-danger/30 text-text-muted hover:text-danger p-3 rounded-full backdrop-blur-sm transition-all shadow-lg"
+        title="Leave Room"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+      </button>
+      {renderPhase()}
+    </>
+  );
 }

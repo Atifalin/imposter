@@ -67,6 +67,21 @@ export function registerRoomHandlers(
       socket.join(code);
       socket.data.roomCode = code;
       
+      if (room.currentRound) {
+        const assignment = await prisma.assignment.findFirst({
+          where: { roundId: room.currentRound.id, playerId }
+        });
+        if (assignment) {
+          socket.emit('assignment', {
+            id: assignment.id,
+            roundId: assignment.roundId,
+            playerId: assignment.playerId,
+            assignedWord: assignment.assignedWord,
+            viewed: assignment.viewed
+          });
+        }
+      }
+
       io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
       socket.to(code).emit('player-joined', room.players.get(playerId)!);
     } catch (e) {

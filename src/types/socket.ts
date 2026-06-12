@@ -31,6 +31,7 @@ export interface ClientToServerEvents {
   'cast-vote': (targetId: string) => void;
   'remove-player': (playerId: string) => void;
   'close-room': () => void;
+  'request-assignment': () => void;
 }
 
 export interface SocketData {

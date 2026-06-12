@@ -18,6 +18,8 @@ export function useGame() {
   useEffect(() => {
     if (!socket) return;
 
+    socket.emit('request-assignment');
+
     const handleAssignment = (data: ClientAssignment) => {
       setAssignment(data);
       setResults(null);

@@ -208,4 +208,28 @@ export function registerGameHandlers(
       console.error(e);
     }
   });
+
+  socket.on('request-assignment', async () => {
+    const code = socket.data.roomCode;
+    if (!code) return;
+    const room = gameStateManager.getRoom(code);
+    if (!room || !room.currentRound) return;
+
+    try {
+      const assignment = await prisma.assignment.findFirst({
+        where: { roundId: room.currentRound.id, playerId }
+      });
+      if (assignment) {
+        socket.emit('assignment', {
+          id: assignment.id,
+          roundId: assignment.roundId,
+          playerId: assignment.playerId,
+          assignedWord: assignment.assignedWord,
+          viewed: assignment.viewed
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  });
 }

@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   description: "A premium real-time multiplayer social deduction party game.",
 };
 
+import { Toaster } from 'react-hot-toast';
+import { ServerChecker } from '../components/ui/ServerChecker';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,6 +35,8 @@ export default function RootLayout({
           <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-accent/20 blur-[120px]" />
         </div>
         <Providers>
+          <Toaster position="top-center" toastOptions={{ style: { background: '#1E293B', color: '#fff' } }} />
+          <ServerChecker />
           <main className="min-h-screen flex flex-col">
             {children}
           </main>

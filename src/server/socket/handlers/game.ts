@@ -55,6 +55,14 @@ export function registerGameHandlers(
         votes: new Map()
       };
 
+      if (room.status === 'lobby') {
+        room.status = 'playing';
+        await prisma.room.update({
+          where: { id: room.roomId },
+          data: { status: 'playing' }
+        });
+      }
+
       // Create assignments and send directly to clients
       for (const [pId, role] of assignmentsMap.entries()) {
         const assignedWord = role === 'imposter' ? hint : word.word;

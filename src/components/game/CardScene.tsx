@@ -13,21 +13,16 @@ interface CardSceneProps {
 
 export default function CardScene({ word, isReady, onViewed }: CardSceneProps) {
   const [isRevealed, setIsRevealed] = useState(false);
-  const holdTimer = useRef<NodeJS.Timeout | null>(null);
 
   const handlePointerDown = () => {
-    if (isReady || isRevealed) return;
-    holdTimer.current = setTimeout(() => {
-      setIsRevealed(true);
+    setIsRevealed(true);
+    if (!isReady) {
       onViewed();
-    }, 800); // Hold for 800ms
+    }
   };
 
   const handlePointerUp = () => {
-    if (holdTimer.current) {
-      clearTimeout(holdTimer.current);
-      holdTimer.current = null;
-    }
+    setIsRevealed(false);
   };
 
   return (
@@ -36,6 +31,7 @@ export default function CardScene({ word, isReady, onViewed }: CardSceneProps) {
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
+      onPointerCancel={handlePointerUp}
     >
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
         <ambientLight intensity={0.5} />
@@ -48,7 +44,7 @@ export default function CardScene({ word, isReady, onViewed }: CardSceneProps) {
           floatIntensity={isRevealed ? 0.5 : 2}
           floatingRange={[-0.1, 0.1]}
         >
-          <Card3D word={word} isRevealed={isRevealed || !!isReady} />
+          <Card3D word={word} isRevealed={isRevealed} />
         </Float>
       </Canvas>
     </div>

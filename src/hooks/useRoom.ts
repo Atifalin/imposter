@@ -56,12 +56,17 @@ export function useRoom(roomCode?: string) {
       toast(`Round ${roundNum} is starting!`, { icon: '🎮', duration: 4000 });
     };
 
+    const handleCardViewedAck = (playerId: string) => {
+      setPlayers(prev => prev.map(p => p.id === playerId ? { ...p, ready: true } : p));
+    };
+
     socket.on('room-updated', handleRoomUpdated);
     socket.on('error', handleError);
     socket.on('host-transferred', handleHostTransferred);
     socket.on('player-joined', handlePlayerJoined);
     socket.on('player-left', handlePlayerLeft);
     socket.on('round-started', handleRoundStarted);
+    socket.on('card-viewed-ack', handleCardViewedAck);
 
     return () => {
       socket.off('room-updated', handleRoomUpdated);
@@ -70,6 +75,7 @@ export function useRoom(roomCode?: string) {
       socket.off('player-joined', handlePlayerJoined);
       socket.off('player-left', handlePlayerLeft);
       socket.off('round-started', handleRoundStarted);
+      socket.off('card-viewed-ack', handleCardViewedAck);
     };
   }, [socket, connected, roomCode]);
 

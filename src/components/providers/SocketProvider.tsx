@@ -22,8 +22,16 @@ export function SocketProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const token = localStorage.getItem('playerToken');
-    // Only connect if we have a token or player context is initialized
-    
+
+    // Only connect once the player has authenticated (has a token). The server's
+    // auth middleware rejects token-less sockets, which would otherwise cause an
+    // endless "Reconnecting..." loop on pre-login pages like the landing screen.
+    if (!token) {
+      setSocket(null);
+      setConnected(false);
+      return;
+    }
+
     let socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
     if (!socketUrl && typeof window !== 'undefined') {
       socketUrl = window.location.origin;

@@ -6,6 +6,7 @@ import { motion } from 'motion/react';
 import { usePlayer } from '../../../hooks/usePlayer';
 import { useSocket } from '../../../hooks/useSocket';
 import { NameInput } from '../../../components/ui/NameInput';
+import { MadeBy } from '../../../components/ui/MadeBy';
 
 export default function JoinRoom() {
   const params = useParams();
@@ -78,13 +79,19 @@ export default function JoinRoom() {
     return (
       <div className="flex-1 flex flex-col items-center justify-center">
         <motion.div 
-          animate={{ rotate: 360 }} 
-          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-          className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full mb-4"
-        />
-        <p className="text-text-muted animate-pulse">
-          {isJoining ? 'Joining room...' : 'Loading room info...'}
-        </p>
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="glass-strong rounded-3xl p-8 flex flex-col items-center max-w-sm w-full relative"
+        >
+          <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-6" />
+          <h2 className="text-xl font-bold text-white mb-2">
+            {isJoining ? 'Joining Room...' : 'Loading Room...'}
+          </h2>
+          <p className="text-text-muted text-center text-sm">
+            {isJoining ? 'Connecting to server...' : 'Fetching details...'}
+          </p>
+        </motion.div>
+        <MadeBy />
       </div>
     );
   }

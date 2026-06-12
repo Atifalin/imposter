@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { usePlayer } from '../hooks/usePlayer';
 import { NameInput } from '../components/ui/NameInput';
 
+import { MadeBy } from '../components/ui/MadeBy';
+
 export default function Home() {
   const router = useRouter();
   const { player, loading, createPlayer } = usePlayer();
@@ -15,12 +17,13 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex flex-col items-center justify-center">
         <motion.div 
           animate={{ rotate: 360 }} 
           transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-          className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full"
+          className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full mb-4"
         />
+        <MadeBy />
       </div>
     );
   }

@@ -10,30 +10,36 @@ import RevealingPhase from '../../../components/game/RevealingPhase';
 import DiscussionPhase from '../../../components/game/DiscussionPhase';
 import VotingPhase from '../../../components/game/VotingPhase';
 import ResultsPhase from '../../../components/game/ResultsPhase';
+import { MadeBy } from '../../../components/ui/MadeBy';
 
 export default function RoomPage() {
   const params = useParams();
   const router = useRouter();
   const code = params.code as string;
   
-  const { player } = usePlayer();
+  const { player, loading: playerLoading } = usePlayer();
   const { roomState, players, error, connected } = useRoom(code);
   const { assignment, results, timer, votes } = useGame();
 
   // If not logged in, redirect to join which handles name collection
   useEffect(() => {
-    if (!player) {
+    if (!player && !playerLoading) {
       router.replace(`/join/${code}`);
     }
-  }, [player, code, router]);
+  }, [player, playerLoading, code, router]);
 
   if (error) {
     return (
-      <div className="flex-1 flex items-center justify-center p-4 text-center">
-        <div className="glass-strong p-8 rounded-2xl max-w-md w-full">
-          <h2 className="text-2xl font-bold text-danger mb-4">Error</h2>
-          <p className="text-white mb-6">{error}</p>
-          <button onClick={() => router.push('/')} className="btn-secondary w-full">Leave Room</button>
+      <div className="flex-1 flex flex-col items-center justify-center p-4">
+        <div className="glass-strong rounded-3xl p-8 max-w-md w-full text-center">
+          <div className="text-danger mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-white mb-2">Room Error</h2>
+          <p className="text-text-muted mb-6">{error}</p>
+          <button onClick={() => router.push('/')} className="btn-primary w-full py-3">Return Home</button>
         </div>
       </div>
     );
@@ -41,8 +47,9 @@ export default function RoomPage() {
 
   if (!roomState || !player) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-4" />
+        <MadeBy />
       </div>
     );
   }

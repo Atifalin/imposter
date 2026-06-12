@@ -10,7 +10,7 @@ import { MadeBy } from '../components/ui/MadeBy';
 
 export default function Home() {
   const router = useRouter();
-  const { player, loading, createPlayer } = usePlayer();
+  const { player, loading, createPlayer, setPlayerName } = usePlayer();
   const [isCreating, setIsCreating] = useState(false);
   const [joinCode, setJoinCode] = useState('');
   const [showJoinInput, setShowJoinInput] = useState(false);
@@ -41,6 +41,17 @@ export default function Home() {
     }
   };
 
+  const handleNameChange = () => {
+    const newName = prompt('Enter your new name:', player?.name);
+    if (newName && newName.trim().length > 0) {
+      setPlayerName(newName.trim());
+      // The socket connection isn't usually active until we join a room,
+      // but if it is, this handles it. For now, the database will be updated
+      // via the createPlayer or we need a new API endpoint for name change outside room.
+      // Wait, we need an API endpoint to update the DB directly if they aren't in a room!
+    }
+  };
+
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-4 relative overflow-hidden">
       <motion.div
@@ -65,8 +76,14 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-            <div className="text-center mb-8">
+            <div className="text-center mb-8 flex flex-col items-center justify-center gap-2">
               <p className="text-xl">Welcome back, <span className="font-bold text-primary">{player.name}</span>!</p>
+              <button 
+                onClick={handleNameChange}
+                className="text-xs text-text-muted hover:text-white transition-colors underline"
+              >
+                Change Name
+              </button>
             </div>
 
             <div className="grid gap-4">

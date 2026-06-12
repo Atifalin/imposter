@@ -77,6 +77,7 @@ export function registerRoomHandlers(
             roundId: assignment.roundId,
             playerId: assignment.playerId,
             assignedWord: assignment.assignedWord,
+            isImposter: assignment.isImposter,
             viewed: assignment.viewed
           });
         }
@@ -145,6 +146,28 @@ export function registerRoomHandlers(
       io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
     } catch (e) {
       socket.emit('error', 'Failed to update settings');
+    }
+  });
+
+  socket.on('change-name', async (newName) => {
+    const code = socket.data.roomCode;
+    if (!code) return;
+    const room = gameStateManager.getRoom(code);
+    if (!room) return;
+
+    try {
+      socket.data.playerName = newName;
+      const p = room.players.get(playerId);
+      if (p) p.name = newName;
+      
+      await prisma.player.update({
+        where: { id: playerId },
+        data: { name: newName }
+      });
+      
+      io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
+    } catch (e) {
+      socket.emit('error', 'Failed to change name');
     }
   });
 }

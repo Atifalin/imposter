@@ -87,7 +87,7 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
         ))}
       </div>
 
-      {isHost && (
+      {isHost ? (
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,6 +99,16 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
           >
             Start Voting
           </button>
+        </motion.div>
+      ) : (
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-8 flex justify-center text-center"
+        >
+          <div className="glass px-8 py-4 rounded-2xl text-text-muted font-medium animate-pulse">
+            Waiting for the host to start voting...
+          </div>
         </motion.div>
       )}
     </div>

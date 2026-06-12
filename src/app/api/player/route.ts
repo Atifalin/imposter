@@ -50,3 +50,33 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+export async function PUT(req: Request) {
+  try {
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const token = authHeader.split(' ')[1];
+    const { name } = await req.json();
+
+    if (!name || name.trim() === '') {
+      return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+    }
+
+    const player = await prisma.player.update({
+      where: { token },
+      data: { name: name.trim() }
+    });
+
+    return NextResponse.json({
+      id: player.id,
+      name: player.name,
+      token: player.token
+    });
+  } catch (error) {
+    console.error('Error updating player:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}

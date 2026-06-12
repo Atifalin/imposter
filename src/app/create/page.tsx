@@ -11,7 +11,7 @@ import { usePlayer } from '../../hooks/usePlayer';
 export default function CreateRoom() {
   const router = useRouter();
   const { socket } = useSocket();
-  const { player } = usePlayer();
+  const { player, setPlayerName } = usePlayer();
   
   const [categories, setCategories] = useState<string[]>(['Bollywood Movies', 'Indian Food', 'Cricket']);
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
@@ -53,6 +53,15 @@ export default function CreateRoom() {
     });
   };
 
+  const handleNameChange = () => {
+    const newName = prompt('Enter your new name:', player?.name);
+    if (newName && newName.trim().length > 0) {
+      setPlayerName(newName.trim());
+      // The socket connection isn't typically established to a room yet here, 
+      // but if it is, the backend has been updated to handle it.
+    }
+  };
+
   return (
     <div className="flex-1 flex flex-col items-center p-4 py-12 relative overflow-hidden">
       <motion.div
@@ -61,7 +70,15 @@ export default function CreateRoom() {
         className="w-full max-w-2xl glass-strong rounded-3xl p-6 md:p-8"
       >
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-white">Room Settings</h1>
+          <div>
+            <h1 className="text-3xl font-bold text-white">Room Settings</h1>
+            <button 
+              onClick={handleNameChange}
+              className="text-xs text-primary hover:text-white transition-colors underline mt-1"
+            >
+              Change Name ({player?.name})
+            </button>
+          </div>
           <button 
             onClick={() => router.push('/')}
             className="btn-ghost text-sm"

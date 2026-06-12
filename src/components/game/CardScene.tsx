@@ -7,11 +7,12 @@ import Card3D from './Card3D';
 
 interface CardSceneProps {
   word: string;
+  isImposter: boolean;
   isReady?: boolean;
   onViewed: () => void;
 }
 
-export default function CardScene({ word, isReady, onViewed }: CardSceneProps) {
+export default function CardScene({ word, isImposter, isReady, onViewed }: CardSceneProps) {
   const [isRevealed, setIsRevealed] = useState(false);
 
   const handlePointerDown = () => {
@@ -33,7 +34,7 @@ export default function CardScene({ word, isReady, onViewed }: CardSceneProps) {
       onPointerLeave={handlePointerUp}
       onPointerCancel={handlePointerUp}
     >
-      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+      <Canvas camera={{ position: [0, 0, 3.8], fov: 45 }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 10]} intensity={1} />
         <directionalLight position={[-10, -10, -10]} intensity={0.5} color="#EC4899" />
@@ -44,7 +45,7 @@ export default function CardScene({ word, isReady, onViewed }: CardSceneProps) {
           floatIntensity={isRevealed ? 0.5 : 2}
           floatingRange={[-0.1, 0.1]}
         >
-          <Card3D word={word} isRevealed={isRevealed} />
+          <Card3D word={word} isRevealed={isRevealed} isImposter={isImposter} />
         </Float>
       </Canvas>
     </div>

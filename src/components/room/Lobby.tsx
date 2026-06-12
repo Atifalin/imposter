@@ -6,6 +6,9 @@ import { GameState } from '../../types/game';
 import { PlayerState } from '../../types/player';
 import { useSocket } from '../../hooks/useSocket';
 import { MIN_PLAYERS } from '../../lib/constants';
+import { useState } from 'react';
+import SettingsModal from './SettingsModal';
+import { usePlayer } from '../../hooks/usePlayer';
 
 interface LobbyProps {
   roomState: GameState;
@@ -15,7 +18,9 @@ interface LobbyProps {
 
 export default function Lobby({ roomState, players, currentPlayerId }: LobbyProps) {
   const { socket } = useSocket();
+  const { player: currentPlayer, setPlayerName } = usePlayer();
   const isHost = roomState.hostPlayerId === currentPlayerId;
+  const [showSettings, setShowSettings] = useState(false);
 
   const joinUrl = typeof window !== 'undefined' 
     ? `${window.location.origin}/join/${roomState.code}` 
@@ -24,6 +29,16 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
   const handleStart = () => {
     if (!socket || !isHost) return;
     socket.emit('start-round');
+  };
+
+  const handleNameChange = () => {
+    const newName = prompt('Enter your new name:', currentPlayer?.name);
+    if (newName && newName.trim().length > 0) {
+      setPlayerName(newName.trim());
+      if (socket) {
+        socket.emit('change-name', newName.trim());
+      }
+    }
   };
 
   const copyLink = () => {
@@ -93,15 +108,25 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
             <h2 className="text-2xl font-bold">Players <span className="text-text-muted text-lg font-normal">({players.length})</span></h2>
             {isHost && (
               <button 
-                onClick={() => {
-                  import('react-hot-toast').then(m => m.default('Settings can only be adjusted during room creation.', { icon: 'ℹ️' }));
-                }}
+                onClick={() => setShowSettings(true)}
                 className="text-text-muted hover:text-white transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
               </button>
             )}
           </div>
+          
+          <SettingsModal 
+            isOpen={showSettings} 
+            onClose={() => setShowSettings(false)} 
+            currentSettings={roomState.settings}
+            onSave={(newSettings) => {
+              if (socket) {
+                socket.emit('update-settings', newSettings);
+                import('react-hot-toast').then(m => m.default.success('Settings updated!'));
+              }
+            }}
+          />
           
           <div className="flex-1 overflow-y-auto pr-2 grid grid-cols-1 sm:grid-cols-2 gap-3 content-start">
             {players.map((p, i) => (
@@ -120,14 +145,23 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
                   {p.name.charAt(0).toUpperCase()}
                   <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-surface ${p.connected ? 'bg-success' : 'bg-text-muted'}`} />
                 </div>
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 flex flex-col">
                   <div className="font-bold text-white truncate flex items-center gap-2">
                     {p.name}
                     {p.isHost && (
                       <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">HOST</span>
                     )}
                   </div>
-                  {!p.connected && <div className="text-xs text-text-muted">Disconnected</div>}
+                  {!p.connected ? (
+                    <div className="text-xs text-text-muted">Disconnected</div>
+                  ) : p.id === currentPlayerId ? (
+                    <button 
+                      onClick={handleNameChange}
+                      className="text-xs text-primary text-left hover:text-white transition-colors"
+                    >
+                      Change Name
+                    </button>
+                  ) : null}
                 </div>
                 {isHost && p.id !== currentPlayerId && (
                   <button className="text-text-muted hover:text-danger p-2 transition-colors">

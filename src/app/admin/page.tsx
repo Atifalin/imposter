@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function AdminPage() {
   const router = useRouter();
@@ -10,7 +10,9 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [words, setWords] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [activeTab, setActiveTab] = useState<'words' | 'bulk'>('words');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
   // New word form state
   const [category, setCategory] = useState('');
   const [word, setWord] = useState('');
@@ -18,9 +20,14 @@ export default function AdminPage() {
   const [mediumHint, setMediumHint] = useState('');
   const [hardHint, setHardHint] = useState('');
 
+  // Bulk import state
+  const [jsonInput, setJsonInput] = useState('');
+  const [aiTopic, setAiTopic] = useState('');
+  const [showAiModal, setShowAiModal] = useState(false);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'admin-secret-key') {
+    if (password === 'admin123') {
       setIsAuthenticated(true);
       fetchWords();
     } else {
@@ -32,10 +39,15 @@ export default function AdminPage() {
     setIsLoading(true);
     try {
       const res = await fetch('/api/admin/words', {
-        headers: { 'Authorization': 'Bearer admin-secret-key' }
+        headers: { 'Authorization': 'Bearer admin123' }
       });
       const data = await res.json();
-      if (res.ok) setWords(data);
+      if (res.ok) {
+        setWords(data);
+        if (data.length > 0 && !selectedCategory) {
+          setSelectedCategory(data[0].category);
+        }
+      }
     } catch (e) {
       console.error(e);
     }
@@ -49,7 +61,7 @@ export default function AdminPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer admin-secret-key'
+          'Authorization': 'Bearer admin123'
         },
         body: JSON.stringify({ category, word, easyHint, mediumHint, hardHint })
       });
@@ -73,13 +85,100 @@ export default function AdminPage() {
     try {
       const res = await fetch(`/api/admin/words/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': 'Bearer admin-secret-key' }
+        headers: { 'Authorization': 'Bearer admin123' }
       });
       if (res.ok) fetchWords();
     } catch (e) {
       console.error(e);
     }
   };
+
+  const handleBulkImport = async () => {
+    try {
+      const parsed = JSON.parse(jsonInput);
+      const res = await fetch('/api/admin/words/bulk', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Password': 'admin123'
+        },
+        body: JSON.stringify({ words: parsed })
+      });
+      if (res.ok) {
+        alert('Import successful!');
+        setJsonInput('');
+        fetchWords();
+        setActiveTab('words');
+      } else {
+        const data = await res.json();
+        alert('Import failed: ' + data.error);
+      }
+    } catch (e) {
+      alert('Invalid JSON format');
+    }
+  };
+
+  const handleSeed = async () => {
+    if (!confirm('Are you sure? This will wipe all existing words and restore the defaults.')) return;
+    try {
+      const res = await fetch('/api/admin/seed', {
+        method: 'POST',
+        headers: { 'X-Admin-Password': 'admin123' }
+      });
+      if (res.ok) {
+        alert('Database seeded!');
+        fetchWords();
+      }
+    } catch (e) {
+      alert('Seed failed');
+    }
+  };
+
+  const handleRestart = async () => {
+    if (!confirm('Are you sure you want to restart the server? This will disconnect all players.')) return;
+    try {
+      await fetch('/api/admin/restart', {
+        method: 'POST',
+        headers: { 'X-Admin-Password': 'admin123' }
+      });
+      alert('Server restart initiated. It may take a few seconds to come back online.');
+      // Attempt to refresh after 3 seconds
+      setTimeout(() => window.location.reload(), 3000);
+    } catch (e) {
+      alert('Failed to initiate restart');
+    }
+  };
+
+  const copyAiPrompt = () => {
+    const prompt = `Please generate exactly 25 words or phrases for the category/topic: "${aiTopic}".
+I need this in a raw JSON array format so I can directly import it into my game database.
+Do not wrap the JSON in markdown code blocks, just output the raw JSON array.
+Each item in the array must be an object with exactly these properties:
+- "word": The secret word or phrase (string).
+- "category": Must be exactly "${aiTopic}" for all of them.
+- "easyHint": A very obvious hint (string).
+- "mediumHint": A moderate hint (string).
+- "hardHint": A cryptic or vague hint (string).
+
+Example structure:
+[
+  { "word": "Example", "category": "${aiTopic}", "easyHint": "A clear pattern", "mediumHint": "A representative form", "hardHint": "X.M.P.L" }
+]
+`;
+    navigator.clipboard.writeText(prompt);
+    alert('Prompt copied to clipboard! Paste it into ChatGPT, then paste its response into the JSON Bulk Import tool.');
+    setShowAiModal(false);
+  };
+
+  const categoriesSet = useMemo(() => {
+    const cats = new Set<string>();
+    words.forEach(w => cats.add(w.category));
+    return Array.from(cats).sort();
+  }, [words]);
+
+  const displayedWords = useMemo(() => {
+    return words.filter(w => w.category === selectedCategory);
+  }, [words, selectedCategory]);
 
   if (!isAuthenticated) {
     return (
@@ -106,80 +205,202 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen p-4 md:p-8 max-w-6xl mx-auto">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-white">EzyImposter Admin</h1>
-        <button onClick={() => router.push('/')} className="px-4 py-2 bg-surface-light rounded-lg">Back to Home</button>
+    <div className="min-h-screen p-4 md:p-8 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-2">EzyImposter Admin</h1>
+          <p className="text-text-muted">Total Words: {words.length} | Categories: {categoriesSet.length}</p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button onClick={() => setShowAiModal(true)} className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-bold hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-all">
+            ✨ AI Prompt Gen
+          </button>
+          <button onClick={handleSeed} className="px-4 py-2 bg-warning/20 text-warning border border-warning/50 rounded-lg hover:bg-warning/30 transition-colors">
+            Seed Defaults
+          </button>
+          <button onClick={handleRestart} className="px-4 py-2 bg-danger/20 text-danger border border-danger/50 rounded-lg hover:bg-danger/30 transition-colors">
+            Restart Server
+          </button>
+          <button onClick={() => router.push('/')} className="px-4 py-2 bg-surface-light rounded-lg">Exit</button>
+        </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
-        <div className="glass-strong p-6 rounded-2xl md:col-span-1 h-fit">
-          <h2 className="text-xl font-bold mb-4">Add Custom Word</h2>
-          <form onSubmit={handleAddWord} className="space-y-4">
-            <input
-              required
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              placeholder="Category (e.g. Marvel)"
-              className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
-            />
-            <input
-              required
-              value={word}
-              onChange={(e) => setWord(e.target.value)}
-              placeholder="Secret Word (e.g. Iron Man)"
-              className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
-            />
-            <input
-              value={easyHint}
-              onChange={(e) => setEasyHint(e.target.value)}
-              placeholder="Easy Hint"
-              className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
-            />
-            <input
-              required
-              value={mediumHint}
-              onChange={(e) => setMediumHint(e.target.value)}
-              placeholder="Medium Hint"
-              className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
-            />
-            <input
-              value={hardHint}
-              onChange={(e) => setHardHint(e.target.value)}
-              placeholder="Hard Hint"
-              className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
-            />
-            <button type="submit" className="w-full btn-primary py-2 rounded-lg font-bold">
-              Add Word
-            </button>
-          </form>
-        </div>
-
-        <div className="glass-strong p-6 rounded-2xl md:col-span-2 overflow-auto max-h-[80vh]">
-          <h2 className="text-xl font-bold mb-4">Word Database ({words.length})</h2>
-          {isLoading ? (
-            <p>Loading...</p>
-          ) : (
-            <div className="space-y-2">
-              {words.map((w) => (
-                <div key={w.id} className="bg-surface-light p-3 rounded-lg flex justify-between items-center">
-                  <div>
-                    <span className="text-xs text-primary font-bold">{w.category}</span>
-                    <p className="font-bold text-white">{w.word}</p>
-                    <p className="text-xs text-text-muted">Hint: {w.mediumHint}</p>
-                  </div>
-                  <button 
-                    onClick={() => handleDelete(w.id)}
-                    className="text-red-400 hover:text-red-300 px-3 py-1 bg-red-400/10 rounded"
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))}
+      <div className="grid lg:grid-cols-4 gap-8">
+        {/* Left Column: Forms */}
+        <div className="lg:col-span-1 space-y-6">
+          <div className="glass-strong p-6 rounded-2xl">
+            <div className="flex gap-2 mb-6">
+              <button 
+                onClick={() => setActiveTab('words')}
+                className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${activeTab === 'words' ? 'bg-primary text-white' : 'bg-surface-light text-text-muted hover:text-white'}`}
+              >
+                Add Single
+              </button>
+              <button 
+                onClick={() => setActiveTab('bulk')}
+                className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${activeTab === 'bulk' ? 'bg-primary text-white' : 'bg-surface-light text-text-muted hover:text-white'}`}
+              >
+                Bulk Import
+              </button>
             </div>
-          )}
+
+            {activeTab === 'words' ? (
+              <form onSubmit={handleAddWord} className="space-y-4">
+                <input
+                  required
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  placeholder="Category (e.g. Marvel)"
+                  className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
+                />
+                <input
+                  required
+                  value={word}
+                  onChange={(e) => setWord(e.target.value)}
+                  placeholder="Secret Word"
+                  className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
+                />
+                <input
+                  value={easyHint}
+                  onChange={(e) => setEasyHint(e.target.value)}
+                  placeholder="Easy Hint"
+                  className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
+                />
+                <input
+                  required
+                  value={mediumHint}
+                  onChange={(e) => setMediumHint(e.target.value)}
+                  placeholder="Medium Hint"
+                  className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
+                />
+                <input
+                  value={hardHint}
+                  onChange={(e) => setHardHint(e.target.value)}
+                  placeholder="Hard Hint"
+                  className="w-full bg-surface-light px-4 py-2 rounded-lg outline-none"
+                />
+                <button type="submit" className="w-full btn-primary py-2 rounded-lg font-bold">
+                  Add Word
+                </button>
+              </form>
+            ) : (
+              <div className="space-y-4">
+                <p className="text-xs text-text-muted">Paste JSON array of words.</p>
+                <textarea
+                  value={jsonInput}
+                  onChange={(e) => setJsonInput(e.target.value)}
+                  className="w-full h-64 bg-surface-light px-4 py-2 rounded-lg outline-none resize-none font-mono text-sm"
+                  placeholder="[{&#34;word&#34;: &#34;Batman&#34;, &#34;category&#34;: &#34;DC&#34;, &#34;difficulty&#34;: &#34;medium&#34;, &#34;hint&#34;: &#34;Dark Knight&#34;}]"
+                />
+                <button onClick={handleBulkImport} className="w-full btn-primary py-2 rounded-lg font-bold">
+                  Import JSON
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right Column: Database */}
+        <div className="glass-strong p-6 rounded-2xl lg:col-span-3 flex flex-col h-[80vh]">
+          {/* Categories Strip */}
+          <div className="flex gap-2 overflow-x-auto pb-4 mb-4 custom-scrollbar shrink-0">
+            {categoriesSet.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-full whitespace-nowrap transition-all ${
+                  selectedCategory === cat 
+                    ? 'bg-accent text-white shadow-[0_0_10px_rgba(236,72,153,0.5)]' 
+                    : 'bg-surface border border-white/10 text-text-muted hover:text-white'
+                }`}
+              >
+                {cat} ({words.filter(w => w.category === cat).length})
+              </button>
+            ))}
+            {categoriesSet.length === 0 && !isLoading && (
+              <p className="text-text-muted italic">No categories found.</p>
+            )}
+          </div>
+
+          {/* Words List */}
+          <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+            {isLoading ? (
+              <div className="flex justify-center p-8"><div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-4">
+                {displayedWords.map((w) => (
+                  <div key={w.id} className="bg-surface border border-white/5 p-4 rounded-xl flex justify-between items-start gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <p className="font-black text-lg text-white truncate">{w.word}</p>
+                      </div>
+                      <p className="text-sm text-text-muted truncate"><span className="opacity-50">Hint:</span> {w.hint || w.mediumHint}</p>
+                    </div>
+                    <button 
+                      onClick={() => handleDelete(w.id)}
+                      className="text-danger hover:text-white hover:bg-danger px-3 py-1 bg-danger/10 rounded-lg text-sm transition-colors"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+                {displayedWords.length === 0 && (
+                  <div className="col-span-2 text-center p-12 text-text-muted">
+                    Select a category to view words
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* AI Prompt Modal */}
+      <AnimatePresence>
+        {showAiModal && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="glass-strong rounded-3xl p-6 w-full max-w-md"
+            >
+              <h2 className="text-2xl font-bold text-white mb-2">✨ AI Prompt Generator</h2>
+              <p className="text-text-muted text-sm mb-6">Type a topic and click Generate. Then paste the copied prompt into ChatGPT.</p>
+              
+              <input
+                type="text"
+                value={aiTopic}
+                onChange={(e) => setAiTopic(e.target.value)}
+                placeholder="e.g. Harry Potter Characters"
+                className="w-full bg-surface-light px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-primary mb-6 text-white"
+                autoFocus
+              />
+              
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => setShowAiModal(false)}
+                  className="flex-1 btn-secondary py-3 rounded-xl"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={copyAiPrompt}
+                  disabled={!aiTopic.trim()}
+                  className="flex-1 btn-primary py-3 rounded-xl disabled:opacity-50"
+                >
+                  Generate & Copy
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

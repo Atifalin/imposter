@@ -1,44 +1,42 @@
-FROM node:22-alpine AS base
+FROM node:20-alpine
 
-# Install dependencies only when needed
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
+# Links the GHCR package to this repo (enables visibility/auto-update tooling)
+LABEL org.opencontainers.image.source=https://github.com/Atifalin/imposter
+
 WORKDIR /app
-COPY package.json package-lock.json ./
+
+# Install dependencies required by SQLite and Prisma
+RUN apk add --no-cache openssl python3 make g++
+
+# Copy package files
+COPY package.json package-lock.json* ./
+
+# Install dependencies
 RUN npm ci
 
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy the rest of the application code
 COPY . .
+
+# Set default environment variables (can be overridden at runtime)
+# The database will be mounted in a volume at /app/data
+ENV NODE_ENV="production"
+ENV PORT=3000
+ENV DATABASE_URL="file:/app/data/prod.db"
+ENV NEXT_PUBLIC_APP_URL=""
+ENV NEXT_PUBLIC_SOCKET_URL=""
+ENV ADMIN_PASSWORD="admin123"
+
+# Generate Prisma Client
 RUN npx prisma generate
+
+# Build the Next.js application
 RUN npm run build
 
-# Production image, copy all the files and run next
-FROM base AS runner
-WORKDIR /app
-
-ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
-COPY --from=builder --chown=nextjs:nodejs /app/server.ts ./server.ts
-COPY --from=builder --chown=nextjs:nodejs /app/src/server ./src/server
-COPY --from=builder --chown=nextjs:nodejs /app/src/types ./src/types
-COPY --from=builder --chown=nextjs:nodejs /app/src/lib ./src/lib
-
-USER nextjs
-
+# Expose the application port
 EXPOSE 3000
 
-# We need tsx to run server.ts if it's not compiled to js
-# Better approach is to compile server.ts or use tsx
-CMD ["npx", "tsx", "server.ts"]
+# Make the start script executable
+RUN chmod +x /app/start.sh
+
+# Start the application via the script
+CMD ["/app/start.sh"]

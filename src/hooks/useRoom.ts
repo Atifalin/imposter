@@ -32,7 +32,7 @@ export function useRoom(roomCode?: string) {
         const newPlayers = prev.map(p => ({ ...p, isHost: p.id === newHostId }));
         const newHost = newPlayers.find(p => p.id === newHostId);
         if (newHost) {
-          toast.success(`${newHost.name} is now the host!`);
+          setTimeout(() => toast.success(`${newHost.name} is now the host!`), 0);
         }
         return newPlayers;
       });
@@ -46,7 +46,7 @@ export function useRoom(roomCode?: string) {
       setPlayers(prev => {
         const player = prev.find(p => p.id === playerId);
         if (player) {
-          toast(`${player.name} left the room.`, { icon: '🚪' });
+          setTimeout(() => toast(`${player.name} left the room.`, { icon: '🚪' }), 0);
         }
         return prev;
       });

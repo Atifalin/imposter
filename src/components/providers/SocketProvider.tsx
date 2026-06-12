@@ -24,7 +24,10 @@ export function SocketProvider({ children }: { children: ReactNode }) {
     const token = localStorage.getItem('playerToken');
     // Only connect if we have a token or player context is initialized
     
-    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || '';
+    let socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL;
+    if (!socketUrl && typeof window !== 'undefined') {
+      socketUrl = window.location.origin;
+    }
     
     // Extract roomCode from URL if on a room page
     let roomCode;

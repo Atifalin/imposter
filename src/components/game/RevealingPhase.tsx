@@ -6,8 +6,7 @@ import { GameState, ClientAssignment } from '../../types/game';
 import { PlayerState } from '../../types/player';
 import { useSocket } from '../../hooks/useSocket';
 
-// Dynamically import CardScene to prevent SSR issues with Three.js
-const CardScene = dynamic(() => import('./CardScene'), { ssr: false });
+import SimpleCard from './SimpleCard';
 
 interface RevealingPhaseProps {
   roomState: GameState;
@@ -37,8 +36,9 @@ export default function RevealingPhase({ roomState, players, assignment, current
 
       <div className="flex-1 w-full flex items-center justify-center min-h-[400px]">
         {assignment ? (
-          <CardScene 
+          <SimpleCard 
             word={assignment.assignedWord} 
+            isImposter={assignment.isImposter}
             isReady={isReady} 
             onViewed={handleCardViewed} 
           />
@@ -56,7 +56,7 @@ export default function RevealingPhase({ roomState, players, assignment, current
             <div className="text-sm text-text-muted font-medium mb-1 uppercase tracking-wider">Players Ready</div>
             <div className="text-3xl font-black text-white">{readyCount} <span className="text-text-muted text-xl font-medium">/ {players.length}</span></div>
           </div>
-          {isReady && (
+          {isReady && readyCount < players.length && (
             <motion.div 
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -64,6 +64,25 @@ export default function RevealingPhase({ roomState, players, assignment, current
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
               WAITING
+            </motion.div>
+          )}
+          {readyCount === players.length && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+            >
+              {roomState.hostPlayerId === currentPlayerId ? (
+                <button
+                  onClick={() => socket?.emit('start-discussion')}
+                  className="btn-primary py-2 px-6 font-bold"
+                >
+                  Start Discussion
+                </button>
+              ) : (
+                <div className="text-text-muted font-bold animate-pulse">
+                  Waiting for host...
+                </div>
+              )}
             </motion.div>
           )}
         </div>

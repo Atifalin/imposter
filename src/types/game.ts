@@ -10,6 +10,7 @@ export interface ClientAssignment {
   roundId: string;
   playerId: string;
   assignedWord: string; // The word or hint
+  isImposter: boolean;
   viewed: boolean;
 }
 

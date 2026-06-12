@@ -12,6 +12,7 @@ import VotingPhase from '../../../components/game/VotingPhase';
 import ResultsPhase from '../../../components/game/ResultsPhase';
 import { MadeBy } from '../../../components/ui/MadeBy';
 import { useSocket } from '../../../hooks/useSocket';
+import { AnimatePresence, motion } from 'motion/react';
 
 export default function RoomPage() {
   const params = useParams();
@@ -21,6 +22,7 @@ export default function RoomPage() {
   const { player, loading: playerLoading } = usePlayer();
   const { roomState, players, error, connected } = useRoom(code);
   const { assignment, results, timer, votes } = useGame();
+  const { socket } = useSocket();
 
   // If not logged in, redirect to join which handles name collection
   useEffect(() => {
@@ -60,7 +62,6 @@ export default function RoomPage() {
     return <Lobby roomState={roomState} players={players} currentPlayerId={player.id} />;
   }
 
-  const { socket } = useSocket();
   const phase = roomState.currentRound?.status;
 
   const handleLeaveRoom = () => {
@@ -94,7 +95,19 @@ export default function RoomPage() {
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
       </button>
-      {renderPhase()}
+      
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={phase || 'lobby'}
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -20, scale: 0.95 }}
+          transition={{ duration: 0.4, type: "spring", bounce: 0 }}
+          className="flex-1 flex flex-col w-full h-full"
+        >
+          {renderPhase()}
+        </motion.div>
+      </AnimatePresence>
     </>
   );
 }

@@ -76,12 +76,12 @@ export function registerGameHandlers(
           }
         });
 
-        // Send to specific player socket by emitting to their playerId room
         io.to(pId).emit('assignment', {
           id: dbAssignment.id,
           roundId: dbRound.id,
           playerId: pId,
           assignedWord,
+          isImposter: role === 'imposter',
           viewed: false
         });
       }
@@ -117,16 +117,26 @@ export function registerGameHandlers(
       // Check if all viewed
       const allReady = Array.from(room.players.values()).every(player => player.ready);
       if (allReady && room.currentRound.status === 'revealing') {
-        room.currentRound.status = 'discussion';
-        await prisma.round.update({
-          where: { id: room.currentRound.id },
-          data: { status: 'discussion' }
-        });
         io.to(code).emit('all-ready');
-        io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
       }
     } catch (e) {
       console.error(e);
+    }
+  });
+
+  socket.on('start-discussion', async () => {
+    const code = socket.data.roomCode;
+    if (!code) return;
+    const room = gameStateManager.getRoom(code);
+    if (!room || room.hostPlayerId !== playerId || !room.currentRound) return;
+
+    if (room.currentRound.status === 'revealing') {
+      room.currentRound.status = 'discussion';
+      await prisma.round.update({
+        where: { id: room.currentRound.id },
+        data: { status: 'discussion' }
+      });
+      io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
     }
   });
 
@@ -225,6 +235,7 @@ export function registerGameHandlers(
           roundId: assignment.roundId,
           playerId: assignment.playerId,
           assignedWord: assignment.assignedWord,
+          isImposter: assignment.isImposter,
           viewed: assignment.viewed
         });
       }

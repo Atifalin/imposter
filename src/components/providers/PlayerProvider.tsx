@@ -7,6 +7,7 @@ interface PlayerContextType {
   player: PlayerState | null;
   loading: boolean;
   createPlayer: (name: string) => Promise<void>;
+  setPlayerName: (name: string) => void;
   logout: () => void;
 }
 
@@ -14,6 +15,7 @@ export const PlayerContext = createContext<PlayerContextType>({
   player: null,
   loading: true,
   createPlayer: async () => {},
+  setPlayerName: () => {},
   logout: () => {}
 });
 
@@ -61,8 +63,29 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     setPlayer(null);
   };
 
+  const setPlayerName = async (name: string) => {
+    if (player) {
+      setPlayer({ ...player, name });
+      const token = localStorage.getItem('playerToken');
+      if (token) {
+        try {
+          await fetch('/api/player', {
+            method: 'PUT',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ name })
+          });
+        } catch (e) {
+          console.error('Failed to save new name to db', e);
+        }
+      }
+    }
+  };
+
   return (
-    <PlayerContext.Provider value={{ player, loading, createPlayer, logout }}>
+    <PlayerContext.Provider value={{ player, loading, createPlayer, setPlayerName, logout }}>
       {children}
     </PlayerContext.Provider>
   );

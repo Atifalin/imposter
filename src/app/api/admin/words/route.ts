@@ -4,7 +4,7 @@ import { prisma } from '../../../../lib/prisma';
 // Basic middleware for admin - in production we'd want actual auth
 const checkAdmin = (req: Request) => {
   const auth = req.headers.get('Authorization');
-  return auth === 'Bearer admin-secret-key';
+  return auth === 'Bearer admin123';
 };
 
 export async function GET(req: Request) {

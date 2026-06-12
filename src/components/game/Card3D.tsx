@@ -8,9 +8,10 @@ import * as THREE from 'three';
 interface Card3DProps {
   word: string;
   isRevealed: boolean;
+  isImposter: boolean;
 }
 
-export default function Card3D({ word, isRevealed }: Card3DProps) {
+export default function Card3D({ word, isRevealed, isImposter }: Card3DProps) {
   const groupRef = useRef<THREE.Group>(null);
   const targetRotation = isRevealed ? Math.PI : 0;
 
@@ -39,7 +40,7 @@ export default function Card3D({ word, isRevealed }: Card3DProps) {
         <meshStandardMaterial attach="material-4" color="#0F172A" roughness={0.3} metalness={0.5} />
         
         {/* Back Face (Index 5) - The Secret Word */}
-        <meshStandardMaterial attach="material-5" color="#7C3AED" roughness={0.2} metalness={0.1} />
+        <meshStandardMaterial attach="material-5" color={isImposter ? "#DC2626" : "#7C3AED"} roughness={0.2} metalness={0.1} />
       </RoundedBox>
 
       {/* Front Content */}
@@ -54,9 +55,10 @@ export default function Card3D({ word, isRevealed }: Card3DProps) {
 
       {/* Back Content (Word) */}
       <Html position={[0, 0, -0.06]} transform rotation={[0, Math.PI, 0]} zIndexRange={[100, 0]} className="pointer-events-none select-none">
-        <div className={`w-[230px] h-[360px] flex flex-col items-center justify-center p-4 text-center bg-gradient-to-b from-primary/20 to-transparent rounded-xl border border-white/20 shadow-[inset_0_0_50px_rgba(255,255,255,0.1)] ${!isRevealed ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300 delay-150`}>
-          <div className="text-text-muted text-sm uppercase tracking-widest font-bold mb-4">Your Word</div>
-          <h2 className="text-4xl font-black text-white break-words w-full px-2" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
+        <div className={`w-[230px] h-[360px] flex flex-col items-center justify-center p-4 text-center bg-gradient-to-b ${isImposter ? 'from-danger/30' : 'from-primary/20'} to-transparent rounded-xl border ${isImposter ? 'border-danger/30' : 'border-white/20'} shadow-[inset_0_0_50px_rgba(255,255,255,0.1)] ${!isRevealed ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300 delay-150`}>
+          {isImposter && <div className="text-danger text-sm uppercase tracking-widest font-black mb-2 animate-pulse">YOU ARE THE IMPOSTER</div>}
+          <div className="text-text-muted text-sm uppercase tracking-widest font-bold mb-4">{isImposter ? 'Your Hint' : 'Your Word'}</div>
+          <h2 className={`text-4xl font-black ${isImposter ? 'text-white' : 'text-white'} break-words w-full px-2`} style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
             {word}
           </h2>
         </div>

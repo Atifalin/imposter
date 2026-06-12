@@ -22,8 +22,10 @@ export interface ClientToServerEvents {
   'create-room': (settings: RoomSettings) => void;
   'join-room': (code: string) => void;
   'leave-room': () => void;
+  'change-name': (newName: string) => void;
   'update-settings': (settings: RoomSettings) => void;
   'start-round': () => void;
+  'start-discussion': () => void;
   'start-voting': () => void;
   'card-viewed': () => void;
   'reveal-results': () => void;

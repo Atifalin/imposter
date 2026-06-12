@@ -1,35 +1,44 @@
-version: '3.8'
-
+# Production stack for EZserver (Portainer + Nginx Proxy Manager).
+# Single container serves both the Next.js UI and the Socket.IO server on port 3000.
+# No host port is published — NPM routes traffic to the container over the proxy-network.
 services:
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: ezyimposter
-      POSTGRES_PASSWORD: ezyimposter_password
-      POSTGRES_DB: ezyimposter
-    ports:
-      - "5432:5432"
+  ezyimposter:
+    image: ghcr.io/atifalin/imposter:latest
+    container_name: ezyimposter
+    restart: unless-stopped
+    expose:
+      - "3000"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ezyimposter"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+      # Persistent SQLite DB — survives restarts and auto-updates
+      - ezyimposter_data:/app/data
     environment:
-      - DATABASE_URL=postgresql://ezyimposter:ezyimposter_password@db:5432/ezyimposter?schema=public
-      - NEXT_PUBLIC_SOCKET_URL=http://localhost:3000
       - NODE_ENV=production
-    depends_on:
-      db:
-        condition: service_healthy
+      - PORT=3000
+      # Leave blank to auto-detect from the request origin (works behind any domain)
+      - NEXT_PUBLIC_APP_URL=
+      - NEXT_PUBLIC_SOCKET_URL=
+      - ADMIN_PASSWORD=admin123
+      - DATABASE_URL=file:/app/data/prod.db
+    networks:
+      - proxy-network
+    labels:
+      # Only containers with this label are auto-updated by the scoped Watchtower below
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # Watches ONLY the labelled ezyimposter container; pulls new images every 60s and restarts.
+  ezyimposter-watchtower:
+    image: containrrr/watchtower
+    container_name: ezyimposter-watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 60 --label-enable --cleanup
 
 volumes:
-  postgres_data:
+  ezyimposter_data:
+    name: ezyimposter_data
+
+networks:
+  proxy-network:
+    external: true
+    name: proxy-network

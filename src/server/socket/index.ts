@@ -6,6 +6,19 @@ import { registerGameHandlers } from './handlers/game';
 import { registerConnectionHandlers } from './handlers/connection';
 import { gameStateManager } from '../game/state';
 
+// In-memory token cache to avoid DB lookups on every reconnection
+const tokenCache = new Map<string, { id: string; name: string; cachedAt: number }>();
+const TOKEN_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+function getCachedPlayer(token: string) {
+  const cached = tokenCache.get(token);
+  if (cached && Date.now() - cached.cachedAt < TOKEN_CACHE_TTL) {
+    return cached;
+  }
+  tokenCache.delete(token);
+  return null;
+}
+
 export function registerSocketHandlers(io: Server<ClientToServerEvents, ServerToClientEvents, never, SocketData>) {
   // Load state from DB
   gameStateManager.restoreFromDB().catch(console.error);
@@ -16,28 +29,42 @@ export function registerSocketHandlers(io: Server<ClientToServerEvents, ServerTo
     if (!token) return next(new Error('Authentication error: No token provided'));
 
     try {
-      const player = await prisma.player.findUnique({ where: { token } });
-      if (!player) return next(new Error('Authentication error: Invalid token'));
+      // Check cache first
+      const cached = getCachedPlayer(token);
+      if (cached) {
+        socket.data.playerId = cached.id;
+        socket.data.playerName = cached.name;
+        socket.data.roomCode = socket.handshake.auth.roomCode;
+        
+        // Fire-and-forget lastSeen update
+        prisma.player.update({
+          where: { id: cached.id },
+          data: { lastSeen: new Date() }
+        }).catch(() => {});
+        
+        return next();
+      }
+
+      // Cache miss: single query that finds + updates lastSeen
+      const player = await prisma.player.update({
+        where: { token },
+        data: { lastSeen: new Date() }
+      });
+
+      // Cache the result
+      tokenCache.set(token, { id: player.id, name: player.name, cachedAt: Date.now() });
 
       socket.data.playerId = player.id;
       socket.data.playerName = player.name;
       socket.data.roomCode = socket.handshake.auth.roomCode;
       
-      // Update last seen
-      await prisma.player.update({
-        where: { id: player.id },
-        data: { lastSeen: new Date() }
-      });
-      
       next();
     } catch (error) {
-      next(new Error('Authentication error'));
+      next(new Error('Authentication error: Invalid token'));
     }
   });
 
   io.on('connection', (socket) => {
-    // console.log(`Player connected: ${socket.data.playerName} (${socket.id})`);
-    
     registerConnectionHandlers(io, socket);
     registerRoomHandlers(io, socket);
     registerGameHandlers(io, socket);

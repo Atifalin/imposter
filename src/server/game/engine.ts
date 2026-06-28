@@ -2,33 +2,42 @@ import { randomInt } from 'crypto';
 import { prisma } from '../../lib/prisma';
 import { PlayerState } from '../../types/player';
 
-export async function selectWord(categories: string[], usedWordIds: string[], difficulty: string) {
-  const words = await prisma.word.findMany({
-    where: {
-      category: { in: categories },
-      id: { notIn: usedWordIds }
-    }
-  });
+function getHint(word: any, difficulty: string) {
+  return difficulty === 'easy' ? word.easyHint : (difficulty === 'hard' ? word.hardHint : word.mediumHint);
+}
 
-  if (words.length === 0) {
-    // If all words used, reset used words for these categories (or just fetch ignoring usedWordIds)
-    const fallbackWords = await prisma.word.findMany({
+export async function selectWord(categories: string[], usedWordIds: string[], difficulty: string) {
+  // Use count + skip to avoid loading entire table into memory
+  const whereClause = {
+    category: { in: categories },
+    ...(usedWordIds.length > 0 ? { id: { notIn: usedWordIds } } : {})
+  };
+
+  const count = await prisma.word.count({ where: whereClause });
+
+  if (count === 0) {
+    // All words used — reset and pick from full pool
+    const fallbackCount = await prisma.word.count({
       where: { category: { in: categories } }
     });
-    if (fallbackWords.length === 0) throw new Error('No words found for categories');
-    
-    const word = fallbackWords[randomInt(0, fallbackWords.length)];
-    return {
-      word: word,
-      hint: difficulty === 'easy' ? word.easyHint : (difficulty === 'hard' ? word.hardHint : word.mediumHint)
-    };
+    if (fallbackCount === 0) throw new Error('No words found for categories');
+
+    const skip = randomInt(0, fallbackCount);
+    const words = await prisma.word.findMany({
+      where: { category: { in: categories } },
+      skip,
+      take: 1
+    });
+    return { word: words[0], hint: getHint(words[0], difficulty) };
   }
 
-  const word = words[randomInt(0, words.length)];
-  return {
-    word: word,
-    hint: difficulty === 'easy' ? word.easyHint : (difficulty === 'hard' ? word.hardHint : word.mediumHint)
-  };
+  const skip = randomInt(0, count);
+  const words = await prisma.word.findMany({
+    where: whereClause,
+    skip,
+    take: 1
+  });
+  return { word: words[0], hint: getHint(words[0], difficulty) };
 }
 
 export function assignRoles(players: PlayerState[], imposterCount: number): Map<string, 'imposter' | 'crew'> {

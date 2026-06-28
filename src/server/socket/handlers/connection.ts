@@ -48,6 +48,7 @@ export function registerConnectionHandlers(
         // If host disconnected, set a timer for host transfer
         if (room.hostPlayerId === playerId) {
           const timer = setTimeout(async () => {
+            disconnectTimers.delete(playerId); // Clean up Map entry
             const currentRoom = gameStateManager.getRoom(code);
             if (!currentRoom) return;
 

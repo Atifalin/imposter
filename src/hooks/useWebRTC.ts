@@ -57,7 +57,16 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
   };
 
   const startAudioLoop = () => {
-    const checkAudioLevels = () => {
+    let lastCheck = 0;
+    const FRAME_INTERVAL = 42; // ~24fps (1000ms / 24 = 41.6ms)
+    
+    const checkAudioLevels = (timestamp: number) => {
+      if (timestamp - lastCheck < FRAME_INTERVAL) {
+        animationFrameRef.current = requestAnimationFrame(checkAudioLevels);
+        return;
+      }
+      lastCheck = timestamp;
+      
       if (!audioContextRef.current) return;
       
       const newSpeakingState: Record<string, boolean> = {};
@@ -90,7 +99,7 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
       animationFrameRef.current = requestAnimationFrame(checkAudioLevels);
     };
     
-    checkAudioLevels();
+    requestAnimationFrame(checkAudioLevels);
   };
 
   useEffect(() => {

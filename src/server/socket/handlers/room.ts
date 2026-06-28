@@ -69,17 +69,16 @@ export function registerRoomHandlers(
       socket.data.roomCode = code;
       
       if (room.currentRound) {
-        const assignment = await prisma.assignment.findFirst({
-          where: { roundId: room.currentRound.id, playerId }
-        });
-        if (assignment) {
+        // Serve assignment from memory instead of hitting DB
+        const role = room.currentRound.assignments.get(playerId);
+        if (role) {
           socket.emit('assignment', {
-            id: assignment.id,
-            roundId: assignment.roundId,
-            playerId: assignment.playerId,
-            assignedWord: assignment.assignedWord,
-            isImposter: assignment.isImposter,
-            viewed: assignment.viewed
+            id: room.currentRound.id,
+            roundId: room.currentRound.id,
+            playerId,
+            assignedWord: role === 'imposter' ? room.currentRound.hint : room.currentRound.secretWord,
+            isImposter: role === 'imposter',
+            viewed: true
           });
         }
       }

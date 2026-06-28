@@ -1,0 +1,248 @@
+[
+    {
+        "Id": "6f2d1ac1cfc8ba881189b160da8c1b18314f43d152aacf988790d6bdff1f68fe",
+        "Created": "2026-06-28T12:21:05.324299823Z",
+        "Path": "docker-entrypoint.sh",
+        "Args": [
+            "/app/start.sh"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 792699,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-06-28T12:21:05.426261178Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:3d4e1b5daffa1843195e07bc69810f08cbffc9a4ae0b3678036ac9b695278f93",
+        "ResolvConfPath": "/var/lib/docker/containers/6f2d1ac1cfc8ba881189b160da8c1b18314f43d152aacf988790d6bdff1f68fe/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/6f2d1ac1cfc8ba881189b160da8c1b18314f43d152aacf988790d6bdff1f68fe/hostname",
+        "HostsPath": "/var/lib/docker/containers/6f2d1ac1cfc8ba881189b160da8c1b18314f43d152aacf988790d6bdff1f68fe/hosts",
+        "LogPath": "/var/lib/docker/containers/6f2d1ac1cfc8ba881189b160da8c1b18314f43d152aacf988790d6bdff1f68fe/6f2d1ac1cfc8ba881189b160da8c1b18314f43d152aacf988790d6bdff1f68fe-json.log",
+        "Name": "/ezyimposter",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+            "NetworkMode": "supabase_default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [],
+        "Config": {
+            "Hostname": "9b0e0bfb51a4",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "3000/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "DATABASE_URL=postgresql://postgres:4JqhNQ7CYV3yz45xnRp0UPFN@supabase-db:5432/postgres?schema=ezyimposter",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NODE_VERSION=20.20.2",
+                "YARN_VERSION=1.22.22",
+                "NODE_ENV=production",
+                "PORT=3000",
+                "NEXT_PUBLIC_APP_URL=",
+                "NEXT_PUBLIC_SOCKET_URL=",
+                "ADMIN_PASSWORD=admin123"
+            ],
+            "Cmd": [
+                "/app/start.sh"
+            ],
+            "Image": "ghcr.io/atifalin/imposter:latest",
+            "Volumes": null,
+            "WorkingDir": "/app",
+            "Entrypoint": [
+                "docker-entrypoint.sh"
+            ],
+            "Labels": {
+                "com.centurylinklabs.watchtower.enable": "true",
+                "org.opencontainers.image.created": "2026-06-28T12:16:13.475Z",
+                "org.opencontainers.image.description": "",
+                "org.opencontainers.image.licenses": "",
+                "org.opencontainers.image.revision": "878ca6dd19cbfb8bc6d0182a6c4aee7993980d4a",
+                "org.opencontainers.image.source": "https://github.com/Atifalin/imposter",
+                "org.opencontainers.image.title": "imposter",
+                "org.opencontainers.image.url": "https://github.com/Atifalin/imposter",
+                "org.opencontainers.image.version": "latest"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "bc509ab8eaa16378bdf5544760caec2df93ab221d22be765925540e17f0bad36",
+            "SandboxKey": "/var/run/docker/netns/bc509ab8eaa1",
+            "Ports": {
+                "3000/tcp": null
+            },
+            "Networks": {
+                "proxy-network": {
+                    "IPAMConfig": {
+                        "IPv4Address": "",
+                        "IPv6Address": ""
+                    },
+                    "Links": null,
+                    "Aliases": [],
+                    "DriverOpts": {},
+                    "GwPriority": 0,
+                    "NetworkID": "e45b9db1fa170a0d2d1f809d431193b6f7b1c2f45bec9bcf87e56352efc0bf8a",
+                    "EndpointID": "75b978bbf2fb924c5f8d0135997ff1bac60c3434b666e60c8e17795ab2b982de",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.12",
+                    "MacAddress": "5a:3c:5f:2b:ff:54",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "ezyimposter",
+                        "6f2d1ac1cfc8",
+                        "9b0e0bfb51a4"
+                    ]
+                },
+                "supabase_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "4ca19a3df4c37730a0b699e89c622e635f4a004837222a447c017858ca6d5266",
+                    "EndpointID": "f75b36e8c1b2f1bee65c29f179e1d7ae0d1cd47599b99826620ed752e68c55de",
+                    "Gateway": "10.0.2.1",
+                    "IPAddress": "10.0.2.14",
+                    "MacAddress": "6a:cd:05:6b:91:59",
+                    "IPPrefixLen": 24,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "ezyimposter",
+                        "6f2d1ac1cfc8",
+                        "9b0e0bfb51a4"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "digest": "sha256:3d4e1b5daffa1843195e07bc69810f08cbffc9a4ae0b3678036ac9b695278f93",
+            "size": 2841,
+            "platform": {
+                "architecture": "amd64",
+                "os": "linux"
+            }
+        }
+    }
+]

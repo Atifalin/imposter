@@ -63,26 +63,31 @@ export function registerGameHandlers(
         });
       }
 
-      // Create assignments and send directly to clients
-      for (const [pId, role] of assignmentsMap.entries()) {
-        const assignedWord = role === 'imposter' ? hint : word.word;
-        const dbAssignment = await prisma.assignment.create({
-          data: {
-            roundId: dbRound.id,
-            playerId: pId,
-            assignedWord: assignedWord,
-            isImposter: role === 'imposter',
-            viewed: false
-          }
-        });
+      // Batch create all assignments (1 query instead of N)
+      const assignmentData = Array.from(assignmentsMap.entries()).map(([pId, role]) => ({
+        roundId: dbRound.id,
+        playerId: pId,
+        assignedWord: role === 'imposter' ? hint : word.word,
+        isImposter: role === 'imposter',
+        viewed: false
+      }));
 
-        io.to(pId).emit('assignment', {
-          id: dbAssignment.id,
-          roundId: dbRound.id,
-          playerId: pId,
-          assignedWord,
-          isImposter: role === 'imposter',
-          viewed: false
+      await prisma.assignment.createMany({ data: assignmentData });
+
+      // Fetch all created assignments for IDs
+      const createdAssignments = await prisma.assignment.findMany({
+        where: { roundId: dbRound.id }
+      });
+
+      // Emit to each player
+      for (const a of createdAssignments) {
+        io.to(a.playerId).emit('assignment', {
+          id: a.id,
+          roundId: a.roundId,
+          playerId: a.playerId,
+          assignedWord: a.assignedWord,
+          isImposter: a.isImposter,
+          viewed: a.viewed
         });
       }
 
@@ -106,7 +111,7 @@ export function registerGameHandlers(
       const p = room.players.get(playerId);
       if (p) p.ready = true;
 
-      // Async DB update
+      // Fire-and-forget DB update
       prisma.assignment.updateMany({
         where: { roundId: room.currentRound.id, playerId },
         data: { viewed: true }
@@ -180,7 +185,6 @@ export function registerGameHandlers(
       }
     }
 
-    // If there's a tie, nobody is voted out (or we can handle it how we want, but usually nobody is killed)
     if (isTie) {
       votedOutId = null;
     }
@@ -229,16 +233,20 @@ export function registerGameHandlers(
       // Record vote in memory
       room.currentRound.votes.set(playerId, targetId);
 
-      // Record vote in DB
-      await prisma.vote.create({
-        data: {
+      // Upsert vote in DB (prevents duplicates if player changes vote)
+      prisma.vote.upsert({
+        where: {
+          roundId_voterId: { roundId: room.currentRound.id, voterId: playerId }
+        },
+        update: { targetId },
+        create: {
           roundId: room.currentRound.id,
           voterId: playerId,
           targetId: targetId
         }
-      });
+      }).catch(console.error);
 
-      // Compute vote counts to send back
+      // Compute vote counts
       const voteCounts: { [id: string]: number } = {};
       const voters = Array.from(room.currentRound.votes.keys());
       for (const tId of Array.from(room.currentRound.votes.values())) {
@@ -251,28 +259,23 @@ export function registerGameHandlers(
     }
   });
 
-  socket.on('request-assignment', async () => {
+  // Serve assignment from memory instead of hitting DB
+  socket.on('request-assignment', () => {
     const code = socket.data.roomCode;
     if (!code) return;
     const room = gameStateManager.getRoom(code);
     if (!room || !room.currentRound) return;
 
-    try {
-      const assignment = await prisma.assignment.findFirst({
-        where: { roundId: room.currentRound.id, playerId }
+    const role = room.currentRound.assignments.get(playerId);
+    if (role) {
+      socket.emit('assignment', {
+        id: room.currentRound.id,
+        roundId: room.currentRound.id,
+        playerId,
+        assignedWord: role === 'imposter' ? room.currentRound.hint : room.currentRound.secretWord,
+        isImposter: role === 'imposter',
+        viewed: true
       });
-      if (assignment) {
-        socket.emit('assignment', {
-          id: assignment.id,
-          roundId: assignment.roundId,
-          playerId: assignment.playerId,
-          assignedWord: assignment.assignedWord,
-          isImposter: assignment.isImposter,
-          viewed: assignment.viewed
-        });
-      }
-    } catch (e) {
-      console.error(e);
     }
   });
 
@@ -317,7 +320,6 @@ export function registerGameHandlers(
     if (!code) return;
     const room = gameStateManager.getRoom(code);
     if (!room) return;
-    // Tell the requesting player about all other players so they can initiate offers
     for (const p of room.players.values()) {
       if (p.id !== playerId) {
         socket.emit('player-joined', p);

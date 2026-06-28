@@ -25,7 +25,10 @@ app.prepare().then(() => {
     },
     connectionStateRecovery: {
       maxDisconnectionDuration: 2 * 60 * 1000,
-    }
+    },
+    pingTimeout: 10000,        // Detect dead connections faster
+    pingInterval: 15000,       // Reduce keep-alive overhead  
+    perMessageDeflate: false,  // Disable compression — saves CPU on 2-core server
   });
 
   registerSocketHandlers(io);

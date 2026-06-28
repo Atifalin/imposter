@@ -55,6 +55,32 @@ export class RoomState {
 
 export class GameStateManager {
   private rooms: Map<string, RoomState> = new Map();
+  private cleanupInterval: NodeJS.Timeout;
+
+  constructor() {
+    // Clean up stale rooms every 5 minutes
+    this.cleanupInterval = setInterval(() => this.cleanupStaleRooms(), 5 * 60 * 1000);
+  }
+
+  private cleanupStaleRooms() {
+    const STALE_THRESHOLD = 20 * 60 * 1000; // 20 minutes per user preference
+    const now = Date.now();
+
+    for (const [code, room] of this.rooms.entries()) {
+      const allDisconnected = Array.from(room.players.values()).every(p => !p.connected);
+      const isEmpty = room.players.size === 0;
+
+      if (isEmpty || allDisconnected) {
+        // Mark as finished in DB (fire-and-forget)
+        prisma.room.update({
+          where: { id: room.roomId },
+          data: { status: 'finished' }
+        }).catch(() => {});
+        
+        this.rooms.delete(code);
+      }
+    }
+  }
 
   createRoom(roomId: string, code: string, hostPlayerId: string, settings: RoomSettings): RoomState {
     const room = new RoomState(roomId, code, hostPlayerId, settings);

@@ -20,6 +20,7 @@ COPY . .
 # Set default environment variables (can be overridden at runtime)
 # The database will be mounted in a volume at /app/data
 ENV NODE_ENV="production"
+ENV NODE_OPTIONS="--max-old-space-size=512"
 ENV PORT=3000
 ENV DATABASE_URL="file:/app/data/prod.db"
 ENV NEXT_PUBLIC_APP_URL=""

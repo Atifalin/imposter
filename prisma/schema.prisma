@@ -14,11 +14,11 @@ model Player {
   createdAt DateTime @default(now())
   lastSeen  DateTime @default(now())
 
-  hostedRooms  Room[]       @relation("HostedRooms")
-  roomMembers  RoomMember[]
-  assignments  Assignment[]
-  votesCast    Vote[]       @relation("VotesCast")
-  votesReceived Vote[]      @relation("VotesReceived")
+  hostedRooms   Room[]       @relation("HostedRooms")
+  roomMembers   RoomMember[]
+  assignments   Assignment[]
+  votesCast     Vote[]       @relation("VotesCast")
+  votesReceived Vote[]       @relation("VotesReceived")
 }
 
 model Room {
@@ -26,15 +26,13 @@ model Room {
   code         String   @unique
   hostPlayerId String
   status       String   @default("lobby") // lobby, playing, finished
-  settings     String   // stores categories[], difficulty, imposterCount, timerSeconds (as stringified JSON)
+  settings     String // stores categories[], difficulty, imposterCount, timerSeconds (as stringified JSON)
   createdAt    DateTime @default(now())
 
-  hostPlayer   Player       @relation("HostedRooms", fields: [hostPlayerId], references: [id])
-  members      RoomMember[]
-  rounds       Round[]
-  words        Word[]
-
-  @@index([code])
+  hostPlayer Player       @relation("HostedRooms", fields: [hostPlayerId], references: [id])
+  members    RoomMember[]
+  rounds     Round[]
+  words      Word[]
 }
 
 model RoomMember {
@@ -44,8 +42,8 @@ model RoomMember {
   connected Boolean  @default(true)
   joinedAt  DateTime @default(now())
 
-  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
-  player    Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
 
   @@unique([roomId, playerId])
 }
@@ -64,31 +62,35 @@ model Round {
   room        Room         @relation(fields: [roomId], references: [id], onDelete: Cascade)
   assignments Assignment[]
   votes       Vote[]
+
+  @@index([roomId])
 }
 
 model Assignment {
-  id           String   @id @default(uuid())
+  id           String  @id @default(uuid())
   roundId      String
   playerId     String
   assignedWord String
-  isImposter   Boolean  @default(false)
-  viewed       Boolean  @default(false)
+  isImposter   Boolean @default(false)
+  viewed       Boolean @default(false)
 
-  round        Round    @relation(fields: [roundId], references: [id], onDelete: Cascade)
-  player       Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  round  Round  @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@index([roundId, playerId])
 }
 
 model Word {
-  id         String   @id @default(uuid())
+  id         String  @id @default(uuid())
   category   String
   word       String
   easyHint   String
   mediumHint String
   hardHint   String
-  isCustom   Boolean  @default(false)
+  isCustom   Boolean @default(false)
   roomId     String?
 
-  room       Room?    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  room Room? @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   @@index([category])
 }
@@ -100,7 +102,10 @@ model Vote {
   targetId  String
   createdAt DateTime @default(now())
 
-  round     Round    @relation(fields: [roundId], references: [id], onDelete: Cascade)
-  voter     Player   @relation("VotesCast", fields: [voterId], references: [id], onDelete: Cascade)
-  target    Player   @relation("VotesReceived", fields: [targetId], references: [id], onDelete: Cascade)
+  round  Round  @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  voter  Player @relation("VotesCast", fields: [voterId], references: [id], onDelete: Cascade)
+  target Player @relation("VotesReceived", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@unique([roundId, voterId])
+  @@index([roundId])
 }

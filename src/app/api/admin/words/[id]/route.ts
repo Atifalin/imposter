@@ -3,7 +3,7 @@ import { prisma } from '../../../../../lib/prisma';
 
 const checkAdmin = (req: Request) => {
   const auth = req.headers.get('Authorization');
-  return auth === 'Bearer admin-secret-key';
+  return auth === 'Bearer admin123';
 };
 
 export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {

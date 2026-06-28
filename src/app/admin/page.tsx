@@ -93,6 +93,10 @@ export default function AdminPage() {
     }
   };
 
+  // Edit state
+  const [editingWordId, setEditingWordId] = useState<string | null>(null);
+  const [editFormData, setEditFormData] = useState<any>({});
+
   const handleBulkImport = async () => {
     try {
       const parsed = JSON.parse(jsonInput);
@@ -115,6 +119,38 @@ export default function AdminPage() {
       }
     } catch (e) {
       alert('Invalid JSON format');
+    }
+  };
+
+  const startEdit = (word: any) => {
+    setEditingWordId(word.id);
+    setEditFormData({
+      category: word.category,
+      word: word.word,
+      easyHint: word.easyHint,
+      mediumHint: word.mediumHint,
+      hardHint: word.hardHint
+    });
+  };
+
+  const handleEditSave = async (id: string) => {
+    try {
+      const res = await fetch(`/api/admin/words/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer admin123'
+        },
+        body: JSON.stringify(editFormData)
+      });
+      if (res.ok) {
+        setEditingWordId(null);
+        fetchWords();
+      } else {
+        alert('Failed to update word');
+      }
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -149,15 +185,25 @@ export default function AdminPage() {
     }
   };
 
+  const [aiPromptStyle, setAiPromptStyle] = useState<'tricky' | 'funny' | 'obscure'>('tricky');
+
   const copyAiPrompt = () => {
+    let styleInstruction = 'Make the hints clever and slightly challenging.';
+    if (aiPromptStyle === 'funny') {
+      styleInstruction = 'Make the hints humorous, meme-worthy, or ironically funny without completely giving it away.';
+    } else if (aiPromptStyle === 'obscure') {
+      styleInstruction = 'Make the hardHint extremely obscure, requiring niche knowledge that sounds completely unrelated but is technically accurate.';
+    }
+
     const prompt = `Please generate exactly 25 words or phrases for the category/topic: "${aiTopic}".
+${styleInstruction}
 I need this in a raw JSON array format so I can directly import it into my game database.
 Do not wrap the JSON in markdown code blocks, just output the raw JSON array.
 Each item in the array must be an object with exactly these properties:
 - "word": The secret word or phrase (string).
 - "category": Must be exactly "${aiTopic}" for all of them.
-- "easyHint": A very obvious hint (string).
-- "mediumHint": A moderate hint (string).
+- "easyHint": A slightly challenging riddle or description (string).
+- "mediumHint": A moderate, tricky hint (string).
 - "hardHint": A cryptic or vague hint (string).
 
 Example structure:
@@ -329,19 +375,64 @@ Example structure:
             ) : (
               <div className="grid md:grid-cols-2 gap-4">
                 {displayedWords.map((w) => (
-                  <div key={w.id} className="bg-surface border border-white/5 p-4 rounded-xl flex justify-between items-start gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <p className="font-black text-lg text-white truncate">{w.word}</p>
+                  <div key={w.id} className="bg-surface border border-white/5 p-4 rounded-xl flex flex-col gap-4">
+                    {editingWordId === w.id ? (
+                      <div className="space-y-3">
+                        <input
+                          value={editFormData.word}
+                          onChange={(e) => setEditFormData({ ...editFormData, word: e.target.value })}
+                          className="w-full bg-surface-light px-3 py-2 rounded-lg outline-none text-white font-bold"
+                          placeholder="Word"
+                        />
+                        <input
+                          value={editFormData.easyHint}
+                          onChange={(e) => setEditFormData({ ...editFormData, easyHint: e.target.value })}
+                          className="w-full bg-surface-light px-3 py-2 text-sm rounded-lg outline-none"
+                          placeholder="Easy Hint"
+                        />
+                        <input
+                          value={editFormData.mediumHint}
+                          onChange={(e) => setEditFormData({ ...editFormData, mediumHint: e.target.value })}
+                          className="w-full bg-surface-light px-3 py-2 text-sm rounded-lg outline-none"
+                          placeholder="Medium Hint"
+                        />
+                        <input
+                          value={editFormData.hardHint}
+                          onChange={(e) => setEditFormData({ ...editFormData, hardHint: e.target.value })}
+                          className="w-full bg-surface-light px-3 py-2 text-sm rounded-lg outline-none"
+                          placeholder="Hard Hint"
+                        />
+                        <div className="flex gap-2 pt-2">
+                          <button onClick={() => setEditingWordId(null)} className="flex-1 py-1 text-sm bg-surface-light rounded-lg hover:bg-white/10 transition-colors">Cancel</button>
+                          <button onClick={() => handleEditSave(w.id)} className="flex-1 py-1 text-sm bg-success text-white rounded-lg font-bold shadow-[0_0_10px_rgba(34,197,94,0.3)]">Save</button>
+                        </div>
                       </div>
-                      <p className="text-sm text-text-muted truncate"><span className="opacity-50">Hint:</span> {w.hint || w.mediumHint}</p>
-                    </div>
-                    <button 
-                      onClick={() => handleDelete(w.id)}
-                      className="text-danger hover:text-white hover:bg-danger px-3 py-1 bg-danger/10 rounded-lg text-sm transition-colors"
-                    >
-                      Delete
-                    </button>
+                    ) : (
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="font-black text-lg text-white truncate">{w.word}</p>
+                          </div>
+                          <p className="text-sm text-text-muted mt-2"><span className="opacity-50 text-xs uppercase tracking-wider block">Easy Hint</span> {w.easyHint}</p>
+                          <p className="text-sm text-text-muted mt-1"><span className="opacity-50 text-xs uppercase tracking-wider block">Medium Hint</span> {w.mediumHint}</p>
+                          <p className="text-sm text-text-muted mt-1"><span className="opacity-50 text-xs uppercase tracking-wider block">Hard Hint</span> {w.hardHint}</p>
+                        </div>
+                        <div className="flex flex-col gap-2 shrink-0">
+                          <button 
+                            onClick={() => startEdit(w)}
+                            className="text-primary hover:text-white hover:bg-primary px-3 py-1 bg-primary/10 rounded-lg text-sm transition-colors"
+                          >
+                            Edit
+                          </button>
+                          <button 
+                            onClick={() => handleDelete(w.id)}
+                            className="text-danger hover:text-white hover:bg-danger px-3 py-1 bg-danger/10 rounded-lg text-sm transition-colors"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))}
                 {displayedWords.length === 0 && (
@@ -378,9 +469,33 @@ Example structure:
                 value={aiTopic}
                 onChange={(e) => setAiTopic(e.target.value)}
                 placeholder="e.g. Harry Potter Characters"
-                className="w-full bg-surface-light px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-primary mb-6 text-white"
+                className="w-full bg-surface-light px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-primary mb-4 text-white"
                 autoFocus
               />
+
+              <div className="mb-6 space-y-2">
+                <p className="text-sm font-bold text-white">Prompt Style:</p>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => setAiPromptStyle('tricky')}
+                    className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors ${aiPromptStyle === 'tricky' ? 'bg-primary text-white' : 'bg-surface-light text-text-muted hover:text-white'}`}
+                  >
+                    Tricky
+                  </button>
+                  <button 
+                    onClick={() => setAiPromptStyle('funny')}
+                    className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors ${aiPromptStyle === 'funny' ? 'bg-primary text-white' : 'bg-surface-light text-text-muted hover:text-white'}`}
+                  >
+                    Funny
+                  </button>
+                  <button 
+                    onClick={() => setAiPromptStyle('obscure')}
+                    className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors ${aiPromptStyle === 'obscure' ? 'bg-primary text-white' : 'bg-surface-light text-text-muted hover:text-white'}`}
+                  >
+                    Obscure
+                  </button>
+                </div>
+              </div>
               
               <div className="flex gap-2">
                 <button 

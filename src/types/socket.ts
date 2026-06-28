@@ -7,7 +7,7 @@ export interface ServerToClientEvents {
   'assignment': (assignment: ClientAssignment) => void;
   'card-viewed-ack': (playerId: string) => void;
   'all-ready': () => void;
-  'results-revealed': (data: { secretWord: string; hint: string; imposters: string[] }) => void;
+  'results-revealed': (data: { secretWord: string; hint: string; imposters: string[]; votedOutPlayerName?: string | null; wasImposter?: boolean; isTie?: boolean; }) => void;
   'vote-update': (data: { counts: { [targetId: string]: number }, voters: string[] }) => void;
   'player-joined': (player: PlayerState) => void;
   'player-left': (playerId: string) => void;

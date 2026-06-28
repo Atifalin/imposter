@@ -160,10 +160,41 @@ export function registerGameHandlers(
       }
     });
 
+    // Compute who was voted out
+    const voteCounts: { [id: string]: number } = {};
+    for (const tId of Array.from(room.currentRound.votes.values())) {
+      voteCounts[tId] = (voteCounts[tId] || 0) + 1;
+    }
+
+    let highestVotes = 0;
+    let votedOutId: string | null = null;
+    let isTie = false;
+
+    for (const [tId, count] of Object.entries(voteCounts)) {
+      if (count > highestVotes) {
+        highestVotes = count;
+        votedOutId = tId;
+        isTie = false;
+      } else if (count === highestVotes) {
+        isTie = true;
+      }
+    }
+
+    // If there's a tie, nobody is voted out (or we can handle it how we want, but usually nobody is killed)
+    if (isTie) {
+      votedOutId = null;
+    }
+
+    const votedOutPlayer = votedOutId ? room.players.get(votedOutId) : null;
+    const wasImposter = votedOutId ? room.currentRound.assignments.get(votedOutId) === 'imposter' : false;
+
     io.to(code).emit('results-revealed', {
       secretWord: room.currentRound.secretWord,
       hint: room.currentRound.hint,
-      imposters
+      imposters,
+      votedOutPlayerName: votedOutPlayer?.name || null,
+      wasImposter,
+      isTie
     });
     io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
   });

@@ -10,7 +10,14 @@ import { useEffect, useState } from 'react';
 interface ResultsPhaseProps {
   roomState: GameState;
   players: PlayerState[];
-  results: { secretWord: string; hint: string; imposters: string[] } | null;
+  results: { 
+    secretWord: string; 
+    hint: string; 
+    imposters: string[];
+    votedOutPlayerName?: string | null;
+    wasImposter?: boolean;
+    isTie?: boolean;
+  } | null;
   currentPlayerId: string;
 }
 
@@ -103,9 +110,24 @@ export default function ResultsPhase({ roomState, players, results, currentPlaye
             exit={{ opacity: 0, y: -50 }}
             className="text-center"
           >
-            <h2 className="text-5xl md:text-7xl font-black text-accent neon-glow animate-pulse">
-              The Imposter is...
-            </h2>
+            {results.isTie ? (
+              <h2 className="text-4xl md:text-6xl font-black text-warning neon-glow animate-pulse">
+                It was a tie! No one was eliminated...
+              </h2>
+            ) : results.votedOutPlayerName ? (
+              <div>
+                <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+                  The town voted out <span className="text-accent">{results.votedOutPlayerName}</span>...
+                </h2>
+                <h3 className="text-5xl md:text-7xl font-black text-white mt-8 animate-pulse" style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}>
+                  Were they the Imposter?
+                </h3>
+              </div>
+            ) : (
+              <h2 className="text-5xl md:text-7xl font-black text-accent neon-glow animate-pulse">
+                The Imposter is...
+              </h2>
+            )}
           </motion.div>
         )}
 
@@ -115,9 +137,27 @@ export default function ResultsPhase({ roomState, players, results, currentPlaye
             initial={{ opacity: 0, scale: 2 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: 'spring', damping: 10, stiffness: 100 }}
-            className="glass-strong rounded-3xl p-8 md:p-12 text-center"
+            className="glass-strong rounded-3xl p-8 md:p-12 text-center relative overflow-hidden"
           >
-            <div className="mb-12">
+            {/* Verdict Stamp */}
+            {results.votedOutPlayerName && !results.isTie && (
+              <motion.div
+                initial={{ scale: 3, opacity: 0, rotate: -20 }}
+                animate={{ scale: 1, opacity: 1, rotate: -5 }}
+                transition={{ type: 'spring', damping: 12, stiffness: 200, delay: 0.2 }}
+                className={`absolute top-4 left-1/2 -translate-x-1/2 px-8 py-2 border-8 rounded-xl text-4xl font-black uppercase tracking-widest z-20 shadow-2xl ${
+                  results.wasImposter 
+                    ? 'text-success border-success bg-success/20 shadow-[0_0_50px_rgba(34,197,94,0.6)]' 
+                    : 'text-danger border-danger bg-danger/20 shadow-[0_0_50px_rgba(239,68,68,0.6)]'
+                }`}
+                style={{ backdropFilter: 'blur(4px)' }}
+              >
+                {results.wasImposter ? 'IMPOSTER CAUGHT' : 'INNOCENT KILLED'}
+              </motion.div>
+            )}
+
+            <div className={`mb-12 ${results.votedOutPlayerName ? 'mt-16' : ''}`}>
+              <h3 className="text-text-muted font-bold uppercase tracking-widest mb-4">The True Imposters</h3>
               <div className="flex flex-wrap justify-center gap-4">
                 {results.imposters.map((name, i) => (
                   <div 

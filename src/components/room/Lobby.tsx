@@ -134,6 +134,19 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
             Share Invite Link
           </button>
+          
+          <button 
+            onClick={() => {
+              if(confirm('Are you sure you want to leave the room?')) {
+                if (socket) socket.emit('leave-room');
+                window.location.href = '/';
+              }
+            }}
+            className="btn-ghost text-danger hover:text-white hover:bg-danger/20 w-full flex items-center justify-center gap-2 mt-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            Leave Room
+          </button>
         </motion.div>
 
         {remoteMode && !voiceJoined && (

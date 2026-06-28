@@ -71,15 +71,16 @@ export default function SettingsModal({ isOpen, onClose, currentSettings, onSave
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-md"
+        className="fixed inset-0 z-50 overflow-y-auto bg-background/80 backdrop-blur-md"
       >
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0, y: 30 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.9, opacity: 0, y: 30 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="glass-strong rounded-[2.5rem] p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative border border-white/20 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
-        >
+        <div className="min-h-full flex items-center justify-center p-4 py-8">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 30 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 30 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="glass-strong rounded-[2.5rem] p-6 md:p-8 w-full max-w-2xl relative border border-white/20 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+          >
           {/* Header */}
           <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
             <div>
@@ -275,7 +276,8 @@ export default function SettingsModal({ isOpen, onClose, currentSettings, onSave
               Save Settings
             </motion.button>
           </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </motion.div>
     </AnimatePresence>
   );

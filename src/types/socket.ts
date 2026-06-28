@@ -21,6 +21,7 @@ export interface ServerToClientEvents {
   'webrtc-ice-candidate': (data: { senderId: string; candidate: any }) => void;
   'chat-message': (data: { senderId: string; senderName: string; message: string; timestamp: string }) => void;
   'mute-status-changed': (data: { playerId: string; muted: boolean }) => void;
+  'speaking-status': (data: { playerId: string; speaking: boolean }) => void;
   'host-mute-all': () => void;
 }
 
@@ -46,6 +47,7 @@ export interface ClientToServerEvents {
   'webrtc-ice-candidate': (data: { targetId: string; candidate: any }) => void;
   'chat-message': (data: { message: string }) => void;
   'mute-status-changed': (data: { muted: boolean }) => void;
+  'speaking-status': (data: { speaking: boolean }) => void;
   'host-mute-all': () => void;
 }
 

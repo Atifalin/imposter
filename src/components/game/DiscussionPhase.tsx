@@ -26,10 +26,18 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
   const isHost = roomState.hostPlayerId === currentPlayerId;
   const remoteMode = roomState.settings.remoteMode || false;
   
-  const { stream, isMuted, toggleMute, remoteStreams } = useWebRTC(roomState.code, remoteMode);
+  const { 
+    voiceJoined, 
+    initVoice, 
+    isMuted, 
+    setMicEnabled, 
+    remoteStreams, 
+    speakingPeers 
+  } = useWebRTC(roomState.code, remoteMode);
   
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState('');
+  const [masterMuted, setMasterMuted] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -50,6 +58,36 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
     };
   }, [socket, remoteMode]);
 
+  // Push to talk (Spacebar)
+  useEffect(() => {
+    if (!voiceJoined) return;
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if typing in chat
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+      if (e.code === 'Space' && !e.repeat) {
+        e.preventDefault();
+        setMicEnabled(true);
+      }
+    };
+    
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+      if (e.code === 'Space') {
+        e.preventDefault();
+        setMicEnabled(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+      setMicEnabled(false);
+    };
+  }, [voiceJoined, setMicEnabled]);
+
   const sendChatMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (chatInput.trim() && socket) {
@@ -60,7 +98,7 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
 
   const handleStartVoting = () => {
     if (!socket || !isHost) return;
-    socket.emit('start-voting'); // Note: Need to implement this socket handler
+    socket.emit('start-voting');
   };
 
   const formatTime = (seconds: number) => {
@@ -70,7 +108,7 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
   };
 
   return (
-    <div className="flex-1 flex flex-col p-4 md:p-8 max-w-5xl mx-auto w-full">
+    <div className="flex-1 flex flex-col p-4 md:p-8 max-w-5xl mx-auto w-full pb-32 md:pb-8">
       <div className="text-center mb-8">
         <h2 className="text-4xl md:text-5xl font-black mb-4 uppercase tracking-widest text-white neon-glow">
           Round {roomState.currentRound?.roundNumber}
@@ -105,9 +143,22 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
         </div>
       )}
 
+      {remoteMode && !voiceJoined && (
+        <div className="flex justify-center mb-8">
+          <button 
+            onClick={initVoice}
+            className="btn-primary py-3 px-8 rounded-full font-bold shadow-lg animate-pulse"
+          >
+            🎤 Join Voice Chat
+          </button>
+        </div>
+      )}
+
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 flex-1 content-start">
         {players.map((p, i) => {
           const remoteStream = remoteStreams[p.id];
+          const isSpeaking = speakingPeers[p.id] || (p.id === currentPlayerId && !isMuted);
+          
           return (
             <motion.div
               key={p.id}
@@ -116,11 +167,12 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
               transition={{ delay: i * 0.1 }}
               className={`glass p-6 rounded-2xl flex flex-col items-center justify-center text-center gap-3 relative ${
                 !p.connected ? 'opacity-50' : ''
-              }`}
+              } ${isSpeaking ? 'ring-4 ring-success shadow-[0_0_20px_rgba(34,197,94,0.5)]' : ''}`}
             >
               {remoteMode && p.id !== currentPlayerId && remoteStream && (
                 <audio 
                   autoPlay 
+                  muted={masterMuted}
                   ref={(audio) => {
                     if (audio && !audio.srcObject) audio.srcObject = remoteStream;
                   }}
@@ -133,9 +185,18 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
                 }`}>
                   {p.name.charAt(0).toUpperCase()}
                 </div>
+                
+                {/* Speaking Indicator Icon */}
+                {isSpeaking && (
+                  <div className="absolute -top-2 -right-2 bg-success text-white p-1 rounded-full animate-bounce">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                    </svg>
+                  </div>
+                )}
+
                 {remoteMode && p.id === currentPlayerId && (
-                  <button 
-                    onClick={toggleMute}
+                  <div 
                     className={`absolute -bottom-2 -right-2 p-2 rounded-full shadow-lg border ${
                       isMuted ? 'bg-danger border-danger-light' : 'bg-success border-success-light'
                     }`}
@@ -147,7 +208,7 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                       )}
                     </svg>
-                  </button>
+                  </div>
                 )}
               </div>
               
@@ -164,14 +225,22 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
         <div className="mt-8 glass rounded-2xl overflow-hidden flex flex-col h-64 border border-white/10 shadow-lg">
           <div className="p-3 bg-surface border-b border-white/10 font-bold text-sm text-text-muted flex justify-between items-center">
             <span>Room Chat</span>
-            {isHost && (
+            <div className="flex gap-2">
               <button 
-                onClick={() => socket?.emit('host-mute-all')}
-                className="text-xs bg-danger/20 text-danger hover:bg-danger/40 px-2 py-1 rounded transition-colors"
+                onClick={() => setMasterMuted(!masterMuted)}
+                className={`text-xs px-2 py-1 rounded transition-colors ${masterMuted ? 'bg-danger/20 text-danger hover:bg-danger/40' : 'bg-surface-light text-text-muted hover:text-white'}`}
               >
-                Mute All Mics
+                {masterMuted ? '🔇 Unmute Speakers' : '🔊 Mute Speakers'}
               </button>
-            )}
+              {isHost && (
+                <button 
+                  onClick={() => socket?.emit('host-mute-all')}
+                  className="text-xs bg-danger/20 text-danger hover:bg-danger/40 px-2 py-1 rounded transition-colors"
+                >
+                  Force Mute All
+                </button>
+              )}
+            </div>
           </div>
           <div className="flex-1 overflow-y-auto p-4 space-y-2">
             {messages.map(m => (
@@ -187,7 +256,7 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
               type="text" 
               value={chatInput}
               onChange={e => setChatInput(e.target.value)}
-              placeholder="Type a message..."
+              placeholder="Type a message (Spacebar to talk)..."
               className="flex-1 bg-surface-light border border-white/10 rounded-l-lg px-4 py-2 text-white focus:outline-none focus:border-primary"
             />
             <button type="submit" className="bg-primary hover:bg-primary-light px-4 rounded-r-lg text-white font-bold transition-colors">
@@ -220,6 +289,21 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
             Waiting for the host to start voting...
           </div>
         </motion.div>
+      )}
+
+      {/* Mobile Push to Talk Button */}
+      {remoteMode && voiceJoined && (
+        <div className="fixed bottom-0 left-0 w-full p-4 md:hidden z-50 bg-gradient-to-t from-background to-transparent pointer-events-none">
+          <button
+            onPointerDown={() => setMicEnabled(true)}
+            onPointerUp={() => setMicEnabled(false)}
+            onPointerLeave={() => setMicEnabled(false)}
+            onPointerCancel={() => setMicEnabled(false)}
+            className="w-full btn-primary py-4 rounded-2xl font-black text-xl shadow-[0_10px_30px_rgba(124,58,237,0.5)] touch-none select-none pointer-events-auto active:scale-95 transition-transform"
+          >
+            {isMuted ? 'HOLD TO TALK 🎤' : 'SPEAKING... 🗣️'}
+          </button>
+        </div>
       )}
     </div>
   );

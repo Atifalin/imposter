@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useSocket } from './useSocket';
 import { usePlayer } from './usePlayer';
 
@@ -6,54 +6,113 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
   const { socket } = useSocket();
   const { player } = usePlayer();
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Mic muted by default
+  const [voiceJoined, setVoiceJoined] = useState(false);
   const [remoteStreams, setRemoteStreams] = useState<Record<string, MediaStream>>({});
+  const [speakingPeers, setSpeakingPeers] = useState<Record<string, boolean>>({});
+  
   const peersRef = useRef<Record<string, RTCPeerConnection>>({});
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const animationFrameRef = useRef<number>();
+  const analysersRef = useRef<Record<string, AnalyserNode>>({});
 
-  useEffect(() => {
+  const initVoice = async () => {
     if (!remoteMode || !roomCode || !socket || !player) return;
-
-    let mounted = true;
-
-    const initMedia = async () => {
-      try {
-        const userStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-        if (mounted) {
-          setStream(userStream);
-          // Initial connection to existing players
-          socket.emit('request-webrtc-connections');
-        } else {
-          userStream.getTracks().forEach(track => track.stop());
-        }
-      } catch (err) {
-        console.error('Failed to get media devices:', err);
+    
+    try {
+      const userStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+      
+      // Mute local mic initially
+      userStream.getAudioTracks().forEach(track => track.enabled = false);
+      
+      setStream(userStream);
+      setVoiceJoined(true);
+      
+      // Initialize AudioContext for speaking indicators
+      if (!audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
       }
-    };
 
-    initMedia();
-
-    return () => {
-      mounted = false;
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
-      Object.values(peersRef.current).forEach(peer => peer.close());
-    };
-  }, [remoteMode, roomCode, socket, player]);
-
-  const toggleMute = () => {
-    if (stream) {
-      stream.getAudioTracks().forEach(track => {
-        track.enabled = !track.enabled;
-      });
-      const newMuted = !stream.getAudioTracks()[0]?.enabled;
-      setIsMuted(newMuted);
-      socket?.emit('mute-status-changed', { muted: newMuted });
+      // Analyze local stream
+      setupAnalyser('local', userStream);
+      
+      // Request connections
+      socket.emit('request-webrtc-connections');
+      
+      startAudioLoop();
+    } catch (err) {
+      console.error('Failed to get media devices:', err);
+      alert('Microphone access is required for voice chat.');
     }
   };
 
+  const setupAnalyser = (id: string, mediaStream: MediaStream) => {
+    if (!audioContextRef.current) return;
+    const source = audioContextRef.current.createMediaStreamSource(mediaStream);
+    const analyser = audioContextRef.current.createAnalyser();
+    analyser.fftSize = 256;
+    analyser.smoothingTimeConstant = 0.4;
+    source.connect(analyser);
+    analysersRef.current[id] = analyser;
+  };
+
+  const startAudioLoop = () => {
+    const checkAudioLevels = () => {
+      if (!audioContextRef.current) return;
+      
+      const newSpeakingState: Record<string, boolean> = {};
+      const dataArray = new Uint8Array(128); // half of fftSize
+
+      for (const [id, analyser] of Object.entries(analysersRef.current)) {
+        analyser.getByteFrequencyData(dataArray);
+        
+        let sum = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+          sum += dataArray[i];
+        }
+        const average = sum / dataArray.length;
+        
+        // Threshold for speaking
+        newSpeakingState[id] = average > 15;
+      }
+
+      setSpeakingPeers(prev => {
+        let changed = false;
+        for (const key in newSpeakingState) {
+          if (prev[key] !== newSpeakingState[key]) changed = true;
+        }
+        for (const key in prev) {
+          if (prev[key] !== newSpeakingState[key]) changed = true;
+        }
+        return changed ? newSpeakingState : prev;
+      });
+
+      animationFrameRef.current = requestAnimationFrame(checkAudioLevels);
+    };
+    
+    checkAudioLevels();
+  };
+
+  useEffect(() => {
+    return () => {
+      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+      if (audioContextRef.current?.state !== 'closed') audioContextRef.current?.close();
+      if (stream) stream.getTracks().forEach(t => t.stop());
+      Object.values(peersRef.current).forEach(peer => peer.close());
+    };
+  }, [stream]);
+
+  const setMicEnabled = useCallback((enabled: boolean) => {
+    if (stream) {
+      stream.getAudioTracks().forEach(track => {
+        track.enabled = enabled;
+      });
+      setIsMuted(!enabled);
+      socket?.emit('mute-status-changed', { muted: !enabled });
+    }
+  }, [stream, socket]);
+
   const createPeerConnection = (targetId: string, initiator: boolean) => {
-    // If connection already exists, don't recreate
     if (peersRef.current[targetId]) return peersRef.current[targetId];
 
     const peer = new RTCPeerConnection({
@@ -76,10 +135,12 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
     };
 
     peer.ontrack = (event) => {
+      const incomingStream = event.streams[0];
       setRemoteStreams(prev => ({
         ...prev,
-        [targetId]: event.streams[0]
+        [targetId]: incomingStream
       }));
+      setupAnalyser(targetId, incomingStream);
     };
 
     if (initiator) {
@@ -94,7 +155,7 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
   };
 
   useEffect(() => {
-    if (!socket || !remoteMode) return;
+    if (!socket || !remoteMode || !voiceJoined) return;
 
     const handlePlayerJoined = (newPlayer: any) => {
       if (newPlayer.id !== player?.id) {
@@ -137,15 +198,12 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
           delete newStreams[playerId];
           return newStreams;
         });
+        delete analysersRef.current[playerId];
       }
     };
 
     const handleHostMute = () => {
-      if (stream) {
-        stream.getAudioTracks().forEach(track => track.enabled = false);
-        setIsMuted(true);
-        socket.emit('mute-status-changed', { muted: true });
-      }
+      setMicEnabled(false);
     };
 
     socket.on('player-joined', handlePlayerJoined);
@@ -163,7 +221,14 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
       socket.off('player-left', handleLeft);
       socket.off('host-mute-all', handleHostMute);
     };
-  }, [socket, remoteMode, player, stream]);
+  }, [socket, remoteMode, player, voiceJoined, stream]);
 
-  return { stream, isMuted, toggleMute, remoteStreams };
+  return { 
+    voiceJoined, 
+    initVoice, 
+    isMuted, 
+    setMicEnabled, 
+    remoteStreams, 
+    speakingPeers 
+  };
 }

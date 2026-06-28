@@ -186,6 +186,24 @@ export default function AdminPage() {
     }
   };
 
+  const handleClearStats = async () => {
+    if (!confirm('Are you sure? This will delete all finished games and stale data to optimize database speed.')) return;
+    try {
+      const res = await fetch('/api/admin/stats', {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer admin123' }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        alert(`Successfully cleared ${data.deletedRooms} old games/rooms from the database!`);
+      } else {
+        alert('Failed to clear stats');
+      }
+    } catch (e) {
+      alert('Error clearing stats');
+    }
+  };
+
   const [aiPromptStyle, setAiPromptStyle] = useState<'tricky' | 'funny' | 'obscure'>('tricky');
 
   const copyAiPrompt = () => {
@@ -277,6 +295,9 @@ Example structure:
           </button>
           <button onClick={handleRestart} className="px-4 py-2 bg-danger/20 text-danger border border-danger/50 rounded-lg hover:bg-danger/30 transition-colors">
             Restart Server
+          </button>
+          <button onClick={handleClearStats} className="px-4 py-2 bg-purple-500/20 text-purple-400 border border-purple-500/50 rounded-lg hover:bg-purple-500/30 transition-colors">
+            Clear Game Stats
           </button>
           <button onClick={() => router.push('/')} className="px-4 py-2 bg-surface-light rounded-lg">Exit</button>
         </div>

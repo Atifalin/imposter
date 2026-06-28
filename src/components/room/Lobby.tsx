@@ -6,9 +6,10 @@ import { GameState } from '../../types/game';
 import { PlayerState } from '../../types/player';
 import { useSocket } from '../../hooks/useSocket';
 import { MIN_PLAYERS } from '../../lib/constants';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SettingsModal from './SettingsModal';
 import { usePlayer } from '../../hooks/usePlayer';
+import { useWebRTC } from '../../hooks/useWebRTC';
 
 interface LobbyProps {
   roomState: GameState;
@@ -20,7 +21,47 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
   const { socket } = useSocket();
   const { player: currentPlayer, setPlayerName } = usePlayer();
   const isHost = roomState.hostPlayerId === currentPlayerId;
+  const remoteMode = roomState.settings.remoteMode || false;
   const [showSettings, setShowSettings] = useState(false);
+  const [masterMuted, setMasterMuted] = useState(false);
+
+  const { 
+    voiceJoined, 
+    initVoice, 
+    isMuted, 
+    setMicEnabled, 
+    remoteStreams, 
+    speakingPeers 
+  } = useWebRTC(roomState.code, remoteMode);
+
+  // Push to talk (Spacebar)
+  useEffect(() => {
+    if (!voiceJoined) return;
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+      if (e.code === 'Space' && !e.repeat) {
+        e.preventDefault();
+        setMicEnabled(true);
+      }
+    };
+    
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+      if (e.code === 'Space') {
+        e.preventDefault();
+        setMicEnabled(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+      setMicEnabled(false);
+    };
+  }, [voiceJoined, setMicEnabled]);
 
   const joinUrl = typeof window !== 'undefined' 
     ? `${window.location.origin}/join/${roomState.code}` 
@@ -43,11 +84,10 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
 
   const copyLink = () => {
     navigator.clipboard.writeText(joinUrl);
-    // Add toast logic here later
   };
 
   return (
-    <div className="flex-1 flex flex-col lg:flex-row gap-8 p-4 md:p-8 max-w-6xl mx-auto w-full min-h-0 overflow-y-auto lg:overflow-hidden">
+    <div className="flex-1 flex flex-col lg:flex-row gap-8 p-4 md:p-8 max-w-6xl mx-auto w-full min-h-0 overflow-y-auto lg:overflow-hidden pb-32 md:pb-8">
       {/* Left Column: Room Info & QR */}
       <div className="flex flex-col gap-6 lg:w-1/3 shrink-0">
         <motion.div 
@@ -96,6 +136,33 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
           </button>
         </motion.div>
 
+        {remoteMode && !voiceJoined && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <button 
+              onClick={initVoice}
+              className="w-full btn-primary py-4 rounded-2xl font-bold shadow-[0_0_15px_rgba(124,58,237,0.4)] animate-pulse"
+            >
+              🎤 Join Voice Chat
+            </button>
+          </motion.div>
+        )}
+        
+        {remoteMode && voiceJoined && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2">
+            <div className="glass flex-1 px-4 py-3 rounded-2xl flex items-center justify-center text-sm font-medium text-text-muted">
+              Voice Active
+            </div>
+            <button 
+              onClick={() => setMasterMuted(!masterMuted)}
+              className={`flex-1 px-4 py-3 rounded-2xl font-bold transition-colors ${
+                masterMuted ? 'bg-danger/20 text-danger hover:bg-danger/40' : 'bg-surface-light text-text hover:text-white hover:bg-surface'
+              }`}
+            >
+              {masterMuted ? '🔇 Unmute' : '🔊 Mute All'}
+            </button>
+          </motion.div>
+        )}
+
         {isHost && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -119,8 +186,8 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
 
       {/* Right Column: Player List */}
       <div className="flex-1">
-        <div className="glass rounded-3xl p-6 h-full flex flex-col">
-          <div className="flex justify-between items-center mb-6">
+        <div className="glass rounded-3xl p-6 h-full flex flex-col relative overflow-hidden">
+          <div className="flex justify-between items-center mb-6 relative z-10">
             <h2 className="text-2xl font-bold">Players <span className="text-text-muted text-lg font-normal">({players.length})</span></h2>
             {isHost && (
               <button 
@@ -144,52 +211,74 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
             }}
           />
           
-          <div className="flex-1 overflow-y-auto pr-2 grid grid-cols-1 sm:grid-cols-2 gap-3 content-start">
-            {players.map((p, i) => (
-              <motion.div
-                key={p.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.05 }}
-                className={`flex items-center gap-4 p-4 rounded-2xl border ${
-                  p.id === currentPlayerId 
-                    ? 'bg-primary/20 border-primary/50' 
-                    : 'bg-surface/50 border-white/5'
-                }`}
-              >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-surface-light to-surface flex items-center justify-center font-bold text-lg text-white shadow-inner relative">
-                  {p.name.charAt(0).toUpperCase()}
-                  <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-surface ${p.connected ? 'bg-success' : 'bg-text-muted'}`} />
-                </div>
-                <div className="flex-1 min-w-0 flex flex-col">
-                  <div className="font-bold text-white truncate flex items-center gap-2">
-                    {p.name}
-                    {p.isHost && (
-                      <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">HOST</span>
-                    )}
+          <div className="flex-1 overflow-y-auto pr-2 grid grid-cols-1 sm:grid-cols-2 gap-3 content-start relative z-10">
+            {players.map((p, i) => {
+              const remoteStream = remoteStreams[p.id];
+              const isSpeaking = speakingPeers[p.id] || (p.id === currentPlayerId && !isMuted);
+
+              return (
+                <motion.div
+                  key={p.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.05 }}
+                  className={`flex items-center gap-4 p-4 rounded-2xl border transition-all ${
+                    p.id === currentPlayerId 
+                      ? 'bg-primary/20 border-primary/50' 
+                      : 'bg-surface/50 border-white/5'
+                  } ${isSpeaking ? 'ring-2 ring-success shadow-[0_0_15px_rgba(34,197,94,0.3)] bg-success/10' : ''}`}
+                >
+                  {remoteMode && p.id !== currentPlayerId && remoteStream && (
+                    <audio 
+                      autoPlay 
+                      muted={masterMuted}
+                      ref={(audio) => {
+                        if (audio && !audio.srcObject) audio.srcObject = remoteStream;
+                      }}
+                    />
+                  )}
+
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white shadow-inner relative ${
+                    isSpeaking ? 'bg-success border-2 border-success-light' : 'bg-gradient-to-br from-surface-light to-surface'
+                  }`}>
+                    {p.name.charAt(0).toUpperCase()}
+                    <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-surface ${p.connected ? 'bg-success' : 'bg-text-muted'}`} />
                   </div>
-                  {!p.connected ? (
-                    <div className="text-xs text-text-muted">Disconnected</div>
-                  ) : p.id === currentPlayerId ? (
-                    <button 
-                      onClick={handleNameChange}
-                      className="text-xs text-primary text-left hover:text-white transition-colors"
-                    >
-                      Change Name
+                  <div className="flex-1 min-w-0 flex flex-col">
+                    <div className="font-bold text-white truncate flex items-center gap-2">
+                      {p.name}
+                      {p.isHost && (
+                        <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">HOST</span>
+                      )}
+                    </div>
+                    {!p.connected ? (
+                      <div className="text-xs text-text-muted">Disconnected</div>
+                    ) : p.id === currentPlayerId ? (
+                      <button 
+                        onClick={handleNameChange}
+                        className="text-xs text-primary text-left hover:text-white transition-colors"
+                      >
+                        Change Name
+                      </button>
+                    ) : null}
+                  </div>
+                  {remoteMode && p.id === currentPlayerId && (
+                    <div className={`text-xs px-2 py-1 rounded-full ${isMuted ? 'bg-danger/20 text-danger' : 'bg-success/20 text-success'}`}>
+                      {isMuted ? 'Muted' : 'Mic On'}
+                    </div>
+                  )}
+                  {isHost && p.id !== currentPlayerId && (
+                    <button className="text-text-muted hover:text-danger p-2 transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
-                  ) : null}
-                </div>
-                {isHost && p.id !== currentPlayerId && (
-                  <button className="text-text-muted hover:text-danger p-2 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  </button>
-                )}
-              </motion.div>
-            ))}
+                  )}
+                </motion.div>
+              );
+            })}
             
             {/* Empty slots */}
             {Array.from({ length: Math.max(0, MIN_PLAYERS - players.length) }).map((_, i) => (
-              <div key={`empty-${i}`} className="flex items-center gap-4 p-4 rounded-2xl border border-dashed border-white/10 bg-transparent opacity-50">
+              <div key={`empty-${i}`} className="flex items-center gap-4 p-4 rounded-2xl border border-dashed border-white/10 bg-transparent opacity-50 relative z-10">
                 <div className="w-12 h-12 rounded-full border border-dashed border-white/20 flex items-center justify-center text-white/20">?</div>
                 <div className="font-medium text-text-muted">Waiting...</div>
               </div>
@@ -197,6 +286,21 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
           </div>
         </div>
       </div>
+
+      {/* Mobile Push to Talk Button */}
+      {remoteMode && voiceJoined && (
+        <div className="fixed bottom-0 left-0 w-full p-4 md:hidden z-50 bg-gradient-to-t from-background to-transparent pointer-events-none">
+          <button
+            onPointerDown={() => setMicEnabled(true)}
+            onPointerUp={() => setMicEnabled(false)}
+            onPointerLeave={() => setMicEnabled(false)}
+            onPointerCancel={() => setMicEnabled(false)}
+            className="w-full btn-primary py-4 rounded-2xl font-black text-xl shadow-[0_10px_30px_rgba(124,58,237,0.5)] touch-none select-none pointer-events-auto active:scale-95 transition-transform"
+          >
+            {isMuted ? 'HOLD TO TALK 🎤' : 'SPEAKING... 🗣️'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

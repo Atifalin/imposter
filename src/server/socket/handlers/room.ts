@@ -34,7 +34,7 @@ export function registerRoomHandlers(
       });
 
       const room = gameStateManager.createRoom(dbRoom.id, code, playerId, settings);
-      room.players.set(playerId, { id: playerId, name: playerName, connected: true, isHost: true });
+      room.players.set(playerId, { id: playerId, name: playerName, connected: true, isHost: true, socketId: socket.id });
 
       socket.join(code);
       socket.data.roomCode = code;
@@ -61,7 +61,8 @@ export function registerRoomHandlers(
         id: playerId, 
         name: playerName, 
         connected: true, 
-        isHost: room.hostPlayerId === playerId 
+        isHost: room.hostPlayerId === playerId,
+        socketId: socket.id
       });
 
       socket.join(code);

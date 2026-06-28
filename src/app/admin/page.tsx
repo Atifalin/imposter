@@ -12,6 +12,7 @@ export default function AdminPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'words' | 'bulk'>('words');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // New word form state
   const [category, setCategory] = useState('');
@@ -223,8 +224,18 @@ Example structure:
   }, [words]);
 
   const displayedWords = useMemo(() => {
-    return words.filter(w => w.category === selectedCategory);
-  }, [words, selectedCategory]);
+    return words.filter(w => {
+      if (w.category !== selectedCategory) return false;
+      if (!searchQuery) return true;
+      const lowerQ = searchQuery.toLowerCase();
+      return (
+        w.word.toLowerCase().includes(lowerQ) ||
+        w.easyHint.toLowerCase().includes(lowerQ) ||
+        w.mediumHint.toLowerCase().includes(lowerQ) ||
+        w.hardHint.toLowerCase().includes(lowerQ)
+      );
+    });
+  }, [words, selectedCategory, searchQuery]);
 
   if (!isAuthenticated) {
     return (
@@ -368,6 +379,17 @@ Example structure:
             )}
           </div>
 
+          {/* Search Bar */}
+          <div className="mb-6 shrink-0">
+            <input
+              type="text"
+              placeholder="Search words or hints..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-surface-light border border-white/10 text-white px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-primary placeholder-white/30"
+            />
+          </div>
+
           {/* Words List */}
           <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
             {isLoading ? (
@@ -418,16 +440,16 @@ Example structure:
                           <p className="text-xs md:text-sm text-text-muted mt-1 break-words"><span className="opacity-50 text-[10px] md:text-xs uppercase tracking-wider block">Medium Hint</span> {w.mediumHint}</p>
                           <p className="text-xs md:text-sm text-text-muted mt-1 break-words"><span className="opacity-50 text-[10px] md:text-xs uppercase tracking-wider block">Hard Hint</span> {w.hardHint}</p>
                         </div>
-                        <div className="flex sm:flex-col gap-2 shrink-0 w-full sm:w-auto">
+                        <div className="flex flex-row sm:flex-col gap-2 shrink-0 w-full sm:w-24 mt-2 sm:mt-0">
                           <button 
                             onClick={() => startEdit(w)}
-                            className="flex-1 sm:flex-none text-primary hover:text-white hover:bg-primary px-3 py-2 sm:py-1 bg-primary/10 rounded-lg text-sm transition-colors text-center"
+                            className="flex-1 sm:flex-none text-primary hover:text-white hover:bg-primary px-3 py-2 bg-surface-light border border-primary/30 rounded-lg text-sm font-semibold transition-colors text-center"
                           >
                             Edit
                           </button>
                           <button 
                             onClick={() => handleDelete(w.id)}
-                            className="flex-1 sm:flex-none text-danger hover:text-white hover:bg-danger px-3 py-2 sm:py-1 bg-danger/10 rounded-lg text-sm transition-colors text-center"
+                            className="flex-1 sm:flex-none text-danger hover:text-white hover:bg-danger px-3 py-2 bg-surface-light border border-danger/30 rounded-lg text-sm font-semibold transition-colors text-center"
                           >
                             Delete
                           </button>

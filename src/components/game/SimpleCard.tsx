@@ -51,7 +51,7 @@ export default function SimpleCard({ word, isImposter, isReady, onViewed }: Simp
 
         {/* Back of Card */}
         <div 
-          className={`absolute inset-0 rounded-3xl border shadow-2xl flex flex-col items-center justify-center p-8 text-center ${
+          className={`absolute inset-0 rounded-3xl border shadow-2xl flex flex-col items-center justify-center p-8 text-center overflow-y-auto custom-scrollbar ${
             isImposter 
               ? 'bg-gradient-to-br from-danger/90 to-danger/40 border-danger' 
               : 'bg-gradient-to-br from-primary to-accent border-white/20'
@@ -66,11 +66,14 @@ export default function SimpleCard({ word, isImposter, isReady, onViewed }: Simp
             </div>
           )}
           
-          <div className="text-white/70 text-sm uppercase tracking-widest font-bold mb-4">
+          <div className="text-white/70 text-sm uppercase tracking-widest font-bold mb-4 mt-6">
             {isImposter ? 'Your Hint' : 'Your Word'}
           </div>
           
-          <h2 className="text-5xl md:text-6xl font-black text-white break-words w-full" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.4)' }}>
+          <h2 
+            className={`font-black text-white break-words w-full ${isImposter ? 'text-2xl md:text-3xl' : 'text-5xl md:text-6xl'}`} 
+            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.4)' }}
+          >
             {word}
           </h2>
         </div>

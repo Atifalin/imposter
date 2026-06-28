@@ -6,6 +6,9 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Seeding database with words...');
   
+  // Clear existing words to prevent duplicates
+  await prisma.word.deleteMany({});
+  
   for (const entry of wordDatabase) {
     await prisma.word.create({
       data: {

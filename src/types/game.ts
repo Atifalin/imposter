@@ -3,6 +3,7 @@ export interface RoomSettings {
   difficulty: 'easy' | 'medium' | 'hard';
   imposterCount: number;
   timerSeconds?: number;
+  remoteMode?: boolean;
 }
 
 export interface ClientAssignment {

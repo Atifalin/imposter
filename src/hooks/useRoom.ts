@@ -39,14 +39,14 @@ export function useRoom(roomCode?: string) {
     };
 
     const handlePlayerJoined = (player: PlayerState) => {
-      toast.success(`${player.name} joined the room!`);
+      toast.success(`${player.name} joined the room!`, { id: 'player-status' });
     };
 
     const handlePlayerLeft = (playerId: string) => {
       setPlayers(prev => {
         const player = prev.find(p => p.id === playerId);
         if (player) {
-          setTimeout(() => toast(`${player.name} left the room.`, { icon: '🚪' }), 0);
+          setTimeout(() => toast(`${player.name} left the room.`, { icon: '🚪', id: 'player-status' }), 0);
         }
         return prev;
       });

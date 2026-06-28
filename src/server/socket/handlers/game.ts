@@ -209,11 +209,12 @@ export function registerGameHandlers(
 
       // Compute vote counts to send back
       const voteCounts: { [id: string]: number } = {};
+      const voters = Array.from(room.currentRound.votes.keys());
       for (const tId of Array.from(room.currentRound.votes.values())) {
         voteCounts[tId] = (voteCounts[tId] || 0) + 1;
       }
 
-      io.to(code).emit('vote-update', voteCounts);
+      io.to(code).emit('vote-update', { counts: voteCounts, voters });
     } catch (e) {
       console.error(e);
     }
@@ -241,6 +242,64 @@ export function registerGameHandlers(
       }
     } catch (e) {
       console.error(e);
+    }
+  });
+
+  // ==========================================
+  // WebRTC & Chat
+  // ==========================================
+
+  socket.on('webrtc-offer', ({ targetId, sdp }) => {
+    io.to(targetId).emit('webrtc-offer', { senderId: playerId, sdp });
+  });
+
+  socket.on('webrtc-answer', ({ targetId, sdp }) => {
+    io.to(targetId).emit('webrtc-answer', { senderId: playerId, sdp });
+  });
+
+  socket.on('webrtc-ice-candidate', ({ targetId, candidate }) => {
+    io.to(targetId).emit('webrtc-ice-candidate', { senderId: playerId, candidate });
+  });
+
+  socket.on('chat-message', ({ message }) => {
+    const code = socket.data.roomCode;
+    const playerName = socket.data.playerName;
+    if (code) {
+      io.to(code).emit('chat-message', { 
+        senderId: playerId, 
+        senderName: playerName, 
+        message, 
+        timestamp: new Date().toISOString() 
+      });
+    }
+  });
+
+  socket.on('mute-status-changed', ({ muted }) => {
+    const code = socket.data.roomCode;
+    if (code) {
+      io.to(code).emit('mute-status-changed', { playerId, muted });
+    }
+  });
+
+  socket.on('request-webrtc-connections', () => {
+    const code = socket.data.roomCode;
+    if (!code) return;
+    const room = gameStateManager.getRoom(code);
+    if (!room) return;
+    // Tell the requesting player about all other players so they can initiate offers
+    for (const p of room.players.values()) {
+      if (p.id !== playerId) {
+        socket.emit('player-joined', p);
+      }
+    }
+  });
+
+  socket.on('host-mute-all', () => {
+    const code = socket.data.roomCode;
+    if (!code) return;
+    const room = gameStateManager.getRoom(code);
+    if (room && room.hostPlayerId === playerId) {
+      socket.to(code).emit('host-mute-all');
     }
   });
 }

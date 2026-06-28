@@ -18,6 +18,7 @@ export default function CreateRoom() {
   const [imposterCount, setImposterCount] = useState(1);
   const [timerEnabled, setTimerEnabled] = useState(true);
   const [timerSeconds, setTimerSeconds] = useState(120);
+  const [remoteMode, setRemoteMode] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
   const toggleCategory = (cat: string) => {
@@ -42,7 +43,8 @@ export default function CreateRoom() {
       categories,
       difficulty,
       imposterCount,
-      timerSeconds: timerEnabled ? timerSeconds : undefined
+      timerSeconds: timerEnabled ? timerSeconds : undefined,
+      remoteMode
     };
 
     socket.emit('create-room', settings);
@@ -154,6 +156,26 @@ export default function CreateRoom() {
                 className="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center text-xl hover:bg-surface-light"
               >
                 +
+              </button>
+            </div>
+          </section>
+
+          {/* Remote Mode */}
+          <section>
+            <div className="flex items-center justify-between p-4 bg-surface rounded-xl border border-white/10">
+              <div>
+                <h2 className="text-lg font-bold text-white mb-1">Remote Mode</h2>
+                <p className="text-xs text-text-muted">Enable WebRTC Voice Chat and Text Chat for players not in the same room.</p>
+              </div>
+              <button 
+                onClick={() => setRemoteMode(!remoteMode)}
+                className={`w-14 h-8 rounded-full p-1 transition-colors ${remoteMode ? 'bg-success' : 'bg-surface-light'}`}
+              >
+                <motion.div 
+                  className="w-6 h-6 bg-white rounded-full shadow-md"
+                  animate={{ x: remoteMode ? 24 : 0 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
               </button>
             </div>
           </section>

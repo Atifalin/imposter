@@ -103,7 +103,7 @@ export default function JoinRoom() {
   // Player needs to enter name
   if (!player) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center p-4">
+      <div className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto min-h-0">
         <div className="mb-8 text-center">
           <h2 className="text-3xl font-bold mb-2">Joining Room <span className="text-primary">{code}</span></h2>
           <p className="text-text-muted">{roomInfo.playerCount} players waiting</p>
@@ -118,7 +118,7 @@ export default function JoinRoom() {
   // If the user wants a chance to change their name BEFORE joining, we need to remove the auto-join,
   // or just let them change it in the lobby. The user specifically asked for "Change Name on join room page".
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="flex-1 flex flex-col items-center justify-center p-4 relative overflow-y-auto min-h-0">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

@@ -10,11 +10,12 @@ interface VotingPhaseProps {
   roomState: GameState;
   players: PlayerState[];
   votes: { [targetId: string]: number };
+  voters: string[];
   timer: number | null;
   currentPlayerId: string;
 }
 
-export default function VotingPhase({ roomState, players, votes, timer, currentPlayerId }: VotingPhaseProps) {
+export default function VotingPhase({ roomState, players, votes, voters, timer, currentPlayerId }: VotingPhaseProps) {
   const { socket } = useSocket();
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
@@ -48,6 +49,7 @@ export default function VotingPhase({ roomState, players, votes, timer, currentP
         {eligiblePlayers.map((p, i) => {
           const isSelected = selectedPlayerId === p.id;
           const voteCount = votes[p.id] || 0;
+          const hasThisPlayerVoted = voters.includes(p.id);
           
           return (
             <motion.button
@@ -69,8 +71,22 @@ export default function VotingPhase({ roomState, players, votes, timer, currentP
               </div>
               <div className="font-bold text-xl text-white w-full truncate px-2">{p.name}</div>
               
+              {!hasThisPlayerVoted ? (
+                <div className="absolute top-2 left-2 flex gap-1">
+                  <span className="w-2 h-2 rounded-full bg-white/50 animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-white/50 animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-white/50 animate-bounce" style={{ animationDelay: '300ms' }} />
+                </div>
+              ) : (
+                <div className="absolute top-2 left-2 text-success">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              )}
+
               {hasVoted && (
-                <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-surface-light border-2 border-white text-white font-bold flex items-center justify-center">
+                <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-surface-light border-2 border-white text-white font-bold flex items-center justify-center shadow-lg shadow-black/50">
                   {voteCount}
                 </div>
               )}

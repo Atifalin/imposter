@@ -13,6 +13,7 @@ export function useGame() {
   const [assignment, setAssignment] = useState<ClientAssignment | null>(null);
   const [results, setResults] = useState<ResultsData | null>(null);
   const [votes, setVotes] = useState<{ [targetId: string]: number }>({});
+  const [voters, setVoters] = useState<string[]>([]);
   const [timer, setTimer] = useState<number | null>(null);
 
   useEffect(() => {
@@ -29,8 +30,9 @@ export function useGame() {
       setResults(data);
     };
 
-    const handleVoteUpdate = (newVotes: { [targetId: string]: number }) => {
-      setVotes(newVotes);
+    const handleVoteUpdate = (data: { counts: { [targetId: string]: number }, voters: string[] }) => {
+      setVotes(data.counts);
+      setVoters(data.voters);
     };
 
     const handleTimerTick = (seconds: number) => {
@@ -50,5 +52,5 @@ export function useGame() {
     };
   }, [socket]);
 
-  return { assignment, results, votes, timer };
+  return { assignment, results, votes, voters, timer };
 }

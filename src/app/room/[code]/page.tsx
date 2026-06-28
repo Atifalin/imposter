@@ -21,7 +21,7 @@ export default function RoomPage() {
   
   const { player, loading: playerLoading } = usePlayer();
   const { roomState, players, error, connected } = useRoom(code);
-  const { assignment, results, timer, votes } = useGame();
+  const { assignment, results, timer, votes, voters } = useGame();
   const { socket } = useSocket();
 
   // If not logged in, redirect to join which handles name collection
@@ -78,7 +78,7 @@ export default function RoomPage() {
       case 'discussion':
         return <DiscussionPhase roomState={roomState} players={players} timer={timer} currentPlayerId={player.id} />;
       case 'voting':
-        return <VotingPhase roomState={roomState} players={players} votes={votes} timer={timer} currentPlayerId={player.id} />;
+        return <VotingPhase roomState={roomState} players={players} votes={votes} voters={voters} timer={timer} currentPlayerId={player.id} />;
       case 'results':
         return <ResultsPhase roomState={roomState} players={players} results={results} currentPlayerId={player.id} />;
       default:

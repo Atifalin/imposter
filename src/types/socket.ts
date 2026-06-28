@@ -8,7 +8,7 @@ export interface ServerToClientEvents {
   'card-viewed-ack': (playerId: string) => void;
   'all-ready': () => void;
   'results-revealed': (data: { secretWord: string; hint: string; imposters: string[] }) => void;
-  'vote-update': (votes: { [targetId: string]: number }) => void;
+  'vote-update': (data: { counts: { [targetId: string]: number }, voters: string[] }) => void;
   'player-joined': (player: PlayerState) => void;
   'player-left': (playerId: string) => void;
   'host-transferred': (data: { newHostId: string }) => void;
@@ -16,6 +16,12 @@ export interface ServerToClientEvents {
   'timer-tick': (seconds: number) => void;
   'voting-started': () => void;
   'round-started': (roundNumber: number) => void;
+  'webrtc-offer': (data: { senderId: string; sdp: any }) => void;
+  'webrtc-answer': (data: { senderId: string; sdp: any }) => void;
+  'webrtc-ice-candidate': (data: { senderId: string; candidate: any }) => void;
+  'chat-message': (data: { senderId: string; senderName: string; message: string; timestamp: string }) => void;
+  'mute-status-changed': (data: { playerId: string; muted: boolean }) => void;
+  'host-mute-all': () => void;
 }
 
 export interface ClientToServerEvents {
@@ -34,6 +40,13 @@ export interface ClientToServerEvents {
   'remove-player': (playerId: string) => void;
   'close-room': () => void;
   'request-assignment': () => void;
+  'request-webrtc-connections': () => void;
+  'webrtc-offer': (data: { targetId: string; sdp: any }) => void;
+  'webrtc-answer': (data: { targetId: string; sdp: any }) => void;
+  'webrtc-ice-candidate': (data: { targetId: string; candidate: any }) => void;
+  'chat-message': (data: { message: string }) => void;
+  'mute-status-changed': (data: { muted: boolean }) => void;
+  'host-mute-all': () => void;
 }
 
 export interface SocketData {

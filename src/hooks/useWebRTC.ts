@@ -15,12 +15,20 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
   const audioContextRef = useRef<AudioContext | null>(null);
   const animationFrameRef = useRef<number>(0);
   const analysersRef = useRef<Record<string, AnalyserNode>>({});
+  const localSpeakingRef = useRef<boolean>(false);
 
   const initVoice = async () => {
     if (!remoteMode || !roomCode || !socket || !player) return;
     
     try {
-      const userStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+      const userStream = await navigator.mediaDevices.getUserMedia({ 
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true
+        }, 
+        video: false 
+      });
       
       // Mute local mic initially
       userStream.getAudioTracks().forEach(track => track.enabled = false);
@@ -32,8 +40,13 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
       if (!audioContextRef.current) {
         audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
       }
+      
+      // Resume AudioContext on mobile
+      if (audioContextRef.current.state === 'suspended') {
+        await audioContextRef.current.resume();
+      }
 
-      // Analyze local stream
+      // Analyze local stream only
       setupAnalyser('local', userStream);
       
       // Request connections
@@ -67,34 +80,26 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
       }
       lastCheck = timestamp;
       
-      if (!audioContextRef.current) return;
+      const localAnalyser = analysersRef.current['local'];
+      if (!localAnalyser) return;
       
-      const newSpeakingState: Record<string, boolean> = {};
       const dataArray = new Uint8Array(128); // half of fftSize
-
-      for (const [id, analyser] of Object.entries(analysersRef.current)) {
-        analyser.getByteFrequencyData(dataArray);
-        
-        let sum = 0;
-        for (let i = 0; i < dataArray.length; i++) {
-          sum += dataArray[i];
-        }
-        const average = sum / dataArray.length;
-        
-        // Threshold for speaking
-        newSpeakingState[id] = average > 15;
+      localAnalyser.getByteFrequencyData(dataArray);
+      
+      let sum = 0;
+      for (let i = 0; i < dataArray.length; i++) {
+        sum += dataArray[i];
       }
-
-      setSpeakingPeers(prev => {
-        let changed = false;
-        for (const key in newSpeakingState) {
-          if (prev[key] !== newSpeakingState[key]) changed = true;
-        }
-        for (const key in prev) {
-          if (prev[key] !== newSpeakingState[key]) changed = true;
-        }
-        return changed ? newSpeakingState : prev;
-      });
+      const average = sum / dataArray.length;
+      
+      // Threshold for speaking
+      const isSpeaking = average > 15;
+      
+      if (localSpeakingRef.current !== isSpeaking) {
+        localSpeakingRef.current = isSpeaking;
+        // Broadcast our speaking status to others
+        socket?.emit('speaking-status', { speaking: isSpeaking });
+      }
 
       animationFrameRef.current = requestAnimationFrame(checkAudioLevels);
     };
@@ -117,7 +122,12 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
         track.enabled = enabled;
       });
       setIsMuted(!enabled);
-      socket?.emit('mute-status-changed', { muted: !enabled });
+      
+      // If we are muting, force local speaking state to false instantly
+      if (!enabled && localSpeakingRef.current) {
+        localSpeakingRef.current = false;
+        socket?.emit('speaking-status', { speaking: false });
+      }
     }
   }, [stream, socket]);
 
@@ -127,7 +137,8 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
     const peer = new RTCPeerConnection({
       iceServers: [
         { urls: 'stun:stun.l.google.com:19302' },
-        { urls: 'stun:stun1.l.google.com:19302' }
+        { urls: 'stun:stun1.l.google.com:19302' },
+        { urls: 'stun:stun2.l.google.com:19302' }
       ]
     });
 
@@ -149,7 +160,8 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
         ...prev,
         [targetId]: incomingStream
       }));
-      setupAnalyser(targetId, incomingStream);
+      // We NO LONGER setup analyzer for remote streams to avoid Web Audio API mobile bugs!
+      // We rely on WebSocket 'speaking-status' instead.
     };
 
     if (initiator) {
@@ -207,8 +219,19 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
           delete newStreams[playerId];
           return newStreams;
         });
-        delete analysersRef.current[playerId];
+        setSpeakingPeers(prev => {
+          const newPeers = { ...prev };
+          delete newPeers[playerId];
+          return newPeers;
+        });
       }
+    };
+
+    const handleSpeakingStatus = ({ playerId, speaking }: { playerId: string, speaking: boolean }) => {
+      setSpeakingPeers(prev => ({
+        ...prev,
+        [playerId]: speaking
+      }));
     };
 
     const handleHostMute = () => {
@@ -220,6 +243,7 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
     socket.on('webrtc-answer', handleAnswer);
     socket.on('webrtc-ice-candidate', handleIce);
     socket.on('player-left', handleLeft);
+    socket.on('speaking-status', handleSpeakingStatus);
     socket.on('host-mute-all', handleHostMute);
 
     return () => {
@@ -228,6 +252,7 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
       socket.off('webrtc-answer', handleAnswer);
       socket.off('webrtc-ice-candidate', handleIce);
       socket.off('player-left', handleLeft);
+      socket.off('speaking-status', handleSpeakingStatus);
       socket.off('host-mute-all', handleHostMute);
     };
   }, [socket, remoteMode, player, voiceJoined, stream]);
@@ -241,3 +266,4 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
     speakingPeers 
   };
 }
+

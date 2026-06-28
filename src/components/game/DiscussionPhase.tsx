@@ -169,12 +169,15 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
                 !p.connected ? 'opacity-50' : ''
               }`}
             >
-              {remoteMode && p.id !== currentPlayerId && remoteStream && (
+              {remoteMode && p.id !== currentPlayerId && remoteStreams[p.id] && (
                 <audio 
                   autoPlay 
                   muted={masterMuted}
                   ref={(audio) => {
-                    if (audio && !audio.srcObject) audio.srcObject = remoteStream;
+                    if (audio && !audio.srcObject) {
+                      audio.srcObject = remoteStreams[p.id];
+                      audio.play().catch(e => console.log('Autoplay blocked:', e));
+                    }
                   }}
                 />
               )}
@@ -290,8 +293,11 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
             onPointerUp={() => setMicEnabled(false)}
             onPointerLeave={() => setMicEnabled(false)}
             onPointerCancel={() => setMicEnabled(false)}
+            onTouchStart={() => setMicEnabled(true)}
+            onTouchEnd={() => setMicEnabled(false)}
+            onTouchCancel={() => setMicEnabled(false)}
             onContextMenu={(e) => e.preventDefault()}
-            style={{ WebkitTouchCallout: 'none', WebkitUserSelect: 'none' }}
+            style={{ WebkitTouchCallout: 'none', WebkitUserSelect: 'none', userSelect: 'none' }}
             className="w-full btn-primary py-4 rounded-2xl font-black text-xl shadow-[0_10px_30px_rgba(124,58,237,0.5)] touch-none select-none pointer-events-auto active:scale-95 transition-transform"
           >
             {isMuted ? 'HOLD TO TALK 🎤' : 'SPEAKING... 🗣️'}

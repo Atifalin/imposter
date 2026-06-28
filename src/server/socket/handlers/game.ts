@@ -327,6 +327,12 @@ export function registerGameHandlers(
     }
   });
 
+  socket.on('speaking-status', ({ speaking }: { speaking: boolean }) => {
+    const code = socket.data.roomCode;
+    if (!code) return;
+    socket.to(code).emit('speaking-status', { playerId, speaking });
+  });
+
   socket.on('host-mute-all', () => {
     const code = socket.data.roomCode;
     if (!code) return;

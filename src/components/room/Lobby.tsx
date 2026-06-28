@@ -295,6 +295,8 @@ export default function Lobby({ roomState, players, currentPlayerId }: LobbyProp
             onPointerUp={() => setMicEnabled(false)}
             onPointerLeave={() => setMicEnabled(false)}
             onPointerCancel={() => setMicEnabled(false)}
+            onContextMenu={(e) => e.preventDefault()}
+            style={{ WebkitTouchCallout: 'none', WebkitUserSelect: 'none' }}
             className="w-full btn-primary py-4 rounded-2xl font-black text-xl shadow-[0_10px_30px_rgba(124,58,237,0.5)] touch-none select-none pointer-events-auto active:scale-95 transition-transform"
           >
             {isMuted ? 'HOLD TO TALK 🎤' : 'SPEAKING... 🗣️'}

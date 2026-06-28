@@ -167,7 +167,7 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
               transition={{ delay: i * 0.1 }}
               className={`glass p-6 rounded-2xl flex flex-col items-center justify-center text-center gap-3 relative ${
                 !p.connected ? 'opacity-50' : ''
-              } ${isSpeaking ? 'ring-4 ring-success shadow-[0_0_20px_rgba(34,197,94,0.5)]' : ''}`}
+              }`}
             >
               {remoteMode && p.id !== currentPlayerId && remoteStream && (
                 <audio 
@@ -180,20 +180,11 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
               )}
               
               <div className="relative">
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-inner ${
-                  p.id === currentPlayerId ? 'bg-primary border-2 border-primary-light' : 'bg-surface-light border border-white/10'
-                }`}>
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-inner transition-all duration-200 ${
+                  p.id === currentPlayerId ? 'bg-primary' : 'bg-surface-light'
+                } ${isSpeaking ? 'ring-4 ring-success ring-offset-4 ring-offset-[#1e293b]' : 'border border-white/10'}`}>
                   {p.name.charAt(0).toUpperCase()}
                 </div>
-                
-                {/* Speaking Indicator Icon */}
-                {isSpeaking && (
-                  <div className="absolute -top-2 -right-2 bg-success text-white p-1 rounded-full animate-bounce">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                    </svg>
-                  </div>
-                )}
 
                 {remoteMode && p.id === currentPlayerId && (
                   <div 
@@ -299,6 +290,8 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
             onPointerUp={() => setMicEnabled(false)}
             onPointerLeave={() => setMicEnabled(false)}
             onPointerCancel={() => setMicEnabled(false)}
+            onContextMenu={(e) => e.preventDefault()}
+            style={{ WebkitTouchCallout: 'none', WebkitUserSelect: 'none' }}
             className="w-full btn-primary py-4 rounded-2xl font-black text-xl shadow-[0_10px_30px_rgba(124,58,237,0.5)] touch-none select-none pointer-events-auto active:scale-95 transition-transform"
           >
             {isMuted ? 'HOLD TO TALK 🎤' : 'SPEAKING... 🗣️'}

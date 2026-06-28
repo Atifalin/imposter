@@ -1,0 +1,702 @@
+[
+  {
+    "category": "Cricket",
+    "word": "Chinaman",
+    "easyHint": "A rare type of spin that mirrors the orthodox, but comes from the other hand.",
+    "mediumHint": "Kuldeep Yadav brought this back into the spotlight for India.",
+    "hardHint": "Named after Ellis Achong, a player of Chinese descent who played for West Indies in the 1930s."
+  },
+  {
+    "category": "Cricket",
+    "word": "Teesra",
+    "easyHint": "The mysterious third variation of an off-spinner.",
+    "mediumHint": "Saqlain Mushtaq invented the second, but who really perfected this third one is still debated.",
+    "hardHint": "Saeed Ajmal claimed he could bowl this, but the ICC biomechanics test had other ideas."
+  },
+  {
+    "category": "Cricket",
+    "word": "Zooter",
+    "easyHint": "A leg-spinner's delivery that skids low and fast instead of turning.",
+    "mediumHint": "Shane Warne claimed to have invented it to trick English batsmen in the 90s.",
+    "hardHint": "Often confused with the flipper, some say Warne entirely fabricated its existence just to mess with media and opponents."
+  },
+  {
+    "category": "Cricket",
+    "word": "Diamond Duck",
+    "easyHint": "Getting out without facing a single legal delivery.",
+    "mediumHint": "Usually involves a tragic mix-up and a run-out at the non-striker's end on the first ball.",
+    "hardHint": "Harshal Patel suffered this fate against SRH when he was run out without facing a ball."
+  },
+  {
+    "category": "Cricket",
+    "word": "King Pair",
+    "easyHint": "Getting out on the first ball in both innings of a Test match.",
+    "mediumHint": "Ajit Agarkar famously avoided this against Australia after his legendary string of zeroes.",
+    "hardHint": "Virender Sehwag suffered this ignominy against England at Edgbaston in 2011."
+  },
+  {
+    "category": "Cricket",
+    "word": "Dilscoop",
+    "easyHint": "Going on one knee and flicking the ball directly over the wicketkeeper's head.",
+    "mediumHint": "Named after a Sri Lankan opener who devastated bowlers in the 2009 T20 World Cup.",
+    "hardHint": "Originally inspired by the 'Marillier shot', but adapted to fast pacers instead of just spinners."
+  },
+  {
+    "category": "Cricket",
+    "word": "Natraj Shot",
+    "easyHint": "A graceful pull shot played while balancing on one leg.",
+    "mediumHint": "Kapil Dev made it iconic, and Ranveer Singh practiced it for months for a movie.",
+    "hardHint": "The silhouette of this shot resembles the cosmic dance of Lord Shiva."
+  },
+  {
+    "category": "Cricket",
+    "word": "Mankading",
+    "easyHint": "Running out the non-striker before bowling the ball.",
+    "mediumHint": "Ashwin made this a global debate in the IPL when he dismissed Jos Buttler.",
+    "hardHint": "Named after an Indian legend who first did it to Bill Brown in 1947 in Australia."
+  },
+  {
+    "category": "Cricket",
+    "word": "Obstructing the Field",
+    "easyHint": "When a batsman willfully blocks the fielding side from making a play.",
+    "mediumHint": "Inzamam-ul-Haq was given out this way against India in 2006 for stopping a throw with his bat.",
+    "hardHint": "Len Hutton was the first to be dismissed this way in Test cricket in 1951."
+  },
+  {
+    "category": "Cricket",
+    "word": "Timed Out",
+    "easyHint": "Failing to arrive at the crease within the allowed minutes.",
+    "mediumHint": "Angelo Mathews was the first victim of this in international cricket.",
+    "hardHint": "Sourav Ganguly almost suffered this against South Africa in 2007 because he couldn't find his bat."
+  },
+  {
+    "category": "Cricket",
+    "word": "Handling the Ball",
+    "easyHint": "A batsman gets out by using their hands to stop the ball from hitting the stumps.",
+    "mediumHint": "Mohinder Amarnath and Steve Waugh have both fallen prey to this rare dismissal.",
+    "hardHint": "In 2017, the ICC absorbed this law entirely into 'Obstructing the Field'."
+  },
+  {
+    "category": "Cricket",
+    "word": "Hit the Ball Twice",
+    "easyHint": "Making contact with the ball twice with the bat intentionally.",
+    "mediumHint": "You can only do it legally to protect your wicket, not to score runs.",
+    "hardHint": "No player has ever been dismissed this way in an International match, but it exists in the rulebooks."
+  },
+  {
+    "category": "Cricket",
+    "word": "Sight Screen",
+    "easyHint": "The large board placed behind the bowler to help the batsman see the ball.",
+    "mediumHint": "It is white for red-ball cricket and black for white-ball cricket.",
+    "hardHint": "Sachin Tendulkar once famously stopped a bowler because a fan was moving near this object."
+  },
+  {
+    "category": "Cricket",
+    "word": "Nightwatchman",
+    "easyHint": "A lower-order batsman sent in at the end of the day to survive.",
+    "mediumHint": "Jason Gillespie famously scored a double century while playing this role.",
+    "hardHint": "Syed Kirmani often played this role for India, shielding the fragile middle order of the 70s."
+  },
+  {
+    "category": "Cricket",
+    "word": "Gully",
+    "easyHint": "A fielding position right next to the slips.",
+    "mediumHint": "It's the spot where you catch the thick outside edges that fly backward of square.",
+    "hardHint": "In gully cricket, this is where the uncle stands who refuses to give your ball back."
+  },
+  {
+    "category": "Cricket",
+    "word": "Silly Point",
+    "easyHint": "A fielding position dangerously close to the batsman on the off-side.",
+    "mediumHint": "You usually wear a helmet and shin guards when standing here for a spinner.",
+    "hardHint": "Eknath Solkar was arguably the greatest Indian fielder in this perilous position during the spin quartet era."
+  },
+  {
+    "category": "Cricket",
+    "word": "Carrom Ball",
+    "easyHint": "A spin delivery flicked out from between the thumb and bent middle finger.",
+    "mediumHint": "R Ashwin brought this into the limelight against Mendis in the late 2000s.",
+    "hardHint": "It was originally called the 'Sodukku ball' in the streets of Chennai before international fame."
+  },
+  {
+    "category": "Cricket",
+    "word": "Helicopter Shot",
+    "easyHint": "A wristy whip that ends with the bat twirling over the head.",
+    "mediumHint": "MS Dhoni used it to dig out deadly yorkers and send them into the stands.",
+    "hardHint": "It was originally taught to Dhoni by his childhood friend Santosh Lal, who called it the 'Thappad Shot'."
+  },
+  {
+    "category": "Cricket",
+    "word": "Snickometer",
+    "easyHint": "Uses sound waves to check if the ball touched the bat.",
+    "mediumHint": "Often shows a spike on the graph when the ball passes the edge.",
+    "hardHint": "Invented by Allan Plaskett, it was once fooled by the sound of a bat hitting a pad or the ground."
+  },
+  {
+    "category": "Cricket",
+    "word": "Hotspot",
+    "easyHint": "Uses infrared cameras to detect friction on the bat or pad.",
+    "mediumHint": "Shows a bright white mark where the ball made contact.",
+    "hardHint": "Banned temporarily because silicone tape on the edges of bats was rumored to prevent it from showing marks."
+  },
+  {
+    "category": "Cricket",
+    "word": "Hawkeye",
+    "easyHint": "The ball-tracking system used for LBW decisions.",
+    "mediumHint": "Shows the pitch, impact, and wickets hitting on the big screen.",
+    "hardHint": "Its inventor, Paul Hawkins, played minor counties cricket in England and based it on missile tracking tech."
+  },
+  {
+    "category": "Cricket",
+    "word": "Duckworth-Lewis",
+    "easyHint": "The mathematical method used to calculate targets in rain-affected matches.",
+    "mediumHint": "Now known as DLS after Steven Stern updated the formula.",
+    "hardHint": "South Africa once needed 22 runs off 1 ball in a 1992 World Cup semi-final due to a predecessor of this system."
+  },
+  {
+    "category": "Cricket",
+    "word": "Reverse Swing",
+    "easyHint": "When an old ball swings towards the shiny side instead of away from it.",
+    "mediumHint": "Pioneered by the Pakistan fast bowlers like Imran Khan, Wasim Akram, and Waqar Younis.",
+    "hardHint": "Requires the ball to be scuffed up on one side, which once led to the infamous 'Bottle top' controversy in 2006."
+  },
+  {
+    "category": "Cricket",
+    "word": "Pinch Hitter",
+    "easyHint": "A batsman promoted up the order specifically to score quick runs.",
+    "mediumHint": "Sanath Jayasuriya and Romesh Kaluwitharana redefined this role in the 1996 World Cup.",
+    "hardHint": "Sunil Narine was successfully deployed in this exact role by KKR, completely altering IPL powerplays."
+  },
+  {
+    "category": "Cricket",
+    "word": "Super Over",
+    "easyHint": "The ultimate tie-breaker after a T20 match ends level.",
+    "mediumHint": "Six balls per side, two wickets maximum.",
+    "hardHint": "The 2019 World Cup final was decided not by runs in this phase, but by a boundary countback rule."
+  },
+  {
+    "category": "Football",
+    "word": "Panenka",
+    "easyHint": "A cheeky chip down the middle of the goal during a penalty.",
+    "mediumHint": "Zidane did it in a World Cup final, kissing the crossbar.",
+    "hardHint": "Named after Antonin, who first used it to win the 1976 European Championship against West Germany."
+  },
+  {
+    "category": "Football",
+    "word": "Rabona",
+    "easyHint": "Kicking the ball by wrapping one leg around the back of the other.",
+    "mediumHint": "Angel Di Maria often uses this to cross the ball because he hates his weak foot.",
+    "hardHint": "Pele claims to have performed it in the 1950s, but it was popularized by Ricardo Infante in Argentina."
+  },
+  {
+    "category": "Football",
+    "word": "Elastico",
+    "easyHint": "A dribbling move where you push the ball outside, then quickly drag it inside with the same foot.",
+    "mediumHint": "Ronaldinho popularized this 'flip-flap' skill globally.",
+    "hardHint": "Invented by Japanese-Brazilian player Sérgio Echigo, who taught it to Rivellino."
+  },
+  {
+    "category": "Football",
+    "word": "Trivela",
+    "easyHint": "Striking or passing the ball with the outside of the boot to apply curve.",
+    "mediumHint": "Ricardo Quaresma built his entire career highlight reel around this technique.",
+    "hardHint": "Luka Modric used this perfectly to assist Rodrygo against Chelsea in the Champions League."
+  },
+  {
+    "category": "Football",
+    "word": "Cruyff Turn",
+    "easyHint": "Faking a pass or cross, then dragging the ball behind your standing leg to change direction.",
+    "mediumHint": "Invented by a legendary Dutch player who revolutionized the sport.",
+    "hardHint": "First unleashed on the world stage against Swedish defender Jan Olsson in the 1974 World Cup."
+  },
+  {
+    "category": "Football",
+    "word": "Nutmeg",
+    "easyHint": "Kicking the ball through the opponent's legs.",
+    "mediumHint": "Lionel Messi does this so often it feels like he's insulting defenders.",
+    "hardHint": "In India, playing on the streets, this humiliating move is often loudly called a 'Galla'."
+  },
+  {
+    "category": "Football",
+    "word": "Bicycle Kick",
+    "easyHint": "Throwing your body in the air and kicking the ball backward over your head.",
+    "mediumHint": "Wayne Rooney did a famous one against Man City, and Ronaldo against Juventus.",
+    "hardHint": "Also known as the 'Chalaca', originating in Peru, though Leonidas da Silva made it famous in Brazil."
+  },
+  {
+    "category": "Football",
+    "word": "Scorpion Kick",
+    "easyHint": "Diving forward and kicking the ball away with your heels above your back.",
+    "mediumHint": "Olivier Giroud won a Puskas award for scoring with this acrobatic move.",
+    "hardHint": "Rene Higuita shocked the world by doing this to save a shot at Wembley in 1995."
+  },
+  {
+    "category": "Football",
+    "word": "Tiki Taka",
+    "easyHint": "A style of play focused on short passing and maintaining possession.",
+    "mediumHint": "Pep Guardiola's Barcelona team became legendary for perfecting this system.",
+    "hardHint": "The term was supposedly coined by Spanish broadcaster Andrés Montes, mimicking the ticking of a clock."
+  },
+  {
+    "category": "Football",
+    "word": "Gegenpressing",
+    "easyHint": "Instantly attempting to win the ball back immediately after losing possession.",
+    "mediumHint": "Jurgen Klopp brought this intense style to Borussia Dortmund and Liverpool.",
+    "hardHint": "Ralf Rangnick is often credited as the 'godfather' of this heavy metal football philosophy in Germany."
+  },
+  {
+    "category": "Football",
+    "word": "Catenaccio",
+    "easyHint": "An ultra-defensive system prioritizing a solid backline and man-marking.",
+    "mediumHint": "Helenio Herrera used this to make Inter Milan a dominant force in the 1960s.",
+    "hardHint": "Italian for 'door-bolt', it famously utilized a 'sweeper' or 'libero' behind the main defenders."
+  },
+  {
+    "category": "Football",
+    "word": "Total Football",
+    "easyHint": "A tactical theory where any outfield player can take over the role of any other player.",
+    "mediumHint": "The 1970s Ajax and Netherlands national team stunned the world with this fluid setup.",
+    "hardHint": "Pioneered by Rinus Michels, heavily reliant on spatial awareness and extreme stamina."
+  },
+  {
+    "category": "Football",
+    "word": "False Nine",
+    "easyHint": "A center forward who frequently drops deep into midfield to disrupt the defense.",
+    "mediumHint": "Messi thrived in this role under Guardiola, completely destroying Real Madrid 6-2.",
+    "hardHint": "Francesco Totti famously popularized this specific role at Roma under Luciano Spalletti."
+  },
+  {
+    "category": "Football",
+    "word": "Sweeper Keeper",
+    "easyHint": "A goalkeeper who acts almost like an extra defender outside the penalty box.",
+    "mediumHint": "Manuel Neuer redefined this role at the 2014 World Cup for Germany.",
+    "hardHint": "Lev Yashin was one of the earliest to play this way, venturing far out of his box in the 1960s."
+  },
+  {
+    "category": "Football",
+    "word": "Regista",
+    "easyHint": "A deep-lying playmaker who dictates the tempo of the game from in front of the defense.",
+    "mediumHint": "Andrea Pirlo is universally considered the absolute master of this elegant position.",
+    "hardHint": "Italian for 'director', requiring immense vision but not necessarily high physical stamina."
+  },
+  {
+    "category": "Football",
+    "word": "Trequartista",
+    "easyHint": "An attacking playmaker who operates between the midfield and the forwards.",
+    "mediumHint": "Diego Maradona, Zinedine Zidane, and Kaka excelled in this classic 'number 10' space.",
+    "hardHint": "In Italian, it literally translates to 'three-quarters', indicating where they operate on the pitch."
+  },
+  {
+    "category": "Football",
+    "word": "Mezzala",
+    "easyHint": "A central midfielder who drifts wide to operate in the half-spaces.",
+    "mediumHint": "Kevin De Bruyne often plays this role, crossing dangerously from wide areas.",
+    "hardHint": "Italian for 'half-winger', originally used in the WM formation to describe inside forwards."
+  },
+  {
+    "category": "Football",
+    "word": "Box to Box",
+    "easyHint": "A tireless midfielder who defends in their own penalty area and scores in the opponent's.",
+    "mediumHint": "Yaya Toure, Steven Gerrard, and Arturo Vidal were iconic in this energetic role.",
+    "hardHint": "Requires elite stamina and 'lung capacity', often referred to as an 'engine room' player."
+  },
+  {
+    "category": "Football",
+    "word": "Rainbow Flick",
+    "easyHint": "Rolling the ball up one leg and kicking it over your opponent's head.",
+    "mediumHint": "Neymar loves doing this, much to the anger of defenders who usually foul him right after.",
+    "hardHint": "Jay-Jay Okocha famously executed this against Ray Parlour in the Premier League."
+  },
+  {
+    "category": "Football",
+    "word": "Sombrero Flick",
+    "easyHint": "Chipping the ball directly over a defender's head and catching it on the other side.",
+    "mediumHint": "Pele famously did this to a defender inside the penalty box in the 1958 World Cup final.",
+    "hardHint": "Named after a Mexican hat because the ball forms an arc that resembles one."
+  },
+  {
+    "category": "Football",
+    "word": "Stepover",
+    "easyHint": "Moving the foot completely over the ball without touching it to confuse the defender.",
+    "mediumHint": "Cristiano Ronaldo used to do ten of these in a row during his early Manchester United days.",
+    "hardHint": "The original master of this was 'Il Fenomeno' Ronaldo, using it to completely freeze goalkeepers."
+  },
+  {
+    "category": "Football",
+    "word": "Volley",
+    "easyHint": "Striking the ball while it's in the air, before it touches the ground.",
+    "mediumHint": "Zidane's Champions League final winner against Bayer Leverkusen is the most famous one.",
+    "hardHint": "Marco van Basten's impossible angle goal in Euro 88 is the gold standard for this technique."
+  },
+  {
+    "category": "Football",
+    "word": "Half Volley",
+    "easyHint": "Striking the ball exactly at the moment it bounces on the ground.",
+    "mediumHint": "Produces incredible power and is notoriously difficult to keep below the crossbar.",
+    "hardHint": "Benjamin Pavard won the 2018 World Cup Goal of the Tournament using this exact striking technique."
+  },
+  {
+    "category": "Football",
+    "word": "Diving Header",
+    "easyHint": "Throwing yourself parallel to the ground to strike the ball with your forehead.",
+    "mediumHint": "Robin van Persie scored a legendary one against Spain in the 2014 World Cup.",
+    "hardHint": "Often called 'The Flying Dutchman' goal, it requires extreme bravery and timing."
+  },
+  {
+    "category": "Football",
+    "word": "VAR",
+    "easyHint": "The video system used by referees to review decisions.",
+    "mediumHint": "It involves drawing literal lines on a screen to check for offsides, enraging fans.",
+    "hardHint": "Introduced in the 2018 World Cup, its 'clear and obvious error' protocol is still debated weekly."
+  },
+  {
+    "category": "Sports",
+    "word": "Fosbury Flop",
+    "easyHint": "Jumping over the bar backwards instead of forwards.",
+    "mediumHint": "Revolutionized the high jump at the 1968 Olympics.",
+    "hardHint": "Dick Fosbury invented it because he was terrible at the traditional 'straddle' technique."
+  },
+  {
+    "category": "Sports",
+    "word": "Peloton",
+    "easyHint": "The large main pack of riders in a cycling race.",
+    "mediumHint": "Riding in this group saves up to 40% of energy due to drafting.",
+    "hardHint": "If there is a crash in this group, it's called a 'pile-up', often occurring in the Tour de France."
+  },
+  {
+    "category": "Sports",
+    "word": "En Passant",
+    "easyHint": "A special pawn capture in chess.",
+    "mediumHint": "Can only be done immediately after a pawn moves two squares forward.",
+    "hardHint": "Often causes beginners to accuse their opponent of cheating because they don't know the rule."
+  },
+  {
+    "category": "Sports",
+    "word": "Albatross",
+    "easyHint": "Scoring three under par on a single hole in golf.",
+    "mediumHint": "Much rarer than a Hole in One, usually achieved on a Par 5.",
+    "hardHint": "Also known in the US as a 'Double Eagle'."
+  },
+  {
+    "category": "Sports",
+    "word": "Deuce",
+    "easyHint": "A 40-all tie in tennis.",
+    "mediumHint": "You must win two consecutive points from this state to win the game.",
+    "hardHint": "The longest game involving this went to 37 of them in a single game in 1975."
+  },
+  {
+    "category": "Sports",
+    "word": "Triple Axel",
+    "easyHint": "A forward-facing jump with three and a half rotations in the air.",
+    "mediumHint": "Tonya Harding and Midori Ito were famous for landing this difficult figure skating move.",
+    "hardHint": "The only standard jump in figure skating that takes off from a forward edge."
+  },
+  {
+    "category": "Sports",
+    "word": "Southpaw",
+    "easyHint": "A left-handed stance in boxing.",
+    "mediumHint": "Manny Pacquiao and Oleksandr Usyk are famous for fighting from this stance.",
+    "hardHint": "The term originally comes from baseball, referring to left-handed pitchers facing south in early stadiums."
+  },
+  {
+    "category": "Sports",
+    "word": "Checkmate",
+    "easyHint": "Trapping the king so it cannot escape.",
+    "mediumHint": "The ultimate goal in chess that immediately ends the game.",
+    "hardHint": "Derived from the Persian phrase 'Shah Mat', meaning the King is helpless."
+  },
+  {
+    "category": "Sports",
+    "word": "Pommel Horse",
+    "easyHint": "A gymnastics apparatus that requires circular leg swings without stopping.",
+    "mediumHint": "Only men compete on this specific apparatus in the Olympics.",
+    "hardHint": "Max Whitlock won double Olympic gold on this extremely technically demanding apparatus."
+  },
+  {
+    "category": "Sports",
+    "word": "Birdie",
+    "easyHint": "Scoring one under par on a golf hole.",
+    "mediumHint": "The most common positive scoring term you hear at the Masters.",
+    "hardHint": "The term was coined in 1899 by Ab Smith in New Jersey, using a slang term meaning 'excellent'."
+  },
+  {
+    "category": "Sports",
+    "word": "Grand Slam",
+    "easyHint": "Winning all four major tournaments in a single year.",
+    "mediumHint": "Serena Williams almost did this in 2015 but lost in the US Open.",
+    "hardHint": "Steffi Graf is the only player to achieve the 'Golden' version of this, including an Olympic Gold."
+  },
+  {
+    "category": "Sports",
+    "word": "Knockout",
+    "easyHint": "Winning a fight by rendering the opponent unable to stand up before the count of 10.",
+    "mediumHint": "Mike Tyson was famous for securing these in the very first round.",
+    "hardHint": "A 'Technical' version of this occurs when the referee stops the fight because a boxer cannot defend themselves."
+  },
+  {
+    "category": "Sports",
+    "word": "Submission",
+    "easyHint": "Forcing an opponent to tap out in combat sports.",
+    "mediumHint": "Khabib Nurmagomedov used a neck crank to achieve this against Conor McGregor.",
+    "hardHint": "The 'Gogoplata' is a rare and extremely complex variation involving the shin across the throat."
+  },
+  {
+    "category": "Sports",
+    "word": "Touchdown",
+    "easyHint": "Scoring 6 points by carrying the ball into the endzone.",
+    "mediumHint": "Tom Brady has thrown more of these than anyone else in NFL history.",
+    "hardHint": "A 'Pick-Six' is a dramatic version of this, scored by the defense immediately after an interception."
+  },
+  {
+    "category": "Sports",
+    "word": "Home Run",
+    "easyHint": "Hitting the ball out of the park and rounding all the bases.",
+    "mediumHint": "Babe Ruth and Barry Bonds are historically famous for these.",
+    "hardHint": "An 'Inside-the-park' version is extremely rare and usually involves defensive blunders."
+  },
+  {
+    "category": "Sports",
+    "word": "Slam Dunk",
+    "easyHint": "Jumping high and forcefully pushing the ball through the hoop.",
+    "mediumHint": "Michael Jordan made this an art form from the free-throw line.",
+    "hardHint": "Kareem Abdul-Jabbar rarely did this, preferring his signature 'Skyhook' instead."
+  },
+  {
+    "category": "Sports",
+    "word": "Alley Oop",
+    "easyHint": "Catching a pass in mid-air and dunking it before landing.",
+    "mediumHint": "LeBron James and Dwyane Wade produced an iconic photo doing this.",
+    "hardHint": "The term actually originated from a French circus acrobat phrase meaning 'let's go'."
+  },
+  {
+    "category": "Sports",
+    "word": "Fault",
+    "easyHint": "Failing to serve the ball into the correct box.",
+    "mediumHint": "Doing this twice in a row gives the opponent a free point.",
+    "hardHint": "A 'Foot' version of this happens if you step on the baseline before making contact."
+  },
+  {
+    "category": "Sports",
+    "word": "Ace",
+    "easyHint": "A serve that the opponent fails to even touch.",
+    "mediumHint": "John Isner holds the all-time record for the most of these in tennis history.",
+    "hardHint": "Ivo Karlovic was almost unplayable on grass because of his height and ability to hit these constantly."
+  },
+  {
+    "category": "Sports",
+    "word": "Bogey",
+    "easyHint": "Scoring one over par on a golf hole.",
+    "mediumHint": "A 'Double' version of this is two over par and usually ruins a scorecard.",
+    "hardHint": "In the 1890s, this term originally meant the expected score for a good amateur, before 'par' took over."
+  },
+  {
+    "category": "Sports",
+    "word": "Uppercut",
+    "easyHint": "A punch thrown upwards aiming for the opponent's chin.",
+    "mediumHint": "Mike Tyson's peek-a-boo style relied heavily on this devastating blow.",
+    "hardHint": "The 'Bolo' punch is a flashy, looping variation of this, popularized by Sugar Ray Leonard."
+  },
+  {
+    "category": "Sports",
+    "word": "Takedown",
+    "easyHint": "Bringing an opponent to the ground from a standing position.",
+    "mediumHint": "Freestyle wrestling awards 2 points for executing this move.",
+    "hardHint": "The 'Double Leg' is the most common, but the 'Suplex' is the most spectacular."
+  },
+  {
+    "category": "Sports",
+    "word": "Strikeout",
+    "easyHint": "A batter accumulates three strikes and is out.",
+    "mediumHint": "Nolan Ryan holds the all-time MLB record for doing this to batters.",
+    "hardHint": "If the catcher drops the third strike, the batter can actually attempt to run to first base."
+  },
+  {
+    "category": "Sports",
+    "word": "Let",
+    "easyHint": "A serve that hits the net cord but still lands in the correct box.",
+    "mediumHint": "When this happens, the serve is simply re-taken with no penalty.",
+    "hardHint": "In the fast-paced Next Gen ATP Finals, they experimented with abolishing this rule entirely."
+  },
+  {
+    "category": "Sports",
+    "word": "Hole in One",
+    "easyHint": "Sinking the ball directly from the tee box.",
+    "mediumHint": "Traditionally, the person who achieves this has to buy drinks for everyone at the clubhouse.",
+    "hardHint": "The odds of a standard amateur golfer hitting this are roughly 12,500 to 1."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Vibranium",
+    "easyHint": "The super-metal found primarily in Wakanda.",
+    "mediumHint": "Captain America's iconic shield is composed almost entirely of it.",
+    "hardHint": "It completely absorbs kinetic energy, but was once broken by Thanos' double-bladed sword."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Adamantium",
+    "easyHint": "The indestructible metal coating Wolverine's skeleton.",
+    "mediumHint": "Weapon X bonded this forcefully to Logan's bones.",
+    "hardHint": "In the comics, an alloy of this and Vibranium is what actually makes up Cap's shield."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Uru",
+    "easyHint": "The magical cosmic metal forged in the heart of a dying star.",
+    "mediumHint": "The dwarves of Nidavellir use this to craft weapons for the Asgardians.",
+    "hardHint": "Stormbreaker and Mjolnir are both made from it, requiring extreme heat to mold."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Infinity Stones",
+    "easyHint": "Six colored gems of immense power that control aspects of the universe.",
+    "mediumHint": "Thanos collected them in a gauntlet to wipe out half of all life.",
+    "hardHint": "In the TVA, these are useless paperweights stored in a desk drawer."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Tesseract",
+    "easyHint": "A glowing blue cube that houses the Space Stone.",
+    "mediumHint": "Red Skull used it to power Hydra weapons in WWII.",
+    "hardHint": "A cat named Goose swallowed this whole in the 1990s."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Aether",
+    "easyHint": "The dark, fluid-like substance that is actually the Reality Stone.",
+    "mediumHint": "Jane Foster accidentally absorbed it in Thor: The Dark World.",
+    "hardHint": "Malekith the Dark Elf intended to use it to plunge the Nine Realms into eternal darkness."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Orb",
+    "easyHint": "The metallic casing that contained the Power Stone.",
+    "mediumHint": "Star-Lord danced his way to stealing it on the planet Morag.",
+    "hardHint": "Ronan the Accuser hammered it into his Cosmi-Rod to betray Thanos."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Eye of Agamotto",
+    "easyHint": "The magical amulet worn by Doctor Strange.",
+    "mediumHint": "It originally housed the green Time Stone.",
+    "hardHint": "Thanos crushed a fake version of this in Strange's hand on Titan."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Mjolnir",
+    "easyHint": "Whosoever holds this hammer, if they be worthy, shall possess the power of Thor.",
+    "mediumHint": "Captain America famously lifted it in Avengers: Endgame.",
+    "hardHint": "Hela shattered this effortlessly with one hand in Norway."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Stormbreaker",
+    "easyHint": "A massive axe forged to kill Thanos.",
+    "mediumHint": "Groot chopped off his own arm to provide the handle for it.",
+    "hardHint": "It has the innate ability to summon the Bifrost."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Arc Reactor",
+    "easyHint": "The glowing circle in Tony Stark's chest.",
+    "mediumHint": "It originally kept shrapnel from entering his heart.",
+    "hardHint": "Pepper Potts framed the first one with the inscription 'Proof That Tony Stark Has A Heart'."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Pym Particles",
+    "easyHint": "The science juice that allows Ant-Man to shrink or grow.",
+    "mediumHint": "Without these, the Avengers' 'Time Heist' would have been impossible.",
+    "hardHint": "Darren Cross tried to replicate this formula and called his version the Yellowjacket."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Web Shooters",
+    "easyHint": "The wrist devices Peter Parker uses to swing around New York.",
+    "mediumHint": "Tobey Maguire's Spider-Man didn't need these, as his powers were organic.",
+    "hardHint": "Tony Stark upgraded these to include 576 possible combinations in Homecoming."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Sling Ring",
+    "easyHint": "A small two-finger brass knuckle used to open magical portals.",
+    "mediumHint": "Doctor Strange left Ned one of these, which he used to summon two other Spider-Men.",
+    "hardHint": "Kaecilius and his zealots stole the ritual to use these without the Ancient One's permission."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Darkhold",
+    "easyHint": "The Book of the Damned used by the Scarlet Witch.",
+    "mediumHint": "It corrupts the mind of anyone who reads it, leading to multiversal chaos.",
+    "hardHint": "Originally introduced in Agents of S.H.I.E.L.D, but fully weaponized in Multiverse of Madness."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Necrosword",
+    "easyHint": "The weapon used by Gorr the God Butcher.",
+    "mediumHint": "It corrupts its user and slowly drains their life force.",
+    "hardHint": "In the comics, it is bonded to Knull, the creator of the Symbiotes like Venom."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Ten Rings",
+    "easyHint": "Ancient mystical armbands used by Shang-Chi's father.",
+    "mediumHint": "Wenwu used them to build a criminal empire over a thousand years.",
+    "hardHint": "They were emitting a mysterious beacon into deep space at the end of Shang-Chi's origin movie."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Quantum Realm",
+    "easyHint": "A microscopic universe where time and space behave entirely differently.",
+    "mediumHint": "Scott Lang was trapped here for five years, which felt like five hours to him.",
+    "hardHint": "Janet van Dyne survived here for decades, secretly dealing with Kang the Conqueror."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Multiverse",
+    "easyHint": "The infinite number of parallel realities and alternate timelines.",
+    "mediumHint": "America Chavez has the unique power to punch star-shaped portals through it.",
+    "hardHint": "An 'Incursion' happens when two universes collide and destroy each other here."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "TVA",
+    "easyHint": "The bureaucratic organization that monitors timelines.",
+    "mediumHint": "They prune branches to prevent multiversal wars.",
+    "hardHint": "Mobius loves jet skis, but works for this entity created by He Who Remains."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Sacred Timeline",
+    "easyHint": "The singular flow of time dictated by the Time Keepers.",
+    "mediumHint": "Loki stepping out of line in 2012 disrupted this delicate flow.",
+    "hardHint": "It physically resembles a massive glowing ring wrapping around a citadel at the end of time."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Nexus Event",
+    "easyHint": "A choice or action that creates a branch in the timeline.",
+    "mediumHint": "Sylvie and Loki touching hands on Lamentis-1 created a massive one of these.",
+    "hardHint": "In WandaVision, a fake commercial advertises an anti-depressant named after this phenomenon."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Variant",
+    "easyHint": "An alternate version of a character from a different timeline.",
+    "mediumHint": "There is a version of Loki that is literally just an alligator.",
+    "hardHint": "Deadpool encounters a swarm of these, including a dog and a floating head, in the void."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Terrigen Mist",
+    "easyHint": "The gas that triggers the mutation of Inhumans.",
+    "mediumHint": "Ms. Marvel (Kamala Khan) originally gained her powers in the comics from this.",
+    "hardHint": "In the MCU TV shows, fish oil pills contaminated with this triggered a wave of new powered people."
+  },
+  {
+    "category": "Marvel/Superheroes",
+    "word": "Extremis",
+    "easyHint": "A bio-hack formula that allows users to regenerate limbs and breathe fire.",
+    "mediumHint": "Aldrich Killian used this to create exploding super-soldiers in Iron Man 3.",
+    "hardHint": "Maya Hansen developed this in 1999, but Tony Stark solved its explosive flaw while drunk on a roof."
+  }
+]

@@ -1,0 +1,877 @@
+[
+  {
+    "category": "Animals",
+    "word": "Pangolin",
+    "easyHint": "I roll into a ball when threatened, covered in tough scales.",
+    "mediumHint": "I have no teeth and use a long sticky tongue to catch ants.",
+    "hardHint": "My scales are made of keratin, the same material as human fingernails, making me heavily trafficked."
+  },
+  {
+    "category": "Animals",
+    "word": "Axolotl",
+    "easyHint": "I am a smiling aquatic creature that never grows up.",
+    "mediumHint": "I can regenerate my limbs, spinal cord, and even parts of my brain.",
+    "hardHint": "I am native only to the lake complex of Xochimilco near Mexico City."
+  },
+  {
+    "category": "Animals",
+    "word": "Okapi",
+    "easyHint": "I look like a zebra on my legs but I'm related to the giraffe.",
+    "mediumHint": "I secrete a reddish substance from my skin to waterproof my coat.",
+    "hardHint": "I was unknown to the Western world until 1901 and am found only in the Ituri Rainforest."
+  },
+  {
+    "category": "Animals",
+    "word": "Capybara",
+    "easyHint": "I am the largest rodent in the world and love to chill in water.",
+    "mediumHint": "Other animals frequently use me as a piece of living furniture.",
+    "hardHint": "The Catholic Church once classified me as a fish so I could be eaten during Lent."
+  },
+  {
+    "category": "Animals",
+    "word": "Cassowary",
+    "easyHint": "I am a large flightless bird with a helmet on my head.",
+    "mediumHint": "My dagger-like claw can fatally wound a predator with one kick.",
+    "hardHint": "I am known to swallow whole plums and distribute the seeds in my brightly colored droppings."
+  },
+  {
+    "category": "Animals",
+    "word": "Fossa",
+    "easyHint": "I am Madagascar's top predator, looking like a mix of a cat, dog, and mongoose.",
+    "mediumHint": "My ankles are fully reversible, allowing me to climb down trees headfirst.",
+    "hardHint": "I briefly served as the antagonist in a popular 2005 animated movie about escaped zoo animals."
+  },
+  {
+    "category": "Animals",
+    "word": "Gharial",
+    "easyHint": "I am a crocodile relative with a very long, thin snout.",
+    "mediumHint": "Males of my species grow a bulbous growth on the tip of their snout called a 'ghara'.",
+    "hardHint": "I am critically endangered, with my last major stronghold in the Chambal River in India."
+  },
+  {
+    "category": "Animals",
+    "word": "Hoatzin",
+    "easyHint": "I am a colorful bird that smells like manure.",
+    "mediumHint": "My chicks are born with claws on their wings to climb trees.",
+    "hardHint": "I am uniquely foregut-fermenting, digesting vegetation in my crop much like a cow."
+  },
+  {
+    "category": "Animals",
+    "word": "Kakapo",
+    "easyHint": "I am a heavy, flightless, nocturnal parrot.",
+    "mediumHint": "When threatened, my main defense mechanism is to freeze completely still.",
+    "hardHint": "Sirocco, a member of my species, became internet famous after trying to mate with a zoologist's head."
+  },
+  {
+    "category": "Animals",
+    "word": "Narwhal",
+    "easyHint": "I am often called the unicorn of the sea.",
+    "mediumHint": "My 'horn' is actually a massively enlarged canine tooth.",
+    "hardHint": "My tusk has millions of nerve endings and might be used to detect changes in water salinity."
+  },
+  {
+    "category": "Animals",
+    "word": "Numbat",
+    "easyHint": "I am a small Australian marsupial with stripes, and I love eating termites.",
+    "mediumHint": "Unlike most marsupials, I am diurnal and do not have a proper pouch.",
+    "hardHint": "I am the faunal emblem of Western Australia and require hollow logs for nesting."
+  },
+  {
+    "category": "Animals",
+    "word": "Quokka",
+    "easyHint": "I am known as the world's happiest animal due to my permanent smile.",
+    "mediumHint": "I am a macropod native primarily to Rottnest Island.",
+    "hardHint": "In extreme danger, mothers of my kind might expel their joey to distract predators."
+  },
+  {
+    "category": "Animals",
+    "word": "Saiga",
+    "easyHint": "I am an antelope with a very weird, bulbous nose.",
+    "mediumHint": "My odd nose helps filter out dust in the summer and warm freezing air in the winter.",
+    "hardHint": "In 2015, over 200,000 of my kind died in a few weeks due to a sudden bacterial outbreak."
+  },
+  {
+    "category": "Animals",
+    "word": "Tarsier",
+    "easyHint": "I am a tiny primate with gigantic eyes.",
+    "mediumHint": "Each of my eyes is heavier than my brain.",
+    "hardHint": "I am entirely carnivorous, and some species communicate in pure ultrasound."
+  },
+  {
+    "category": "Animals",
+    "word": "Tuatara",
+    "easyHint": "I look like a lizard but I am actually the last survivor of an ancient reptile order.",
+    "mediumHint": "I have a 'third eye' on the top of my head when I am young.",
+    "hardHint": "My lineage split from squamates over 250 million years ago, surviving only in New Zealand."
+  },
+  {
+    "category": "Animals",
+    "word": "Vaquita",
+    "easyHint": "I am the world's smallest and most endangered marine mammal.",
+    "mediumHint": "I have dark rings around my eyes and a dark patch on my lips.",
+    "hardHint": "I am often caught in illegal gillnets set for the totoaba fish in the Gulf of California."
+  },
+  {
+    "category": "Animals",
+    "word": "Wombat",
+    "easyHint": "I am an Australian marsupial that produces cube-shaped poop.",
+    "mediumHint": "My pouch faces backwards so it doesn't fill with dirt when I dig.",
+    "hardHint": "My backside is reinforced with cartilage, which I use to crush predators against the roof of my burrow."
+  },
+  {
+    "category": "Animals",
+    "word": "Aye-aye",
+    "easyHint": "I am a lemur with a very long, bony middle finger.",
+    "mediumHint": "I use echolocation to find grubs inside trees and then fish them out with my finger.",
+    "hardHint": "In Malagasy folklore, I am considered an omen of death, leading to me being killed on sight."
+  },
+  {
+    "category": "Animals",
+    "word": "Binturong",
+    "easyHint": "I am also known as a bearcat and I smell like hot buttered popcorn.",
+    "mediumHint": "I am one of the few carnivorans with a fully prehensile tail.",
+    "hardHint": "The chemical compound 2-AP in my urine is responsible for my distinctive movie-theater aroma."
+  },
+  {
+    "category": "Animals",
+    "word": "Caracal",
+    "easyHint": "I am a wild cat known for the long, black tufts of hair on my ears.",
+    "mediumHint": "I can jump up to 10 feet in the air to catch birds mid-flight.",
+    "hardHint": "In India, I was historically tamed and used for coursing, hunting game birds for royalty."
+  },
+  {
+    "category": "Animals",
+    "word": "Dugong",
+    "easyHint": "I am a marine mammal similar to a manatee, but with a fluked tail like a dolphin.",
+    "mediumHint": "I graze strictly on seagrass and am often called a 'sea cow'.",
+    "hardHint": "My bones are incredibly dense, acting as ballast to help me stay on the sea floor."
+  },
+  {
+    "category": "Animals",
+    "word": "Echidna",
+    "easyHint": "I am a spiny anteater that lays eggs.",
+    "mediumHint": "My kind, along with the platypus, are the only surviving monotremes.",
+    "hardHint": "Males of my species possess a bizarre four-headed reproductive organ."
+  },
+  {
+    "category": "Animals",
+    "word": "Fennec Fox",
+    "easyHint": "I am a tiny desert fox with incredibly huge ears.",
+    "mediumHint": "My oversized ears help me dissipate heat and hear prey underground.",
+    "hardHint": "My paws are heavily furred to act like snowshoes on the scorching Sahara sand."
+  },
+  {
+    "category": "Animals",
+    "word": "Jerboa",
+    "easyHint": "I am a hopping desert rodent that looks like a tiny kangaroo with a long tail.",
+    "mediumHint": "I do not drink water, getting all my moisture from the food I eat.",
+    "hardHint": "During WWII, a British armored brigade in North Africa adopted me as their emblem."
+  },
+  {
+    "category": "Animals",
+    "word": "Kinkajou",
+    "easyHint": "I am a rainforest mammal with a prehensile tail, often called a 'honey bear'.",
+    "mediumHint": "I am closely related to raccoons but look and act more like a monkey.",
+    "hardHint": "Paris Hilton famously kept one of my kind as an exotic pet named Baby Luv."
+  },
+  {
+    "category": "Countries",
+    "word": "Kyrgyzstan",
+    "easyHint": "I am a mountainous country in Central Asia, known for yurts and horses.",
+    "mediumHint": "My flag features a yellow sun with 40 rays representing 40 epic tribes.",
+    "hardHint": "The Epic of Manas, one of the longest epic poems in the world, is my cultural cornerstone."
+  },
+  {
+    "category": "Countries",
+    "word": "Djibouti",
+    "easyHint": "I am a small country in the Horn of Africa, situated on the Red Sea.",
+    "mediumHint": "I host military bases for the US, France, Japan, and China.",
+    "hardHint": "My Lake Assal is the lowest point in Africa and highly saline."
+  },
+  {
+    "category": "Countries",
+    "word": "Eswatini",
+    "easyHint": "I am a small, landlocked African nation formerly known as Swaziland.",
+    "mediumHint": "I am one of the last absolute monarchies in the world.",
+    "hardHint": "My king annually selects a new bride during the traditional Umhlanga or Reed Dance."
+  },
+  {
+    "category": "Countries",
+    "word": "Lesotho",
+    "easyHint": "I am a country entirely surrounded by South Africa.",
+    "mediumHint": "I am the only independent state in the world that lies entirely above 1,000 meters in elevation.",
+    "hardHint": "I am known for the traditional Basotho blanket and a distinctive conical hat."
+  },
+  {
+    "category": "Countries",
+    "word": "Mauritania",
+    "easyHint": "I am a large Saharan country in West Africa with an Atlantic coastline.",
+    "mediumHint": "My economy heavily relies on iron ore, transported by one of the longest trains in the world.",
+    "hardHint": "The ancient Eye of the Sahara (Richat Structure) is prominently visible from space in my territory."
+  },
+  {
+    "category": "Countries",
+    "word": "Nauru",
+    "easyHint": "I am the smallest island nation in the world.",
+    "mediumHint": "My economy was once extremely wealthy due to extensive phosphate mining from bird guano.",
+    "hardHint": "I currently lack a designated capital city, though Yaren acts as the de facto capital."
+  },
+  {
+    "category": "Countries",
+    "word": "Tuvalu",
+    "easyHint": "I am a Pacific island nation heavily threatened by rising sea levels.",
+    "mediumHint": "I generated significant national revenue by leasing out my .tv internet domain.",
+    "hardHint": "My entire population is around 11,000, and I have no military force whatsoever."
+  },
+  {
+    "category": "Countries",
+    "word": "Vanuatu",
+    "easyHint": "I am a South Pacific island nation known for active volcanoes.",
+    "mediumHint": "The modern extreme sport of bungee jumping originated here as 'land diving'.",
+    "hardHint": "A unique cargo cult centered around a mythical American WWII serviceman named John Frum exists here."
+  },
+  {
+    "category": "Countries",
+    "word": "Andorra",
+    "easyHint": "I am a tiny European country nestled between France and Spain.",
+    "mediumHint": "I am a co-principality, ruled jointly by a Spanish Bishop and the President of France.",
+    "hardHint": "I am the only country in the world with Catalan as my sole official language."
+  },
+  {
+    "category": "Countries",
+    "word": "Belize",
+    "easyHint": "I am a Central American country known for my Great Blue Hole.",
+    "mediumHint": "I am the only Central American country where English is the official language.",
+    "hardHint": "My former capital was devastated by a hurricane in 1961, forcing a move to Belmopan."
+  },
+  {
+    "category": "Countries",
+    "word": "Bhutan",
+    "easyHint": "I am a Himalayan kingdom known for measuring Gross National Happiness.",
+    "mediumHint": "I am the only carbon-negative country in the world.",
+    "hardHint": "It is completely illegal to buy or sell tobacco in my territory, though consumption has complex rules."
+  },
+  {
+    "category": "Countries",
+    "word": "Comoros",
+    "easyHint": "I am a volcanic archipelago nation off the coast of East Africa.",
+    "mediumHint": "I am often referred to as the 'Perfume Islands' due to ylang-ylang cultivation.",
+    "hardHint": "I experienced more than 20 coups or attempted coups between independence in 1975 and 2008."
+  },
+  {
+    "category": "Countries",
+    "word": "Eritrea",
+    "easyHint": "I am a country in the Horn of Africa, bordering the Red Sea and Ethiopia.",
+    "mediumHint": "My capital, Asmara, is known for its well-preserved Italian modernist architecture.",
+    "hardHint": "I am often called the 'North Korea of Africa' due to my highly secretive and authoritarian regime."
+  },
+  {
+    "category": "Countries",
+    "word": "Gabon",
+    "easyHint": "I am a Central African country located on the equator, rich in oil.",
+    "mediumHint": "Over 80% of my land is covered in rainforest, home to many western lowland gorillas.",
+    "hardHint": "A natural nuclear fission reactor operated in my Oklo region roughly 2 billion years ago."
+  },
+  {
+    "category": "Countries",
+    "word": "Guinea-Bissau",
+    "easyHint": "I am a small West African country with a Portuguese colonial past.",
+    "mediumHint": "My Bijagos archipelago is a matriarchal society and a UNESCO biosphere reserve.",
+    "hardHint": "In the early 2000s, I tragically became known as Africa's first 'narco-state'."
+  },
+  {
+    "category": "Countries",
+    "word": "Kiribati",
+    "easyHint": "I am a sprawling Pacific nation composed mostly of atolls.",
+    "mediumHint": "I am the only country situated in all four hemispheres of the globe.",
+    "hardHint": "To unify our time zones, we skipped December 31, 1994, entirely."
+  },
+  {
+    "category": "Countries",
+    "word": "Liechtenstein",
+    "easyHint": "I am a tiny alpine country sandwiched between Switzerland and Austria.",
+    "mediumHint": "I am a 'doubly landlocked' country.",
+    "hardHint": "During the Austro-Prussian war, our 80-man army famously returned with 81 men because they made a friend."
+  },
+  {
+    "category": "Countries",
+    "word": "Moldova",
+    "easyHint": "I am an Eastern European country wedged between Romania and Ukraine.",
+    "mediumHint": "I host the world's largest wine cellar, Milestii Mici.",
+    "hardHint": "A breakaway region within my borders, Transnistria, uses a hammer and sickle on its flag."
+  },
+  {
+    "category": "Countries",
+    "word": "Palau",
+    "easyHint": "I am a Pacific island nation known for incredible scuba diving.",
+    "mediumHint": "I have a famous marine lake entirely filled with stingless jellyfish.",
+    "hardHint": "I require visitors to sign an 'eco-pledge' stamped directly into their passports."
+  },
+  {
+    "category": "Countries",
+    "word": "San Marino",
+    "easyHint": "I am a microstate completely surrounded by Italy.",
+    "mediumHint": "I claim to be the world's oldest surviving sovereign state and constitutional republic.",
+    "hardHint": "My head of state consists of two 'Captains Regent' who serve concurrently for only six months."
+  },
+  {
+    "category": "Countries",
+    "word": "Sao Tome and Principe",
+    "easyHint": "I am a two-island nation off the western equatorial coast of Africa.",
+    "mediumHint": "I am the second-smallest African country by population, known for excellent chocolate.",
+    "hardHint": "The equator line famously passes directly through my Ilheu das Rolas islet."
+  },
+  {
+    "category": "Countries",
+    "word": "Seychelles",
+    "easyHint": "I am a stunning archipelago nation in the Indian Ocean, east of mainland Africa.",
+    "mediumHint": "I am home to the giant Aldabra tortoise.",
+    "hardHint": "The rare Coco de Mer palm, which produces the heaviest seed in the world, grows naturally only here."
+  },
+  {
+    "category": "Countries",
+    "word": "Suriname",
+    "easyHint": "I am a small country on the northeastern coast of South America.",
+    "mediumHint": "I am the only sovereign state outside Europe where Dutch is the official and prevailing language.",
+    "hardHint": "My population includes a massive demographic of Javanese and Hindustani people due to colonial indentured labor."
+  },
+  {
+    "category": "Countries",
+    "word": "Tajikistan",
+    "easyHint": "I am a mountainous country in Central Asia bordering Afghanistan and China.",
+    "mediumHint": "My capital city's name literally translates to 'Monday' in Persian.",
+    "hardHint": "The Pamir Highway, a major logistical feat of the Soviet era, traverses my rugged terrain."
+  },
+  {
+    "category": "Countries",
+    "word": "Togo",
+    "easyHint": "I am a narrow, elongated country in West Africa on the Gulf of Guinea.",
+    "mediumHint": "My capital is home to one of the world's largest Voodoo fetishes markets.",
+    "hardHint": "I was uniquely split between the British and French after World War I."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Auroville",
+    "easyHint": "I am an experimental township in South India dedicated to human unity.",
+    "mediumHint": "At my center stands the Matrimandir, a massive golden sphere.",
+    "hardHint": "I was designed by architect Roger Anger and officially inaugurated by 'The Mother' in 1968."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Hampi",
+    "easyHint": "I am an ancient village in Karnataka filled with magnificent temple ruins.",
+    "mediumHint": "I was once the capital of the formidable Vijayanagara Empire.",
+    "hardHint": "The musical pillars of my Vittala Temple produce distinct chimes when struck."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Khajuraho",
+    "easyHint": "I am a town in Madhya Pradesh famous for temples with erotic sculptures.",
+    "mediumHint": "My temples were built by the Chandela dynasty between 950 and 1050 AD.",
+    "hardHint": "Despite the fame of the sensuous carvings, they make up less than 10% of the total artwork here."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Ziro",
+    "easyHint": "I am a picturesque valley town in Arunachal Pradesh.",
+    "mediumHint": "I am famous for an annual independent music festival that bears my name.",
+    "hardHint": "I am the home of the Apatani tribe, known historically for their facial tattoos and nose plugs."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Majuli",
+    "easyHint": "I am the largest river island in the world, located in Assam.",
+    "mediumHint": "I sit right in the middle of the mighty Brahmaputra river.",
+    "hardHint": "I am a hub of Neo-Vaishnavite culture, sustained by institutions called Satras."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Dholavira",
+    "easyHint": "I am an ancient archaeological site in the Rann of Kutch.",
+    "mediumHint": "I am one of the five largest Harappan (Indus Valley) sites.",
+    "hardHint": "A unique signboard with ten large Indus script characters was discovered at my northern gate."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Dhanushkodi",
+    "easyHint": "I am an abandoned town at the south-eastern tip of Pamban Island.",
+    "mediumHint": "I was entirely destroyed by the 1964 Rameswaram cyclone.",
+    "hardHint": "According to legend, this is exactly where Lord Rama pointed his bow to build the bridge to Lanka."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Chettinad",
+    "easyHint": "I am a region in Tamil Nadu renowned for my fiery cuisine and palatial homes.",
+    "mediumHint": "My heritage mansions are built using materials imported from all over the world during the colonial era.",
+    "hardHint": "My local plastering technique uses a unique mixture containing egg whites to keep the walls cool."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Spiti",
+    "easyHint": "I am a cold desert mountain valley located high in the Himalayas.",
+    "mediumHint": "My name translates to 'The Middle Land', as I lie between Tibet and India.",
+    "hardHint": "I house the Key Monastery and the highest post office in the world at Hikkim."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Gokarna",
+    "easyHint": "I am a temple town in Karnataka that has become a popular beach destination.",
+    "mediumHint": "My famous Mahabaleshwar temple houses the 'Atmalinga'.",
+    "hardHint": "My beaches are uniquely shaped, with one famously resembling the symbol Om."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Mawsynram",
+    "easyHint": "I am a village in Meghalaya, known for holding a very wet world record.",
+    "mediumHint": "I receive the highest average annual rainfall on Earth.",
+    "hardHint": "My inhabitants historically wear 'knups', umbrella-like shields made of bamboo and reeds, to survive the downpours."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Chittorgarh",
+    "easyHint": "I am a city in Rajasthan known for my massive, imposing fort.",
+    "mediumHint": "I was the capital of Mewar and the site of three historical sieges.",
+    "hardHint": "My fort contains the striking 'Vijay Stambha' (Tower of Victory) erected by Rana Kumbha."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Udupi",
+    "easyHint": "I am a coastal city in Karnataka famous for my vegetarian cuisine.",
+    "mediumHint": "I am home to the Krishna Matha, where devotees view the deity through a silver-plated window.",
+    "hardHint": "The modern Masala Dosa's widespread commercialization is heavily credited to my region's hoteliers."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Jaisalmer",
+    "easyHint": "I am known as the 'Golden City' of India.",
+    "mediumHint": "My massive fort is one of the few 'living forts' in the world, with a quarter of my population still residing inside.",
+    "hardHint": "I was established by Rawal Jaisal and built entirely out of yellow sandstone."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Kurukshetra",
+    "easyHint": "I am the city in Haryana where the great Mahabharata war was fought.",
+    "mediumHint": "Lord Krishna delivered the Bhagavad Gita to Arjuna on my soil.",
+    "hardHint": "My Brahma Sarovar water tank is supposedly the site where Lord Brahma created the universe."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Nalanda",
+    "easyHint": "I am an ancient city in Bihar famous for my historical university.",
+    "mediumHint": "My ancient university attracted scholars from Tibet, China, and Korea.",
+    "hardHint": "My library, Dharmaganja, was so vast that it reportedly burned for months when sacked by Bakhtiyar Khalji."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Bodh Gaya",
+    "easyHint": "I am the most important Buddhist pilgrimage site in the world.",
+    "mediumHint": "I am the place where Siddhartha Gautama attained enlightenment.",
+    "hardHint": "A descendant of the original Peepal tree under which the Buddha sat still grows here today."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Sarnath",
+    "easyHint": "I am a city near Varanasi where Buddha gave his first sermon.",
+    "mediumHint": "The national emblem of India, the Lion Capital, was discovered here.",
+    "hardHint": "Emperor Ashoka erected a massive stupa here called the Dhamek Stupa."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Orchha",
+    "easyHint": "I am a town in Madhya Pradesh known for my grand palaces on the Betwa River.",
+    "mediumHint": "I was founded in the 16th century by the Bundela Rajput chief, Rudra Pratap.",
+    "hardHint": "The Jahangir Mahal here was built specifically to host the Mughal Emperor for a single night."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Halebidu",
+    "easyHint": "I am a town in Karnataka that was the regal capital of the Hoysala Empire.",
+    "mediumHint": "My name literally translates to 'ruined city' in Kannada.",
+    "hardHint": "My Hoysaleswara temple features intricate soapstone carvings and was looted twice by the Delhi Sultanate."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Shravanabelagola",
+    "easyHint": "I am an important Jain pilgrimage center in Karnataka.",
+    "mediumHint": "I am famous for the massive monolithic statue of Gommateshwara (Bahubali).",
+    "hardHint": "Every 12 years, the Mahamastakabhisheka festival is held here, anointing the statue with milk, saffron, and ghee."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Mandu",
+    "easyHint": "I am a ruined fortress city in Madhya Pradesh, famed for my Afghan architecture.",
+    "mediumHint": "I am associated with the legendary romance of Baz Bahadur and Rani Roopmati.",
+    "hardHint": "Hoshang Shah's tomb here is said to be India's first marble edifice, inspiring the Taj Mahal."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Chanderi",
+    "easyHint": "I am a historical town in Madhya Pradesh, highly famous for my handloom sarees.",
+    "mediumHint": "I am surrounded by hills, lakes, and forests, heavily mentioned in the Mahabharata.",
+    "hardHint": "The infamous battle of 1528 saw the Rajput women here commit mass Jauhar when Babur captured the fort."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Bhimbetka",
+    "easyHint": "I am a site in Madhya Pradesh famous for my ancient rock shelters.",
+    "mediumHint": "I house some of the oldest prehistoric cave paintings in India.",
+    "hardHint": "My name is derived from a legend linking me to the 'sitting place of Bhima' from the Mahabharata."
+  },
+  {
+    "category": "Indian Cities",
+    "word": "Lothal",
+    "easyHint": "I am one of the most prominent ancient cities of the Indus Valley Civilization, located in Gujarat.",
+    "mediumHint": "I am best known for having the world's earliest known dockyard.",
+    "hardHint": "My bead-making industry was so advanced that my products reached as far as Sumer in Mesopotamia."
+  },
+  {
+    "category": "Famous People",
+    "word": "Srinivasa Ramanujan",
+    "easyHint": "I was a brilliant Indian mathematician who largely taught himself.",
+    "mediumHint": "I collaborated closely with G. H. Hardy at Cambridge University.",
+    "hardHint": "I famously noted that 1729 is the smallest number expressible as the sum of two cubes in two different ways."
+  },
+  {
+    "category": "Famous People",
+    "word": "Homi J. Bhabha",
+    "easyHint": "I am widely considered the father of the Indian nuclear program.",
+    "mediumHint": "I founded both TIFR and the atomic energy establishment in Trombay.",
+    "hardHint": "I tragically died in a mysterious plane crash on Mont Blanc in 1966."
+  },
+  {
+    "category": "Famous People",
+    "word": "C.V. Raman",
+    "easyHint": "I am an Indian physicist who won the Nobel Prize for studying the scattering of light.",
+    "mediumHint": "My discovery explains why the sky and the ocean are blue.",
+    "hardHint": "I was the first Asian to receive a Nobel Prize in any branch of science."
+  },
+  {
+    "category": "Famous People",
+    "word": "Satyendra Nath Bose",
+    "easyHint": "I am an Indian physicist whose name is given to a class of subatomic particles.",
+    "mediumHint": "I collaborated with Albert Einstein on a specific state of matter.",
+    "hardHint": "Despite my foundational work on quantum statistics, I was never awarded a Nobel Prize."
+  },
+  {
+    "category": "Famous People",
+    "word": "Vikram Sarabhai",
+    "easyHint": "I am widely regarded as the father of the Indian space program.",
+    "mediumHint": "I helped establish ISRO and the physical research laboratory in Ahmedabad.",
+    "hardHint": "I was married to the famous classical dancer Mrinalini Sarabhai."
+  },
+  {
+    "category": "Famous People",
+    "word": "A.P.J. Abdul Kalam",
+    "easyHint": "I was known as the 'Missile Man of India' and became President.",
+    "mediumHint": "I played a pivotal role in the Pokhran-II nuclear tests.",
+    "hardHint": "I collapsed and died while delivering a lecture at IIM Shillong."
+  },
+  {
+    "category": "Famous People",
+    "word": "Kalpana Chawla",
+    "easyHint": "I was the first woman of Indian origin to go to space.",
+    "mediumHint": "I flew on Space Shuttle Columbia in 1997 and 2003.",
+    "hardHint": "A meteorological satellite, METSAT-1, was renamed in my honor shortly after my death."
+  },
+  {
+    "category": "Famous People",
+    "word": "Amartya Sen",
+    "easyHint": "I am an Indian economist and philosopher who won a Nobel Memorial Prize.",
+    "mediumHint": "My work focuses heavily on welfare economics and the mechanics of famine.",
+    "hardHint": "I famously argued that no substantial famine has ever occurred in an independent, democratic country."
+  },
+  {
+    "category": "Famous People",
+    "word": "Rabindranath Tagore",
+    "easyHint": "I am a Bengali poet who composed the national anthem of India.",
+    "mediumHint": "I also composed the national anthem for Bangladesh.",
+    "hardHint": "I repudiated my British knighthood in protest against the Jallianwala Bagh massacre."
+  },
+  {
+    "category": "Famous People",
+    "word": "Munshi Premchand",
+    "easyHint": "I am one of the most celebrated writers of Hindustani literature.",
+    "mediumHint": "My real name was Dhanpat Rai Srivastava.",
+    "hardHint": "My iconic novel 'Godaan' heavily critiques the socio-economic exploitation of the Indian peasantry."
+  },
+  {
+    "category": "Famous People",
+    "word": "R.K. Narayan",
+    "easyHint": "I am a famous Indian author who created the fictional town of Malgudi.",
+    "mediumHint": "My most famous novel, 'The Guide', was adapted into a classic Bollywood film.",
+    "hardHint": "My close friend, the British author Graham Greene, helped me get my first book published."
+  },
+  {
+    "category": "Famous People",
+    "word": "Ruskin Bond",
+    "easyHint": "I am a British-Indian author known for my beloved children's books set in the Himalayas.",
+    "mediumHint": "I wrote 'The Room on the Roof' when I was just 17.",
+    "hardHint": "I have lived in Landour, near Mussoorie, for decades, becoming a fixture of the local culture."
+  },
+  {
+    "category": "Famous People",
+    "word": "Raja Ravi Varma",
+    "easyHint": "I am an Indian painter known for depicting Hindu deities in a European academic art style.",
+    "mediumHint": "My lithographic presses made my artwork available to the Indian masses.",
+    "hardHint": "My depiction of Shakuntala is one of the most iconic images in modern Indian art history."
+  },
+  {
+    "category": "Famous People",
+    "word": "Amrita Sher-Gil",
+    "easyHint": "I was a pioneering Indian-Hungarian painter often called the 'Frida Kahlo of India'.",
+    "mediumHint": "My work documented the lives of impoverished Indian villagers in the 1930s.",
+    "hardHint": "My painting 'Village Scene' remains one of the most expensive works of Indian art ever sold."
+  },
+  {
+    "category": "Famous People",
+    "word": "M.F. Husain",
+    "easyHint": "I was a highly controversial and celebrated modern Indian painter.",
+    "mediumHint": "I was famous for depicting horses and for walking barefoot everywhere.",
+    "hardHint": "I spent my final years in self-imposed exile in Qatar due to intense backlash over my nude depictions of deities."
+  },
+  {
+    "category": "Famous People",
+    "word": "Lata Mangeshkar",
+    "easyHint": "I am widely considered the 'Nightingale of India'.",
+    "mediumHint": "I recorded playback singing for thousands of Bollywood films over seven decades.",
+    "hardHint": "The song 'Aye Mere Watan Ke Logo', sung by me, famously moved Prime Minister Jawaharlal Nehru to tears."
+  },
+  {
+    "category": "Famous People",
+    "word": "Kishore Kumar",
+    "easyHint": "I was a legendary playback singer and actor known for my eccentric, joyful voice.",
+    "mediumHint": "I often yodeled in my popular Bollywood songs.",
+    "hardHint": "I banned the state broadcaster AIR and Doordarshan from playing my songs during the Emergency after refusing to sing for a political rally."
+  },
+  {
+    "category": "Famous People",
+    "word": "Mohammed Rafi",
+    "easyHint": "I am a classic playback singer known for my incredible vocal range and versatility.",
+    "mediumHint": "I was the dominant voice of Hindi cinema in the 1960s before Kishore Kumar's rise.",
+    "hardHint": "I famously sang 'Man Tarpat Hari Darshan Ko Aaj', a deeply Hindu devotional song written and composed entirely by Muslims."
+  },
+  {
+    "category": "Famous People",
+    "word": "M.S. Subbulakshmi",
+    "easyHint": "I was a legendary Carnatic vocalist from Madurai.",
+    "mediumHint": "I was the first musician ever to be awarded the Bharat Ratna.",
+    "hardHint": "I famously performed at the UN General Assembly in 1966."
+  },
+  {
+    "category": "Famous People",
+    "word": "Pandit Ravi Shankar",
+    "easyHint": "I was an Indian sitar virtuoso who popularized Indian classical music globally.",
+    "mediumHint": "I heavily influenced George Harrison of The Beatles.",
+    "hardHint": "I famously performed a legendary, rain-soaked set at the 1969 Woodstock festival."
+  },
+  {
+    "category": "Famous People",
+    "word": "Ustad Bismillah Khan",
+    "easyHint": "I was a legendary musician who elevated the shehnai to a concert instrument.",
+    "mediumHint": "I played at the Red Fort on the eve of India's independence in 1947.",
+    "hardHint": "I deeply refused to settle in the US because I could not imagine living without the river Ganga."
+  },
+  {
+    "category": "Famous People",
+    "word": "Zakir Hussain",
+    "easyHint": "I am the most famous contemporary tabla virtuoso in the world.",
+    "mediumHint": "My curly hair and charismatic smile are iconic, and I starred in a famous Taj Mahal tea commercial.",
+    "hardHint": "I was a founding member of the influential world music group 'Shakti' alongside John McLaughlin."
+  },
+  {
+    "category": "Famous People",
+    "word": "Satyajit Ray",
+    "easyHint": "I am a legendary Bengali filmmaker who won an honorary Oscar.",
+    "mediumHint": "My debut film was the iconic 'Pather Panchali'.",
+    "hardHint": "I designed my own distinct typefaces, including one named 'Ray Roman'."
+  },
+  {
+    "category": "Famous People",
+    "word": "Guru Dutt",
+    "easyHint": "I was a classic Bollywood director and actor known for my tragic, soulful films.",
+    "mediumHint": "My masterpieces include 'Pyaasa' and 'Kaagaz Ke Phool'.",
+    "hardHint": "The commercial failure of my semi-autobiographical film deeply impacted my mental health, leading to my tragic early death."
+  },
+  {
+    "category": "Famous People",
+    "word": "Bimal Roy",
+    "easyHint": "I was a pioneering Hindi film director noted for my realistic, socially conscious cinema.",
+    "mediumHint": "I directed the iconic films 'Do Bigha Zamin' and 'Madhumati'.",
+    "hardHint": "I brought the neo-realist movement to Indian cinema, heavily influenced by Vittorio De Sica's 'Bicycle Thieves'."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Safety pin",
+    "easyHint": "I am a small metal loop used to temporarily hold clothes together.",
+    "mediumHint": "I have a clasp that covers my sharp point to protect the user.",
+    "hardHint": "I was invented in 1849 by Walter Hunt to settle a 15-dollar debt."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Matchbox",
+    "easyHint": "I am a small container filled with tiny sticks that make fire.",
+    "mediumHint": "My sides have a striking surface made of red phosphorus.",
+    "hardHint": "I often feature vintage, highly collectible graphic art labels originating from Sweden and India."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Paperclip",
+    "easyHint": "I am a bent piece of wire used to hold sheets together.",
+    "mediumHint": "I am the classic shape known as the 'Gem' design.",
+    "hardHint": "During WWII, Norwegians wore me on their lapels as a subtle symbol of resistance against Nazi occupation."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Zipper",
+    "easyHint": "I use interlocking teeth to close jackets and bags.",
+    "mediumHint": "I was originally marketed under the clunky name 'clasp locker'.",
+    "hardHint": "The ubiquitous YKK stamped on my slider stands for Yoshida Kogyo Kabushikigaisha."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Velcro",
+    "easyHint": "I am a fabric hook-and-loop fastener that makes a tearing sound.",
+    "mediumHint": "I am often used on children's shoes instead of laces.",
+    "hardHint": "I was invented by a Swiss engineer who noticed burrs sticking to his dog's fur after a walk."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Rubber band",
+    "easyHint": "I am a stretchy loop used to hold things together.",
+    "mediumHint": "I am often used to snap people or create a makeshift slingshot.",
+    "hardHint": "I degrade and become a sticky, brittle mess if left out in the sun or heat for too long."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Stapler",
+    "easyHint": "I punch metal wire through paper and fold it to bind pages.",
+    "mediumHint": "My most famous red version was fiercely protected in the movie 'Office Space'.",
+    "hardHint": "My anvil plate can usually be rotated to pin documents temporarily outward instead of binding them inward."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Pencil sharpener",
+    "easyHint": "I am a small tool that shaves wood to reveal graphite.",
+    "mediumHint": "I use a small, single razor blade set at an angle.",
+    "hardHint": "Before my widespread invention, people strictly used a small knife (hence the term 'penknife') for my job."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Eraser",
+    "easyHint": "I am a small rubbery block used to remove pencil marks.",
+    "mediumHint": "I often sit at the end of a pencil, bound by a metal ferrule.",
+    "hardHint": "Before my invention, people commonly used crustless bread to perform my primary function."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Thimble",
+    "easyHint": "I am a small metal cup worn on the finger while sewing.",
+    "mediumHint": "I have dimples on my surface to prevent a needle from slipping.",
+    "hardHint": "I am historically used as a token in the board game Monopoly."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Shoelace",
+    "easyHint": "I am a string used to secure footwear.",
+    "mediumHint": "I am tied in a bow and often come undone if not double-knotted.",
+    "hardHint": "The small plastic or metal sheath at my very end is called an aglet."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Button",
+    "easyHint": "I am a small disc sewn onto shirts that slips through a slit to close it.",
+    "mediumHint": "I traditionally have either two or four small holes in the center.",
+    "hardHint": "Historically, men's clothing has me on the right, while women's clothing places me on the left."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Comb",
+    "easyHint": "I am a flat tool with teeth used to untangle hair.",
+    "mediumHint": "I am often carried in a back pocket and run through grease.",
+    "hardHint": "I am one of the oldest tools found by archaeologists, historically made from tortoise shell or bone."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Toothbrush",
+    "easyHint": "I am a small brush used with paste to clean your mouth.",
+    "mediumHint": "I should be replaced every three to four months as my bristles fray.",
+    "hardHint": "The first mass-produced version of me used stiff hog bristles attached to a bone handle."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Nail clipper",
+    "easyHint": "I am a small mechanical tool used to trim your fingertips.",
+    "mediumHint": "I use a compound lever design to apply cutting force.",
+    "hardHint": "I often include a small, fold-out file with a hooked end for cleaning dirt."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Tweezers",
+    "easyHint": "I am a small pincer used to pluck hairs or remove splinters.",
+    "mediumHint": "I rely on spring tension and require squeezing to close.",
+    "hardHint": "Philatelists (stamp collectors) use a specialized, smooth-spaded version of me to avoid damaging paper."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Corkscrew",
+    "easyHint": "I am a helical metal tool used to open wine bottles.",
+    "mediumHint": "I often feature levers that look like arms rising as the screw goes down.",
+    "hardHint": "The central helical metal piece that does the actual work is properly known as the 'worm'."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Bottle opener",
+    "easyHint": "I am a tool used to remove metal caps from glass drinks.",
+    "mediumHint": "I am frequently attached to keychains as a handy novelty item.",
+    "hardHint": "My standard design functions as a second-class lever resting on the center of the crown cap."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Can opener",
+    "easyHint": "I am a kitchen tool used to puncture and remove metal lids.",
+    "mediumHint": "I usually feature two gears and a cutting wheel that you manually crank.",
+    "hardHint": "I was not invented until nearly 50 years after my target object; before me, people used a hammer and chisel."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Spatula",
+    "easyHint": "I am a kitchen utensil with a broad, flat blade, used for flipping pancakes.",
+    "mediumHint": "My blade is often slotted to let grease drain away.",
+    "hardHint": "Spongebob Squarepants famously wields me at his job at the Krusty Krab."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Whisk",
+    "easyHint": "I am a cooking tool made of looped wires, used for beating eggs.",
+    "mediumHint": "I am essential for incorporating air into heavy cream or egg whites.",
+    "hardHint": "The classic balloon shape is the most common, but French and flat versions exist for specific sauces."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Peeler",
+    "easyHint": "I am a kitchen tool used to remove the skin from potatoes or carrots.",
+    "mediumHint": "I usually have a swiveling blade to follow the contours of the vegetable.",
+    "hardHint": "I often feature a small, sharpened loop at the tip meant for gouging out potato 'eyes'."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Grater",
+    "easyHint": "I am a metal kitchen tool with sharp holes used to shred cheese.",
+    "mediumHint": "I often come in a four-sided box shape with different sized holes.",
+    "hardHint": "If you are not careful, you might accidentally scrape your knuckles on my surface while prepping dinner."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Strainer",
+    "easyHint": "I am a wire mesh bowl used to drain pasta or wash vegetables.",
+    "mediumHint": "I am sometimes called a colander, especially when shaped like a large bowl.",
+    "hardHint": "Followers of the satirical religion 'Pastafarianism' famously wear me on their heads."
+  },
+  {
+    "category": "Common Objects",
+    "word": "Funnel",
+    "easyHint": "I am a wide-mouthed tube that narrows at the bottom, used to pour liquids.",
+    "mediumHint": "I am crucial when trying to pour oil into a car's engine without spilling.",
+    "hardHint": "The Tin Woodman from The Wizard of Oz wears an inverted version of me as a hat."
+  }
+]

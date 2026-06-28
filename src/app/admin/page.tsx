@@ -347,7 +347,7 @@ Example structure:
         </div>
 
         {/* Right Column: Database */}
-        <div className="glass-strong p-6 rounded-2xl lg:col-span-3 flex flex-col h-[80vh]">
+        <div className="glass-strong p-6 rounded-2xl lg:col-span-3 flex flex-col lg:h-[80vh] min-h-[500px]">
           {/* Categories Strip */}
           <div className="flex gap-2 overflow-x-auto pb-4 mb-4 custom-scrollbar shrink-0">
             {categoriesSet.map(cat => (
@@ -408,25 +408,26 @@ Example structure:
                         </div>
                       </div>
                     ) : (
-                      <div className="flex justify-between items-start gap-4">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <p className="font-black text-lg text-white truncate">{w.word}</p>
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div className="flex-1 min-w-0 w-full">
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <p className="font-black text-base md:text-lg text-white break-words">{w.word}</p>
+                            <span className="px-2 py-0.5 bg-primary/20 text-primary text-[10px] uppercase font-bold rounded-full tracking-wider shrink-0">{w.category}</span>
                           </div>
-                          <p className="text-sm text-text-muted mt-2"><span className="opacity-50 text-xs uppercase tracking-wider block">Easy Hint</span> {w.easyHint}</p>
-                          <p className="text-sm text-text-muted mt-1"><span className="opacity-50 text-xs uppercase tracking-wider block">Medium Hint</span> {w.mediumHint}</p>
-                          <p className="text-sm text-text-muted mt-1"><span className="opacity-50 text-xs uppercase tracking-wider block">Hard Hint</span> {w.hardHint}</p>
+                          <p className="text-xs md:text-sm text-text-muted mt-2 break-words"><span className="opacity-50 text-[10px] md:text-xs uppercase tracking-wider block">Easy Hint</span> {w.easyHint}</p>
+                          <p className="text-xs md:text-sm text-text-muted mt-1 break-words"><span className="opacity-50 text-[10px] md:text-xs uppercase tracking-wider block">Medium Hint</span> {w.mediumHint}</p>
+                          <p className="text-xs md:text-sm text-text-muted mt-1 break-words"><span className="opacity-50 text-[10px] md:text-xs uppercase tracking-wider block">Hard Hint</span> {w.hardHint}</p>
                         </div>
-                        <div className="flex flex-col gap-2 shrink-0">
+                        <div className="flex sm:flex-col gap-2 shrink-0 w-full sm:w-auto">
                           <button 
                             onClick={() => startEdit(w)}
-                            className="text-primary hover:text-white hover:bg-primary px-3 py-1 bg-primary/10 rounded-lg text-sm transition-colors"
+                            className="flex-1 sm:flex-none text-primary hover:text-white hover:bg-primary px-3 py-2 sm:py-1 bg-primary/10 rounded-lg text-sm transition-colors text-center"
                           >
                             Edit
                           </button>
                           <button 
                             onClick={() => handleDelete(w.id)}
-                            className="text-danger hover:text-white hover:bg-danger px-3 py-1 bg-danger/10 rounded-lg text-sm transition-colors"
+                            className="flex-1 sm:flex-none text-danger hover:text-white hover:bg-danger px-3 py-2 sm:py-1 bg-danger/10 rounded-lg text-sm transition-colors text-center"
                           >
                             Delete
                           </button>

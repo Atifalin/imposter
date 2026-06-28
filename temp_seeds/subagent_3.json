@@ -1,0 +1,702 @@
+[
+  {
+    "category": "Hollywood Movies",
+    "word": "Inception",
+    "easyHint": "Sleeping on the job is highly encouraged to steal secrets.",
+    "mediumHint": "The architect's name is a Greek mythological reference to a maze maker.",
+    "hardHint": "Edith Piaf's song was chosen because its length matches the runtime proportionally when slowed down."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Interstellar",
+    "easyHint": "A farmer leaves his cornfields to find a new home in the stars.",
+    "mediumHint": "The ticking sound on the water planet represents one day passing on Earth for every tick.",
+    "hardHint": "The dust storms were real, created using massive fans and cellulose-based synthetic dust."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "The Matrix",
+    "easyHint": "Take the red pill and wake up.",
+    "mediumHint": "The falling green code is actually scanned sushi recipes from a Japanese cookbook.",
+    "hardHint": "Will Smith famously turned down the lead role to star in Wild Wild West."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Fight Club",
+    "easyHint": "The first rule is we don't talk about it.",
+    "mediumHint": "There is a Starbucks coffee cup hidden in almost every frame of the movie.",
+    "hardHint": "The author of the original book got the idea after getting beaten up while camping and no one at work asked him about his bruises."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Pulp Fiction",
+    "easyHint": "A glowing briefcase and a Royale with Cheese.",
+    "mediumHint": "The clocks in the pawn shop are all set to 4:20.",
+    "hardHint": "The plaster on the mob boss's neck is never explained but was just to cover an actual shaving cut the actor had."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "The Godfather",
+    "easyHint": "An offer you can't refuse.",
+    "mediumHint": "The presence of oranges always foreshadows a death or a close call.",
+    "hardHint": "The word 'mafia' is never spoken in the film due to an agreement with the actual mob."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Parasite",
+    "easyHint": "A poor family slowly infiltrates a wealthy household, one job at a time.",
+    "mediumHint": "The rock given to the son is a 'suseok' or scholar's rock, meant to bring wealth.",
+    "hardHint": "The rich house wasn't real; it was a set built from scratch on an outdoor lot, designed specifically for the camera's aspect ratio."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Forrest Gump",
+    "easyHint": "Life is like a box of chocolates.",
+    "mediumHint": "The main character's eyes are closed in every single photograph shown in the movie.",
+    "hardHint": "The actor running across America was often actually the lead star's brother, Jim, acting as a double."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "The Shawshank Redemption",
+    "easyHint": "A wrongly convicted banker finds hope and a poster of Rita Hayworth.",
+    "mediumHint": "The mugshot of the young Red is actually a picture of Morgan Freeman's son.",
+    "hardHint": "The Stephen King novella it's based on was part of a collection called 'Different Seasons', which also gave us 'Stand By Me'."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "The Dark Knight",
+    "easyHint": "Why so serious?",
+    "mediumHint": "The hospital explosion was unscripted in its pause; the actor really improvised fidgeting with the detonator.",
+    "hardHint": "The mayor in the movie is played by an actor who was also the original voice of the animated series' villain, Two-Face."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Avengers: Endgame",
+    "easyHint": "Half the universe was snapped away, now they want them back.",
+    "mediumHint": "The rat that steps on the quantum tunnel controls is the true savior of the universe.",
+    "hardHint": "The sound heard after the credits is the sound of Tony Stark hammering his first suit in a cave."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Titanic",
+    "easyHint": "A doomed ship, an iceberg, and a door that clearly had enough space for two.",
+    "mediumHint": "The sketch of the female lead was actually drawn by the film's director, not the lead actor.",
+    "hardHint": "The older version of the female lead owned a Pomeranian, which was one of the three actual dogs known to survive the real sinking."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Avatar",
+    "easyHint": "Blue aliens on Pandora protect their magical tree.",
+    "mediumHint": "The language spoken by the aliens was created by a linguistics professor and has over 1,000 words.",
+    "hardHint": "The cigarette smoked by the lead scientist is entirely CGI; the actress refused to smoke on set."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Jurassic Park",
+    "easyHint": "A theme park where the exhibits eat the tourists.",
+    "mediumHint": "The T-Rex roar is a combination of a baby elephant, a tiger, and an alligator.",
+    "hardHint": "The water rippling in the cup was achieved by plucking a guitar string attached beneath the dashboard."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "The Lord of the Rings: The Return of the King",
+    "easyHint": "Destroying a piece of jewelry in a volcano to save Middle-earth.",
+    "mediumHint": "The actor playing the main villain broke his toe kicking an Uruk-hai helmet in a previous film.",
+    "hardHint": "The entire ending sequence was shot multiple times over weeks because the actors couldn't stop crying during the goodbye scene."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Gladiator",
+    "easyHint": "Are you not entertained? A betrayed general fights in the Colosseum.",
+    "mediumHint": "The wounds on the lead actor's face after the opening battle were real, caused by his horse backing him into branches.",
+    "hardHint": "The thumbs down gesture historically meant 'swords down' (spare him), not kill, but the director kept it as the modern audience understands it."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "The Silence of the Lambs",
+    "easyHint": "A cannibal helps an FBI trainee catch a killer with an affinity for moths.",
+    "mediumHint": "The lead villain never blinks while speaking to the FBI agent.",
+    "hardHint": "The movie is the third in history to win the 'Big Five' Academy Awards, but the lead actor was only on screen for 16 minutes."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Schindler's List",
+    "easyHint": "A businessman saves his Jewish workers during the Holocaust.",
+    "mediumHint": "The girl in the red coat is the only element of color in the main black-and-white portion of the film.",
+    "hardHint": "The director refused to accept a salary for the film, calling it 'blood money'."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Saving Private Ryan",
+    "easyHint": "A squad risks everything to bring one mother's last surviving son home.",
+    "mediumHint": "All the actors went through a grueling boot camp, except the actor they were rescuing, so the squad would actually resent him.",
+    "hardHint": "The D-Day landing scene was so realistic that the VA set up a special 800 number for veterans who experienced PTSD after watching it."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "The Green Mile",
+    "easyHint": "A death row corrections officer meets an inmate with miraculous healing powers.",
+    "mediumHint": "The mouse, Mr. Jingles, was played by 15 different mice.",
+    "hardHint": "The lead actor had a custom-built slightly smaller bed to make the massive inmate look even larger in comparison."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Se7en",
+    "easyHint": "What's in the box?! A serial killer uses deadly sins as his motif.",
+    "mediumHint": "All the killer's notebooks shown were fully handwritten and took two months to create.",
+    "hardHint": "The studio tried to change the dark ending, but the lead actor refused to do the movie unless the original ending was kept."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "The Departed",
+    "easyHint": "A cop undercover in the mob, and a mobster undercover in the cops in Boston.",
+    "mediumHint": "An 'X' motif appears hidden in the background every time a character is about to die.",
+    "hardHint": "This film is actually an English-language remake of the 2002 Hong Kong film 'Infernal Affairs'."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "The Prestige",
+    "easyHint": "Two rival magicians in Victorian London go to extreme lengths to top each other.",
+    "mediumHint": "The initials of the main characters, Alfred and Robert, spell A.B.R.A.",
+    "hardHint": "David Bowie plays Nikola Tesla, and his scenes were shot entirely in one week to accommodate his touring schedule."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Django Unchained",
+    "easyHint": "A freed slave partners with a bounty hunter to rescue his wife from a brutal plantation owner.",
+    "mediumHint": "The actor playing the villain really smashed a glass and cut his hand badly during a scene but kept acting through the take.",
+    "hardHint": "The blue suit worn by the lead character was inspired by the famous painting 'The Blue Boy' by Thomas Gainsborough."
+  },
+  {
+    "category": "Hollywood Movies",
+    "word": "Mad Max: Fury Road",
+    "easyHint": "A post-apocalyptic road trip involving a guy attached to the front of a car playing a flame-throwing guitar.",
+    "mediumHint": "Over 80% of the effects seen in the film are real practical effects, not CGI.",
+    "hardHint": "The movie was heavily delayed for years because unexpected heavy rains caused the Australian desert shooting location to bloom with flowers."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Breaking Bad",
+    "easyHint": "A chemistry teacher turns to cooking meth in an RV.",
+    "mediumHint": "The pizza on the roof was thrown perfectly in a single take.",
+    "hardHint": "The coordinates of the buried money actually point to the Albuquerque studios where the show was filmed."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Game of Thrones",
+    "easyHint": "Winter is coming, and everyone is fighting for an iron chair.",
+    "mediumHint": "The Night's Watch cloaks are actually modified Ikea rugs.",
+    "hardHint": "A coffee cup famously appeared in the final season, but earlier, a Starbucks cup was also spotted in season 4."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Stranger Things",
+    "easyHint": "Kids in the 80s fight monsters from the Upside Down.",
+    "mediumHint": "The kids' D&D campaign foreshadows the monster they face in the season.",
+    "hardHint": "The sensory deprivation tank required 1,200 pounds of Epsom salt to make the actress float."
+  },
+  {
+    "category": "TV Shows",
+    "word": "The Office",
+    "easyHint": "A mockumentary about the daily lives of paper company employees in Scranton.",
+    "mediumHint": "The computers on the set actually had internet access, so the actors were genuinely browsing the web during scenes.",
+    "hardHint": "John Krasinski shot the footage of Scranton shown in the opening credits from his own car."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Friends",
+    "easyHint": "Six pals hang out at Central Perk coffee shop.",
+    "mediumHint": "The golden frame on the door was originally a mirror that a crew member accidentally broke.",
+    "hardHint": "Bruce Willis appeared on the show for free because he lost a bet to Matthew Perry over their movie 'The Whole Nine Yards'."
+  },
+  {
+    "category": "TV Shows",
+    "word": "The Sopranos",
+    "easyHint": "A New Jersey mob boss balances family life with 'this thing of ours' and sees a therapist.",
+    "mediumHint": "The Bada Bing strip club was a real active strip club in New Jersey called Satin Dolls.",
+    "hardHint": "The opening credits show the Twin Towers in the rearview mirror for the first three seasons, but they were removed after 9/11."
+  },
+  {
+    "category": "TV Shows",
+    "word": "The Wire",
+    "easyHint": "A gritty look at the drug trade in Baltimore, showing both sides of the law.",
+    "mediumHint": "Many of the minor characters were played by real former Baltimore criminals, politicians, and police officers.",
+    "hardHint": "The iconic quote 'all the pieces matter' is a direct nod to the show's intense focus on interconnected municipal institutions."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Peaky Blinders",
+    "easyHint": "A Birmingham gang sews razor blades into their caps in the aftermath of WWI.",
+    "mediumHint": "The lead actor smoked over 3,000 herbal cigarettes per season.",
+    "hardHint": "Despite the show's name, historical records suggest the real gang rarely used razor blades in their hats due to the high cost of the blades at the time."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Dark",
+    "easyHint": "A German sci-fi thriller about time travel, missing children, and complex family trees.",
+    "mediumHint": "The phrase 'Sic Mundus Creatus Est' is central to the mystery.",
+    "hardHint": "The show perfectly predicted the date of an apocalypse in 2020, airing years before the global pandemic."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Black Mirror",
+    "easyHint": "An anthology series showing the dark, dystopian side of modern technology.",
+    "mediumHint": "The song 'Anyone Who Knows What Love Is' appears in almost every season.",
+    "hardHint": "The title of the show refers to the cold, reflective screen of a turned-off television or smartphone."
+  },
+  {
+    "category": "TV Shows",
+    "word": "The Crown",
+    "easyHint": "A dramatization of the reign of Queen Elizabeth II.",
+    "mediumHint": "The actors playing the Queen change every two seasons to reflect her aging.",
+    "hardHint": "The Queen's beloved corgis on set were reportedly very poorly behaved and often ruined takes."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Succession",
+    "easyHint": "A wealthy media family backstabs each other to take over the aging patriarch's company.",
+    "mediumHint": "The theme song uses a slightly out-of-tune piano to sound both grand and slightly 'off'.",
+    "hardHint": "The show is heavily inspired by the Murdoch family, but the creator refuses to officially confirm it."
+  },
+  {
+    "category": "TV Shows",
+    "word": "The Mandalorian",
+    "easyHint": "A lone bounty hunter travels the galaxy protecting a powerful green child.",
+    "mediumHint": "The lead actor is rarely actually inside the armor; it's often stunt doubles.",
+    "hardHint": "The revolutionary 'Volume' LED stage technology was first heavily used and popularized by this production."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Better Call Saul",
+    "easyHint": "A prequel showing how a struggling lawyer became a criminal's best friend.",
+    "mediumHint": "The intro sequence degrades in quality every season, symbolizing the character's moral decay.",
+    "hardHint": "The Cinnabon scenes in Omaha were actually filmed in a mall in Albuquerque."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Narcos",
+    "easyHint": "The rise and fall of Pablo Escobar and the DEA agents hunting him.",
+    "mediumHint": "The lead actor playing the Colombian drug lord is actually Brazilian and had to learn Spanish for the role.",
+    "hardHint": "The show uses real archival footage interspersed with the drama to show the sheer absurdity of the true events."
+  },
+  {
+    "category": "TV Shows",
+    "word": "The Boys",
+    "easyHint": "A group of vigilantes take down corrupt, corporate-owned superheroes.",
+    "mediumHint": "The actor playing the main villain based his terrifying smile on a specific political figure.",
+    "hardHint": "In the comics, the main protagonist is meant to look exactly like Simon Pegg, who ends up playing the character's father in the show."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Squid Game",
+    "easyHint": "Desperate people play deadly children's games for a massive cash prize in Korea.",
+    "mediumHint": "The creepy giant doll from 'Red Light, Green Light' was a real statue temporarily borrowed from a museum.",
+    "hardHint": "The phone number shown on the mysterious calling card belonged to a real person who received thousands of calls a day until Netflix edited it out."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Chernobyl",
+    "easyHint": "A dramatized account of the 1986 nuclear disaster in the Soviet Union.",
+    "mediumHint": "The creator recorded actual ambient sound inside a decommissioned nuclear plant in Lithuania for the show's unnerving score.",
+    "hardHint": "The character of Ulana Khomyuk did not exist in real life; she was created as a composite character to represent the many scientists who helped investigate the disaster."
+  },
+  {
+    "category": "TV Shows",
+    "word": "True Detective",
+    "easyHint": "An anthology crime drama famous for a dark, philosophical first season in Louisiana.",
+    "mediumHint": "The six-minute long tracking shot in a raid sequence was done entirely without hidden cuts.",
+    "hardHint": "The show's creator was heavily accused of plagiarizing the bleak, nihilistic dialogue of the main character from the works of Thomas Ligotti."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Westworld",
+    "easyHint": "A futuristic theme park where wealthy guests live out fantasies with lifelike androids.",
+    "mediumHint": "The player piano in the saloon frequently plays modern songs, like Radiohead covers.",
+    "hardHint": "The show is based on a 1973 movie directed by Michael Crichton, who later wrote Jurassic Park."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Mr. Robot",
+    "easyHint": "A socially anxious hacker gets involved in taking down the largest corporate conglomerate in the world.",
+    "mediumHint": "All the hacking seen on screen is highly accurate and uses real, functioning Linux commands and tools.",
+    "hardHint": "The entire series' twist ending was subtly hinted at in a single throwaway line in the pilot episode regarding an imaginary friend."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Mindhunter",
+    "easyHint": "Two FBI agents in the 1970s start interviewing imprisoned serial killers to understand their psychology.",
+    "mediumHint": "The dialogue spoken by the serial killers is often taken word-for-word from real transcripts.",
+    "hardHint": "The director used CGI to slightly alter the landscapes, removing modern street signs and adding period-accurate trees that were barely noticeable."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Fargo",
+    "easyHint": "An anthology black comedy crime series set in the snowy Midwest.",
+    "mediumHint": "Every episode falsely claims 'This is a true story' at the beginning.",
+    "hardHint": "The second season heavily features a UFO motif, ending in a literal flying saucer appearance that genuinely baffled some viewers."
+  },
+  {
+    "category": "TV Shows",
+    "word": "Severance",
+    "easyHint": "Employees undergo a procedure to separate their work memories from their personal memories.",
+    "mediumHint": "The waffle party is the highest honor an employee can earn.",
+    "hardHint": "The set design uses perfectly symmetrical corridors and specifically chosen low ceilings to induce a mild feeling of claustrophobia in the viewer."
+  },
+  {
+    "category": "TV Shows",
+    "word": "The Last of Us",
+    "easyHint": "A smuggler guides a teenage girl across a post-apocalyptic America devastated by a fungal infection.",
+    "mediumHint": "The terrifying clicking sound made by the infected was performed by the same voice actors who did it for the video game.",
+    "hardHint": "The show's creators deliberately avoided having the actors play the video game so their performances wouldn't just be imitations."
+  },
+  {
+    "category": "Brands",
+    "word": "Parle-G",
+    "easyHint": "The staple Indian glucose biscuit featuring a young girl on the wrapper.",
+    "mediumHint": "During the 2020 lockdown, it recorded its highest sales in its 82-year history.",
+    "hardHint": "The 'G' originally stood for 'Gluco', but was later rebranded to mean 'Genius'."
+  },
+  {
+    "category": "Brands",
+    "word": "Amul",
+    "easyHint": "The taste of India, famous for its butter and iconic cartoon girl in a polka dot dress.",
+    "mediumHint": "It is a cooperative brand managed by the Gujarat Co-operative Milk Marketing Federation.",
+    "hardHint": "The brand's name is derived from the Sanskrit word 'Amulya', meaning priceless."
+  },
+  {
+    "category": "Brands",
+    "word": "Tata",
+    "easyHint": "A massive Indian conglomerate that makes everything from salt to software and cars.",
+    "mediumHint": "They acquired Jaguar Land Rover from Ford in 2008.",
+    "hardHint": "The founder built the Taj Mahal Palace Hotel in Mumbai because he was allegedly refused entry to a 'whites only' hotel."
+  },
+  {
+    "category": "Brands",
+    "word": "Reliance",
+    "easyHint": "The conglomerate behind India's telecom revolution with 'Jio'.",
+    "mediumHint": "Its founder started his career as a gas station attendant in Yemen.",
+    "hardHint": "The company's logo color palette heavily features a specific shade of blue, known internally as 'Dhirubhai Blue'."
+  },
+  {
+    "category": "Brands",
+    "word": "Royal Enfield",
+    "easyHint": "The classic thumping motorcycle brand beloved in India, known for the 'Bullet'.",
+    "mediumHint": "It's the oldest global motorcycle brand in continuous production.",
+    "hardHint": "The original company also made lawnmowers and bicycles in Redditch, England, before moving solely to India."
+  },
+  {
+    "category": "Brands",
+    "word": "Maggi",
+    "easyHint": "The 2-minute noodles that are a staple late-night snack in India.",
+    "mediumHint": "It was banned in India in 2015 due to excessive lead, causing a massive nationwide uproar.",
+    "hardHint": "The brand actually originated in Switzerland in the 19th century as a way to improve the nutritional intake of working families."
+  },
+  {
+    "category": "Brands",
+    "word": "Flipkart",
+    "easyHint": "India's homegrown e-commerce giant, started by two guys named Sachin and Binny.",
+    "mediumHint": "They started by exclusively selling books before expanding into everything else.",
+    "hardHint": "Walmart acquired a massive 77% controlling stake in this company in 2018 for $16 billion."
+  },
+  {
+    "category": "Brands",
+    "word": "Zomato",
+    "easyHint": "A prominent Indian restaurant aggregator and food delivery startup in red.",
+    "mediumHint": "It was originally called 'Foodiebay' before being rebranded.",
+    "hardHint": "They once acquired a company called 'Urbanspoon' solely to enter the US and Australian markets."
+  },
+  {
+    "category": "Brands",
+    "word": "Swiggy",
+    "easyHint": "The major orange-colored food delivery competitor in India.",
+    "mediumHint": "They launched 'Instamart' for 15-minute grocery deliveries.",
+    "hardHint": "The company was born out of a logistics startup called 'Bundl' which the founders had initially started to fix courier issues."
+  },
+  {
+    "category": "Brands",
+    "word": "Paytm",
+    "easyHint": "The digital wallet that became ubiquitous in India after demonetization in 2016.",
+    "mediumHint": "Its name is an acronym for 'Pay Through Mobile'.",
+    "hardHint": "Its IPO in 2021 was the largest in Indian history at the time, but the stock subsequently crashed on listing day."
+  },
+  {
+    "category": "Brands",
+    "word": "Mahindra",
+    "easyHint": "Indian manufacturer known for rugged SUVs like the Scorpio and Thar.",
+    "mediumHint": "They are the largest manufacturer of tractors in the world by volume.",
+    "hardHint": "The company originally assembled Willys Jeeps in India under license just after independence."
+  },
+  {
+    "category": "Brands",
+    "word": "Bajaj",
+    "easyHint": "The company that motorized India with the 'Chetak' scooter.",
+    "mediumHint": "Their tagline 'Hamara Bajaj' is one of the most recognizable ad jingles in India.",
+    "hardHint": "They stopped manufacturing scooters entirely in 2009 to focus on motorcycles before reviving the Chetak as an EV."
+  },
+  {
+    "category": "Brands",
+    "word": "Jio",
+    "easyHint": "The telecom network that brought ultra-cheap 4G data to India.",
+    "mediumHint": "It reached 50 million subscribers in just 83 days after launch.",
+    "hardHint": "The logo is a mirror image of the word 'OIL', nodding to the parent company's origins."
+  },
+  {
+    "category": "Brands",
+    "word": "Britannia",
+    "easyHint": "Indian food company famous for Good Day and Tiger biscuits.",
+    "mediumHint": "Their classic jingle has a distinct 'Ting Ting Ti-Ting' bell sound.",
+    "hardHint": "During WWII, they supplied biscuits strictly to the British Indian Army, halting commercial sales."
+  },
+  {
+    "category": "Brands",
+    "word": "Haldiram's",
+    "easyHint": "The ultimate brand for Indian bhujia, namkeen, and traditional sweets.",
+    "mediumHint": "It started as a small retail sweets and namkeen shop in Bikaner, Rajasthan.",
+    "hardHint": "Despite its traditional image, its revenue consistently dwarfs the Indian operations of major western junk food brands like McDonald's."
+  },
+  {
+    "category": "Brands",
+    "word": "Old Monk",
+    "easyHint": "The legendary dark rum that is a cult favorite in India.",
+    "mediumHint": "It has arguably never officially advertised yet retains massive market share.",
+    "hardHint": "It is produced by Mohan Meakin, a brewery founded by a British entrepreneur in Kasauli in the 1850s."
+  },
+  {
+    "category": "Brands",
+    "word": "Dettol",
+    "easyHint": "The ubiquitous amber-colored antiseptic liquid in Indian households.",
+    "mediumHint": "The distinctive smell comes from its active ingredient, chloroxylenol.",
+    "hardHint": "It is not an Indian brand; it's owned by the British company Reckitt, though India is its biggest market."
+  },
+  {
+    "category": "Brands",
+    "word": "Lifebuoy",
+    "easyHint": "The bright red, strong-smelling soap historically marketed for health and hygiene.",
+    "mediumHint": "It was originally introduced in 1895 as a carbolic soap.",
+    "hardHint": "It is technically not classified as 'soap' in some countries anymore due to regulatory definitions, but rather as a 'syndet' bar."
+  },
+  {
+    "category": "Brands",
+    "word": "Maruti Suzuki",
+    "easyHint": "The Indo-Japanese automaker that put middle-class India on four wheels with the '800'.",
+    "mediumHint": "They hold nearly 50% of the entire Indian passenger car market.",
+    "hardHint": "The company was originally founded by Sanjay Gandhi, but he died before the first car rolled out, leading to the Japanese partnership."
+  },
+  {
+    "category": "Brands",
+    "word": "Hero",
+    "easyHint": "The world's largest manufacturer of two-wheelers, originally partnered with Honda.",
+    "mediumHint": "Their 'Splendor' model is the highest-selling motorcycle in the world.",
+    "hardHint": "The founders started by selling bicycle spare parts in Amritsar before the partition of India."
+  },
+  {
+    "category": "Brands",
+    "word": "Asian Paints",
+    "easyHint": "The leading paint company in India with a mascot named 'Gattu'.",
+    "mediumHint": "The mascot was created by the famous Indian cartoonist R.K. Laxman.",
+    "hardHint": "They owe their massive market dominance to an early supercomputer they bought in 1970 to forecast color demand across India."
+  },
+  {
+    "category": "Brands",
+    "word": "Thums Up",
+    "easyHint": "The strong, fizzy cola brand in India that 'tastes the thunder'.",
+    "mediumHint": "It was bought by Coca-Cola in the 90s just to kill it, but its popularity forced them to keep it alive.",
+    "hardHint": "It was created in the 70s as a direct replacement when Coca-Cola was kicked out of India by the government."
+  },
+  {
+    "category": "Brands",
+    "word": "Godrej",
+    "easyHint": "The Indian brand synonymous with steel almirahs and locks.",
+    "mediumHint": "They made the first ballot boxes for independent India's first election in 1951.",
+    "hardHint": "The founder started the company making locks because he read about a rising burglary rate in Bombay in a newspaper."
+  },
+  {
+    "category": "Brands",
+    "word": "TVS",
+    "easyHint": "A major Indian two-wheeler manufacturer based in Chennai, known for the Apache.",
+    "mediumHint": "They are the only two-wheeler manufacturer to have won the Deming Prize for total quality management.",
+    "hardHint": "The company actually started by running a rural bus service in Madurai in 1911."
+  },
+  {
+    "category": "Brands",
+    "word": "Ashok Leyland",
+    "easyHint": "The massive commercial truck and bus manufacturer, the backbone of Indian transport.",
+    "mediumHint": "They are the second-largest manufacturer of commercial vehicles in India after Tata.",
+    "hardHint": "The company was named after the founder's son (Ashok) and the British company they partnered with (Leyland)."
+  },
+  {
+    "category": "Technology",
+    "word": "Blockchain",
+    "easyHint": "A decentralized digital ledger used to record transactions securely.",
+    "mediumHint": "It prevents the 'double-spending' problem in digital currency.",
+    "hardHint": "The concept was first theorized in 1991 by Stuart Haber and W. Scott Stornetta for cryptographically securing documents."
+  },
+  {
+    "category": "Technology",
+    "word": "Artificial Intelligence",
+    "easyHint": "Machines programmed to mimic human cognitive functions.",
+    "mediumHint": "The Turing Test is a classic measure of this technology's success.",
+    "hardHint": "The term was coined at the Dartmouth Conference in 1956 by John McCarthy."
+  },
+  {
+    "category": "Technology",
+    "word": "Quantum Computing",
+    "easyHint": "Computers that use qubits, which can be both 0 and 1 at the same time.",
+    "mediumHint": "They operate at temperatures close to absolute zero.",
+    "hardHint": "Shor's algorithm is feared because it could theoretically break modern RSA encryption using this tech."
+  },
+  {
+    "category": "Technology",
+    "word": "Virtual Reality",
+    "easyHint": "A simulated 3D environment you explore using a headset.",
+    "mediumHint": "Oculus Rift popularized its modern revival before being bought by Meta.",
+    "hardHint": "The 'Sensorama' from 1962 is considered one of the earliest functioning prototypes of this technology."
+  },
+  {
+    "category": "Technology",
+    "word": "Augmented Reality",
+    "easyHint": "Overlaying digital information onto the real world through a screen or glasses.",
+    "mediumHint": "Pokémon GO is the most famous mainstream example.",
+    "hardHint": "The heads-up display (HUD) in military fighter jets was one of the first practical applications."
+  },
+  {
+    "category": "Technology",
+    "word": "Internet of Things",
+    "easyHint": "Everyday physical devices connected to the web, like smart fridges and bulbs.",
+    "mediumHint": "The Mirai botnet maliciously used these devices to take down major websites.",
+    "hardHint": "A toaster connected to the internet by John Romkey in 1990 is widely considered the first device of this kind."
+  },
+  {
+    "category": "Technology",
+    "word": "5G",
+    "easyHint": "The fifth generation of mobile network technology offering faster speeds.",
+    "mediumHint": "It utilizes higher-frequency millimeter waves, which require more localized towers.",
+    "hardHint": "During its rollout, bizarre conspiracy theories falsely linked it to the spread of COVID-19."
+  },
+  {
+    "category": "Technology",
+    "word": "Cloud Computing",
+    "easyHint": "Storing and accessing data and programs over the internet instead of your computer's hard drive.",
+    "mediumHint": "AWS, Azure, and Google are the 'Big Three' providers.",
+    "hardHint": "The term was first used in an internal Compaq business plan in 1996."
+  },
+  {
+    "category": "Technology",
+    "word": "Machine Learning",
+    "easyHint": "A subset of AI where systems learn from data rather than explicit programming.",
+    "mediumHint": "Neural networks are a key architecture modeled after the human brain.",
+    "hardHint": "Arthur Samuel coined the term in 1959 while working at IBM on computer checkers."
+  },
+  {
+    "category": "Technology",
+    "word": "Cryptocurrency",
+    "easyHint": "Digital or virtual money secured by cryptography.",
+    "mediumHint": "Bitcoin is the first and most famous example.",
+    "hardHint": "David Chaum's 'eCash' in the 1980s was an early predecessor to this concept."
+  },
+  {
+    "category": "Technology",
+    "word": "NFT",
+    "easyHint": "A unique digital identifier used to certify authenticity and ownership of digital art.",
+    "mediumHint": "Bored Apes and CryptoPunks are famous collections.",
+    "hardHint": "The first one ever created was 'Quantum' by Kevin McCoy in 2014, long before the hype."
+  },
+  {
+    "category": "Technology",
+    "word": "Metaverse",
+    "easyHint": "A hypothesized iteration of the internet as a single, universal virtual world.",
+    "mediumHint": "Mark Zuckerberg renamed his entire company to focus on this.",
+    "hardHint": "The term was coined by Neal Stephenson in his 1992 science fiction novel 'Snow Crash'."
+  },
+  {
+    "category": "Technology",
+    "word": "Drones",
+    "easyHint": "Unmanned aerial vehicles controlled remotely.",
+    "mediumHint": "They are increasingly used for delivery, videography, and agriculture.",
+    "hardHint": "The earliest recorded use of an unmanned vehicle for bombing was Austria attacking Venice in 1849 with balloon carriers."
+  },
+  {
+    "category": "Technology",
+    "word": "3D Printing",
+    "easyHint": "Making a physical object from a three-dimensional digital model by laying down layers of material.",
+    "mediumHint": "Also known as additive manufacturing.",
+    "hardHint": "Charles Hull invented stereolithography, the foundation of this tech, in 1983."
+  },
+  {
+    "category": "Technology",
+    "word": "Autonomous Vehicles",
+    "easyHint": "Cars that drive themselves without human intervention.",
+    "mediumHint": "Waymo and Cruise are major companies developing this.",
+    "hardHint": "The DARPA Grand Challenge in 2004 kickstarted the modern push, though no car finished the course that year."
+  },
+  {
+    "category": "Technology",
+    "word": "Cybersecurity",
+    "easyHint": "Protecting systems, networks, and programs from digital attacks.",
+    "mediumHint": "Phishing and ransomware are common threats to this field.",
+    "hardHint": "The first computer worm, the Morris Worm (1988), accidentally highlighted the need for this entire industry."
+  },
+  {
+    "category": "Technology",
+    "word": "Big Data",
+    "easyHint": "Extremely large sets of information analyzed computationally to reveal patterns.",
+    "mediumHint": "It is characterized by the 3 Vs: Volume, Velocity, and Variety.",
+    "hardHint": "The concept took off in the early 2000s when Doug Laney articulated the 3 Vs framework."
+  },
+  {
+    "category": "Technology",
+    "word": "Edge Computing",
+    "easyHint": "Processing data closer to where it's being generated rather than in a centralized data-processing warehouse.",
+    "mediumHint": "Crucial for self-driving cars so they don't have to wait for server ping times.",
+    "hardHint": "Akamai's content delivery networks in the late 90s are often cited as the precursor to this paradigm."
+  },
+  {
+    "category": "Technology",
+    "word": "Biometrics",
+    "easyHint": "Using physical characteristics like fingerprints or faces to identify individuals.",
+    "mediumHint": "Apple's FaceID is a widespread consumer application.",
+    "hardHint": "The Alphonse Bertillon system of body measurements in the 19th century was the first scientific system of this kind."
+  },
+  {
+    "category": "Technology",
+    "word": "Genomics",
+    "easyHint": "The study of an organism's complete set of DNA.",
+    "mediumHint": "CRISPR is a tool used to edit this code.",
+    "hardHint": "The Human Genome Project took 13 years and cost roughly $3 billion, while today it takes hours and under $1000."
+  },
+  {
+    "category": "Technology",
+    "word": "Nanotechnology",
+    "easyHint": "Manipulating matter on an atomic or molecular scale.",
+    "mediumHint": "Used in medicine to deliver drugs precisely to cells.",
+    "hardHint": "Richard Feynman's 1959 talk 'There's Plenty of Room at the Bottom' is considered the conceptual origin."
+  },
+  {
+    "category": "Technology",
+    "word": "Robotics",
+    "easyHint": "The intersection of science, engineering, and tech that produces machines that substitute for human actions.",
+    "mediumHint": "Boston Dynamics is famous for making viral videos of these machines doing parkour.",
+    "hardHint": "The word itself was coined by science fiction author Isaac Asimov in 1941."
+  },
+  {
+    "category": "Technology",
+    "word": "Wearables",
+    "easyHint": "Smart electronic devices worn close to or on the surface of the skin.",
+    "mediumHint": "Smartwatches and fitness trackers are the most common examples.",
+    "hardHint": "A 17th-century abacus ring from Qing Dynasty China is often jokingly referred to as the first."
+  },
+  {
+    "category": "Technology",
+    "word": "Smart Home",
+    "easyHint": "A residence that uses internet-connected devices to enable remote monitoring and management of appliances.",
+    "mediumHint": "Alexa, turn off the lights.",
+    "hardHint": "ECHO IV, created in 1966, was an early prototype that could control room temperature and turn appliances on/off."
+  },
+  {
+    "category": "Technology",
+    "word": "Clean Energy",
+    "easyHint": "Power that comes from renewable, zero-emission sources.",
+    "mediumHint": "Solar and wind are the most prominent examples.",
+    "hardHint": "The first known use of a windmill to generate electricity was in Scotland in 1887."
+  }
+]

@@ -13,7 +13,7 @@ export function useWebRTC(roomCode: string | undefined, remoteMode: boolean = fa
   
   const peersRef = useRef<Record<string, RTCPeerConnection>>({});
   const audioContextRef = useRef<AudioContext | null>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number>(0);
   const analysersRef = useRef<Record<string, AnalyserNode>>({});
 
   const initVoice = async () => {

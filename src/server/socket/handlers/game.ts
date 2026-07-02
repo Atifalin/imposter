@@ -4,6 +4,110 @@ import { prisma } from '../../../lib/prisma';
 import { gameStateManager } from '../../game/state';
 import { selectWord, assignRoles } from '../../game/engine';
 
+function startPhaseTimer(io: Server<any, any, any, any>, room: any, code: string, seconds: number, onExpire: () => void) {
+  if (room.timerInterval) clearInterval(room.timerInterval);
+  room.timerRemaining = seconds;
+  
+  io.to(code).emit('timer-tick', room.timerRemaining);
+  
+  room.timerInterval = setInterval(() => {
+    if (room.timerRemaining) {
+      room.timerRemaining -= 1;
+      if (room.timerRemaining <= 0) {
+        clearInterval(room.timerInterval);
+        room.timerInterval = undefined;
+        onExpire();
+      } else {
+        io.to(code).emit('timer-tick', room.timerRemaining);
+      }
+    }
+  }, 1000);
+}
+
+async function startVoting(room: any, code: string, io: Server<any, any, any, any>) {
+  if (!room.currentRound) return;
+  try {
+    room.currentRound.status = 'voting';
+    await prisma.round.update({
+      where: { id: room.currentRound.id },
+      data: { status: 'voting' }
+    });
+
+    io.to(code).emit('voting-started');
+    io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
+
+    if (room.settings.votingTimerEnabled && room.settings.votingTimerSeconds) {
+      startPhaseTimer(io, room, code, room.settings.votingTimerSeconds, () => {
+        if (room.currentRound?.status === 'voting') {
+          revealResults(room, code, io);
+        }
+      });
+    } else {
+      if (room.timerInterval) clearInterval(room.timerInterval);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function revealResults(room: any, code: string, io: Server<any, any, any, any>) {
+  if (!room.currentRound) return;
+  room.currentRound.status = 'results';
+  await prisma.round.update({
+    where: { id: room.currentRound.id },
+    data: { status: 'results' }
+  });
+
+  const imposters: string[] = [];
+  room.currentRound.assignments.forEach((role: string, id: string) => {
+    if (role === 'imposter') {
+      const p = room.players.get(id);
+      if (p) imposters.push(p.name);
+    }
+  });
+
+  const voteCounts: { [id: string]: number } = {};
+  for (const tId of Array.from(room.currentRound.votes.values())) {
+    voteCounts[tId as string] = (voteCounts[tId as string] || 0) + 1;
+  }
+
+  let highestVotes = 0;
+  let votedOutId: string | null = null;
+  let isTie = false;
+
+  for (const [tId, count] of Object.entries(voteCounts)) {
+    if (count > highestVotes) {
+      highestVotes = count;
+      votedOutId = tId;
+      isTie = false;
+    } else if (count === highestVotes) {
+      isTie = true;
+    }
+  }
+
+  if (isTie) {
+    votedOutId = null;
+  }
+
+  const votedOutPlayer = votedOutId ? room.players.get(votedOutId) : null;
+  const wasImposter = votedOutId ? room.currentRound.assignments.get(votedOutId) === 'imposter' : false;
+
+  io.to(code).emit('results-revealed', {
+    secretWord: room.currentRound.secretWord,
+    hint: room.currentRound.hint,
+    imposters,
+    votedOutPlayerName: votedOutPlayer?.name || null,
+    wasImposter,
+    isTie
+  });
+  io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
+  
+  if (room.timerInterval) {
+    clearInterval(room.timerInterval);
+    room.timerInterval = undefined;
+  }
+}
+
 export function registerGameHandlers(
   io: Server<ClientToServerEvents, ServerToClientEvents, never, SocketData>,
   socket: Socket<ClientToServerEvents, ServerToClientEvents, never, SocketData>
@@ -15,6 +119,11 @@ export function registerGameHandlers(
     if (!code) return;
     const room = gameStateManager.getRoom(code);
     if (!room || room.hostPlayerId !== playerId) return;
+
+    if (room.timerInterval) {
+      clearInterval(room.timerInterval);
+      room.timerInterval = undefined;
+    }
 
     try {
       // 1. Pick Word
@@ -142,6 +251,16 @@ export function registerGameHandlers(
         data: { status: 'discussion' }
       });
       io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
+      
+      if (room.settings.discussionTimerEnabled && room.settings.discussionTimerSeconds) {
+        startPhaseTimer(io, room, code, room.settings.discussionTimerSeconds, () => {
+          if (room.currentRound?.status === 'discussion') {
+            startVoting(room, code, io);
+          }
+        });
+      } else {
+        if (room.timerInterval) clearInterval(room.timerInterval);
+      }
     }
   });
 
@@ -149,78 +268,16 @@ export function registerGameHandlers(
     const code = socket.data.roomCode;
     if (!code) return;
     const room = gameStateManager.getRoom(code);
-    if (!room || room.hostPlayerId !== playerId || !room.currentRound) return;
-
-    room.currentRound.status = 'results';
-    await prisma.round.update({
-      where: { id: room.currentRound.id },
-      data: { status: 'results' }
-    });
-
-    const imposters: string[] = [];
-    room.currentRound.assignments.forEach((role, id) => {
-      if (role === 'imposter') {
-        const p = room.players.get(id);
-        if (p) imposters.push(p.name);
-      }
-    });
-
-    // Compute who was voted out
-    const voteCounts: { [id: string]: number } = {};
-    for (const tId of Array.from(room.currentRound.votes.values())) {
-      voteCounts[tId] = (voteCounts[tId] || 0) + 1;
-    }
-
-    let highestVotes = 0;
-    let votedOutId: string | null = null;
-    let isTie = false;
-
-    for (const [tId, count] of Object.entries(voteCounts)) {
-      if (count > highestVotes) {
-        highestVotes = count;
-        votedOutId = tId;
-        isTie = false;
-      } else if (count === highestVotes) {
-        isTie = true;
-      }
-    }
-
-    if (isTie) {
-      votedOutId = null;
-    }
-
-    const votedOutPlayer = votedOutId ? room.players.get(votedOutId) : null;
-    const wasImposter = votedOutId ? room.currentRound.assignments.get(votedOutId) === 'imposter' : false;
-
-    io.to(code).emit('results-revealed', {
-      secretWord: room.currentRound.secretWord,
-      hint: room.currentRound.hint,
-      imposters,
-      votedOutPlayerName: votedOutPlayer?.name || null,
-      wasImposter,
-      isTie
-    });
-    io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
+    if (!room || room.hostPlayerId !== playerId) return;
+    await revealResults(room, code, io);
   });
 
   socket.on('start-voting', async () => {
     const code = socket.data.roomCode;
     if (!code) return;
     const room = gameStateManager.getRoom(code);
-    if (!room || room.hostPlayerId !== playerId || !room.currentRound) return;
-
-    try {
-      room.currentRound.status = 'voting';
-      await prisma.round.update({
-        where: { id: room.currentRound.id },
-        data: { status: 'voting' }
-      });
-
-      io.to(code).emit('voting-started');
-      io.to(code).emit('room-updated', room.getPublicState(), room.getPlayersArray());
-    } catch (e) {
-      console.error(e);
-    }
+    if (!room || room.hostPlayerId !== playerId) return;
+    await startVoting(room, code, io);
   });
 
   socket.on('cast-vote', async (targetId) => {
@@ -254,6 +311,11 @@ export function registerGameHandlers(
       }
 
       io.to(code).emit('vote-update', { counts: voteCounts, voters });
+
+      // Auto-progress if everyone has voted
+      if (voters.length === room.players.size) {
+        await revealResults(room, code, io);
+      }
     } catch (e) {
       console.error(e);
     }

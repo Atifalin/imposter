@@ -16,8 +16,10 @@ export default function SettingsModal({ isOpen, onClose, currentSettings, onSave
   const [imposterCount, setImposterCount] = useState(currentSettings.imposterCount || 1);
   
   // Timer Settings
-  const [timerEnabled, setTimerEnabled] = useState(!!currentSettings.timerSeconds);
-  const [timerSeconds, setTimerSeconds] = useState(currentSettings.timerSeconds || 120);
+  const [discussionTimerEnabled, setDiscussionTimerEnabled] = useState(currentSettings.discussionTimerEnabled ?? false);
+  const [discussionTimerSeconds, setDiscussionTimerSeconds] = useState(currentSettings.discussionTimerSeconds || 120);
+  const [votingTimerEnabled, setVotingTimerEnabled] = useState(currentSettings.votingTimerEnabled ?? false);
+  const [votingTimerSeconds, setVotingTimerSeconds] = useState(currentSettings.votingTimerSeconds || 60);
 
   // Remote Mode Setting
   const [remoteMode, setRemoteMode] = useState(currentSettings.remoteMode || false);
@@ -32,9 +34,13 @@ export default function SettingsModal({ isOpen, onClose, currentSettings, onSave
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setImposterCount(currentSettings.imposterCount || 1);
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      setTimerEnabled(!!currentSettings.timerSeconds);
+      setDiscussionTimerEnabled(currentSettings.discussionTimerEnabled ?? false);
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      setTimerSeconds(currentSettings.timerSeconds || 120);
+      setDiscussionTimerSeconds(currentSettings.discussionTimerSeconds || 120);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setVotingTimerEnabled(currentSettings.votingTimerEnabled ?? false);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setVotingTimerSeconds(currentSettings.votingTimerSeconds || 60);
       // eslint-disable-next-line react-hooks/exhaustive-deps
       setRemoteMode(currentSettings.remoteMode || false);
     }
@@ -57,7 +63,10 @@ export default function SettingsModal({ isOpen, onClose, currentSettings, onSave
       categories,
       difficulty,
       imposterCount,
-      timerSeconds: timerEnabled ? timerSeconds : undefined,
+      discussionTimerEnabled,
+      discussionTimerSeconds,
+      votingTimerEnabled,
+      votingTimerSeconds,
       remoteMode
     });
     onClose();
@@ -99,7 +108,7 @@ export default function SettingsModal({ isOpen, onClose, currentSettings, onSave
 
           <div className="space-y-8">
             
-            {/* Quick Toggles (Remote Mode & Timer) */}
+            {/* Quick Toggles (Remote Mode & Timers) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Remote Mode Toggle */}
               <div 
@@ -124,61 +133,74 @@ export default function SettingsModal({ isOpen, onClose, currentSettings, onSave
                 </div>
               </div>
 
-              {/* Timer Toggle */}
-              <div 
-                onClick={() => setTimerEnabled(!timerEnabled)}
-                className={`p-4 rounded-2xl border cursor-pointer flex items-center justify-between transition-all ${
-                  timerEnabled ? 'bg-accent/20 border-accent shadow-[0_0_20px_rgba(236,72,153,0.3)]' : 'bg-surface border-white/10 hover:border-white/30'
-                }`}
-              >
-                <div>
-                  <div className="font-bold text-white text-lg flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    Time Limit
-                  </div>
-                  <div className="text-xs text-text-muted mt-1">
-                    {timerEnabled ? `${timerSeconds} Seconds` : 'Unlimited Time'}
-                  </div>
-                </div>
-                <div className={`w-12 h-6 rounded-full p-1 transition-colors ${timerEnabled ? 'bg-accent' : 'bg-surface-light'}`}>
-                  <motion.div 
-                    layout
-                    className="w-4 h-4 bg-white rounded-full shadow-md"
-                    animate={{ x: timerEnabled ? 24 : 0 }}
-                  />
-                </div>
-              </div>
+              {/* Empty slot for balance, or move voting timer here later */}
             </div>
 
-            {/* Timer Slider (Only visible if enabled) */}
-            <AnimatePresence>
-              {timerEnabled && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="bg-surface/50 p-4 rounded-2xl border border-white/10"
-                >
-                  <div className="flex justify-between text-sm font-bold text-white mb-2">
-                    <span>Duration</span>
-                    <span className="text-accent">{timerSeconds}s</span>
+            {/* Timers Section */}
+            <section className="space-y-4">
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Time Limits
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Discussion Timer */}
+                <div className={`bg-surface/30 p-4 rounded-2xl border transition-all ${discussionTimerEnabled ? 'border-accent shadow-[0_0_15px_rgba(236,72,153,0.2)]' : 'border-white/5'}`}>
+                  <div 
+                    className="flex justify-between items-center cursor-pointer mb-4"
+                    onClick={() => setDiscussionTimerEnabled(!discussionTimerEnabled)}
+                  >
+                    <div>
+                      <div className="font-bold text-white">Discussion Time</div>
+                      <div className="text-xs text-text-muted">{discussionTimerEnabled ? `${discussionTimerSeconds}s` : 'Unlimited'}</div>
+                    </div>
+                    <div className={`w-12 h-6 rounded-full p-1 transition-colors ${discussionTimerEnabled ? 'bg-accent' : 'bg-surface-light'}`}>
+                      <motion.div layout className="w-4 h-4 bg-white rounded-full shadow-md" animate={{ x: discussionTimerEnabled ? 24 : 0 }} />
+                    </div>
                   </div>
-                  <input 
-                    type="range" 
-                    min="30" 
-                    max="300" 
-                    step="30"
-                    value={timerSeconds}
-                    onChange={(e) => setTimerSeconds(Number(e.target.value))}
-                    className="w-full accent-accent h-2 bg-surface-light rounded-lg appearance-none cursor-pointer"
-                  />
-                  <div className="flex justify-between text-xs text-text-muted mt-2">
-                    <span>30s</span>
-                    <span>5 mins</span>
+                  
+                  <AnimatePresence>
+                    {discussionTimerEnabled && (
+                      <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
+                        <input 
+                          type="range" min="30" max="300" step="30" value={discussionTimerSeconds}
+                          onChange={(e) => setDiscussionTimerSeconds(Number(e.target.value))}
+                          className="w-full accent-accent h-2 bg-surface-light rounded-lg appearance-none cursor-pointer"
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Voting Timer */}
+                <div className={`bg-surface/30 p-4 rounded-2xl border transition-all ${votingTimerEnabled ? 'border-primary shadow-[0_0_15px_rgba(124,58,237,0.2)]' : 'border-white/5'}`}>
+                  <div 
+                    className="flex justify-between items-center cursor-pointer mb-4"
+                    onClick={() => setVotingTimerEnabled(!votingTimerEnabled)}
+                  >
+                    <div>
+                      <div className="font-bold text-white">Voting Time</div>
+                      <div className="text-xs text-text-muted">{votingTimerEnabled ? `${votingTimerSeconds}s` : 'Unlimited'}</div>
+                    </div>
+                    <div className={`w-12 h-6 rounded-full p-1 transition-colors ${votingTimerEnabled ? 'bg-primary' : 'bg-surface-light'}`}>
+                      <motion.div layout className="w-4 h-4 bg-white rounded-full shadow-md" animate={{ x: votingTimerEnabled ? 24 : 0 }} />
+                    </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  
+                  <AnimatePresence>
+                    {votingTimerEnabled && (
+                      <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
+                        <input 
+                          type="range" min="15" max="120" step="15" value={votingTimerSeconds}
+                          onChange={(e) => setVotingTimerSeconds(Number(e.target.value))}
+                          className="w-full accent-primary h-2 bg-surface-light rounded-lg appearance-none cursor-pointer"
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </section>
 
             {/* Imposter Count */}
             <section className="bg-surface/30 p-5 rounded-2xl border border-white/5 flex items-center justify-between">

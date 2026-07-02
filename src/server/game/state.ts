@@ -24,6 +24,10 @@ export class RoomState {
     assignments: Map<string, 'imposter' | 'crew'>; // Server only
     votes: Map<string, string>; // voterId -> targetId
   };
+  
+  // Timer State
+  timerInterval?: NodeJS.Timeout;
+  timerRemaining?: number;
 
   constructor(roomId: string, code: string, hostPlayerId: string, settings: RoomSettings) {
     this.roomId = roomId;

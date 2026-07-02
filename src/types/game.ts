@@ -2,7 +2,10 @@ export interface RoomSettings {
   categories: string[];
   difficulty: 'easy' | 'medium' | 'hard';
   imposterCount: number;
-  timerSeconds?: number;
+  discussionTimerEnabled?: boolean;
+  discussionTimerSeconds?: number;
+  votingTimerEnabled?: boolean;
+  votingTimerSeconds?: number;
   remoteMode?: boolean;
 }
 

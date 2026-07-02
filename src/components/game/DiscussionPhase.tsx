@@ -134,7 +134,7 @@ export default function DiscussionPhase({ roomState, players, timer, currentPlay
                 stroke="var(--color-primary)"
                 strokeWidth="6"
                 strokeDasharray="364"
-                strokeDashoffset={364 - (timer / (roomState.settings.timerSeconds || 120)) * 364}
+                strokeDashoffset={364 - (timer / (roomState.settings.discussionTimerSeconds || 120)) * 364}
                 className="transition-all duration-1000 linear"
               />
             </svg>

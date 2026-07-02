@@ -42,7 +42,14 @@ export default function VotingPhase({ roomState, players, votes, voters, timer, 
         <h2 className="text-4xl md:text-5xl font-black mb-4 uppercase tracking-widest text-danger neon-glow">
           Vote
         </h2>
-        <p className="text-xl text-text-muted">Who is the imposter?</p>
+        <p className="text-xl text-text-muted mb-4">Who is the imposter?</p>
+        
+        {timer !== null && (
+          <div className="inline-flex items-center gap-2 bg-surface-light border border-white/10 px-4 py-2 rounded-full font-bold text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-danger"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            {Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}
+          </div>
+        )}
       </div>
 
       <div className="flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 content-start mb-8">

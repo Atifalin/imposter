@@ -16,8 +16,10 @@ export default function CreateRoom() {
   const [categories, setCategories] = useState<string[]>(['Bollywood Movies', 'Indian Food', 'Cricket']);
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
   const [imposterCount, setImposterCount] = useState(1);
-  const [timerEnabled, setTimerEnabled] = useState(true);
-  const [timerSeconds, setTimerSeconds] = useState(120);
+  const [discussionTimerEnabled, setDiscussionTimerEnabled] = useState(true);
+  const [discussionTimerSeconds, setDiscussionTimerSeconds] = useState(120);
+  const [votingTimerEnabled, setVotingTimerEnabled] = useState(true);
+  const [votingTimerSeconds, setVotingTimerSeconds] = useState(60);
   const [remoteMode, setRemoteMode] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
@@ -43,7 +45,10 @@ export default function CreateRoom() {
       categories,
       difficulty,
       imposterCount,
-      timerSeconds: timerEnabled ? timerSeconds : undefined,
+      discussionTimerEnabled,
+      discussionTimerSeconds,
+      votingTimerEnabled,
+      votingTimerSeconds,
       remoteMode
     };
 
